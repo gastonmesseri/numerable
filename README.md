@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="384" height="320" src="resources/numerable-logo-with-text-384-320.png">
+  <img src="resources/numerable-logo-with-text-384-320.png">
 </p>
 
 # numerable
