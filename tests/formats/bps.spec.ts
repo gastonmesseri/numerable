@@ -1,4 +1,4 @@
-import { formatNumber } from '../../index';
+import { format } from '../../src';
 import parse from '../../src/formatter/parse/parse';
 
 describe('format: BPS', () => {
@@ -25,7 +25,7 @@ describe('format: BPS', () => {
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });

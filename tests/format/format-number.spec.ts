@@ -1,7 +1,7 @@
 import chance from 'chance';
 
+import { format } from '../../src/index';
 import { en, fr } from '../../src/locale';
-import { formatNumber } from '../../index';
 import truncateNumber from '../../src/core/utils/truncate-number';
 import { NumerableLocale } from '../../src/core/types/numerable-locale';
 import DEFAULT_FORMAT_OPTIONS from '../../src/formatter/constants/default-format-options';
@@ -98,7 +98,7 @@ describe('numerable', () => {
                 [-3400200, '0.X- a', '3.4002- M'],
             ] as const;
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern as any);
+                const result = format(value, pattern as any);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -197,7 +197,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -216,7 +216,7 @@ describe('numerable', () => {
                 const decimalPart = chance().natural({ min: 0, max: maxDecimal });
                 const pattern = `0.${'0'.repeat(randomAmountOfDecimalPlaces)}`;
                 const value = +`${integerPart}.${decimalPart}`;
-                const result = formatNumber(value, pattern, { rounding: truncateNumber });
+                const result = format(value, pattern, { rounding: truncateNumber });
                 const expectedResult = `${integerPart}.${(decimalPart + '0000000000000').slice(0, randomAmountOfDecimalPlaces)}`;
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
@@ -238,7 +238,7 @@ describe('numerable', () => {
                 [[`  `, '--'], 12333567.3455, '0,0.0000', '12  333  567--3455'],
             ];
             tests.forEach(([[thousands, decimals], value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, getOptionsWithDelimiters(thousands, decimals));
+                const result = format(value, pattern, getOptionsWithDelimiters(thousands, decimals));
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -256,7 +256,7 @@ describe('numerable', () => {
                 [[`,`, '----'], 1234567.99, '0,0[.]0', '1,234,568'],
             ];
             tests.forEach(([[thousands, decimals], value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, getOptionsWithDelimiters(thousands, decimals));
+                const result = format(value, pattern, getOptionsWithDelimiters(thousands, decimals));
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -276,7 +276,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([nullFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { nullFormat });
+                const result = format(value, pattern, { nullFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -295,7 +295,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([nullFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { nullFormat });
+                const result = format(value, pattern, { nullFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -309,7 +309,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([nullFormat, nanFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { nullFormat, nanFormat });
+                const result = format(value, pattern, { nullFormat, nanFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -326,7 +326,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([nanFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { nanFormat });
+                const result = format(value, pattern, { nanFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -345,7 +345,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([nanFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { nanFormat });
+                const result = format(value, pattern, { nanFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -359,7 +359,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([nullFormat, nanFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { nullFormat, nanFormat });
+                const result = format(value, pattern, { nullFormat, nanFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -406,7 +406,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -444,7 +444,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -461,7 +461,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([zeroFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { zeroFormat });
+                const result = format(value, pattern, { zeroFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -480,7 +480,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([zeroFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { zeroFormat });
+                const result = format(value, pattern, { zeroFormat });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -498,7 +498,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([_errorFormat, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { rounding: brokenRoundingFunction, _errorFormat } as any);
+                const result = format(value, pattern, { rounding: brokenRoundingFunction, _errorFormat } as any);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -513,7 +513,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { rounding: () => { throw new Error(); } } as any);
+                const result = format(value, pattern, { rounding: () => { throw new Error(); } } as any);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -522,15 +522,15 @@ describe('numerable', () => {
 
     describe('formatNumber::locale-option', () => {
         it('should use the passed locale object for formatting the number', () => {
-            expect(formatNumber(12345.67, '0,0.000', { locale: fr })).toBe('12 345,670');
+            expect(format(12345.67, '0,0.000', { locale: fr })).toBe('12 345,670');
         });
 
         it('should fallback to "en" locale if the passed locale is not an object', () => {
-            expect(formatNumber(12345.67, '0,0.000', { locale: null as any })).toBe('12,345.670');
-            expect(formatNumber(12345.67, '0,0.000', { locale: '' as any })).toBe('12,345.670');
-            expect(formatNumber(12345.67, '0,0.000', { locale: 0 as any })).toBe('12,345.670');
-            expect(formatNumber(12345.67, '0,0.000', { locale: true as any })).toBe('12,345.670');
-            expect(formatNumber(12345.67, '0,0.000', { locale: NaN as any })).toBe('12,345.670');
+            expect(format(12345.67, '0,0.000', { locale: null as any })).toBe('12,345.670');
+            expect(format(12345.67, '0,0.000', { locale: '' as any })).toBe('12,345.670');
+            expect(format(12345.67, '0,0.000', { locale: 0 as any })).toBe('12,345.670');
+            expect(format(12345.67, '0,0.000', { locale: true as any })).toBe('12,345.670');
+            expect(format(12345.67, '0,0.000', { locale: NaN as any })).toBe('12,345.670');
         });
     });
 
@@ -550,7 +550,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([roundingFunctionAlias, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { rounding: roundingFunctionAlias });
+                const result = format(value, pattern, { rounding: roundingFunctionAlias });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -566,7 +566,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([roundingFunction, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { rounding: roundingFunction });
+                const result = format(value, pattern, { rounding: roundingFunction });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -582,7 +582,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([roundingFunction, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { rounding: roundingFunction });
+                const result = format(value, pattern, { rounding: roundingFunction });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -591,92 +591,92 @@ describe('numerable', () => {
 
     describe('formatNumber::overload', () => {
         it('should handle 1 argument (value) and apply default pattern', () => {
-            expect(formatNumber(1234.56)).toBe(formatNumber(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
+            expect(format(1234.56)).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
         });
 
         it('should handle 2 arguments (value, pattern) and apply given pattern', () => {
-            expect(formatNumber(1234.56, '00000,0.0')).toBe('01,234.6');
+            expect(format(1234.56, '00000,0.0')).toBe('01,234.6');
         });
 
         it('should accept a number string (as JS number) as a "value" argument, and then apply apply given pattern', () => {
-            expect(formatNumber('1234.56', '00000,0.0')).toBe('01,234.6');
+            expect(format('1234.56', '00000,0.0')).toBe('01,234.6');
         });
 
         it('should handle 2 arguments (value, options) and apply default pattern with given options', () => {
-            const result = formatNumber(1234.56, getOptionsWithDelimiters('*', '_'));
-            const expectedResult = formatNumber(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern, getOptionsWithDelimiters('*', '_'));
+            const result = format(1234.56, getOptionsWithDelimiters('*', '_'));
+            const expectedResult = format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern, getOptionsWithDelimiters('*', '_'));
             expect(result).toBe(expectedResult);
         });
 
         it('should handle 3 arguments (value, pattern, options) and apply pattern and options', () => {
-            expect(formatNumber(1, '0000,0.00', getOptionsWithDelimiters('^', '"'))).toBe('0^001"00');
+            expect(format(1, '0000,0.00', getOptionsWithDelimiters('^', '"'))).toBe('0^001"00');
         });
     });
 
     // The value type of the 'value' argument passed to formatNumber
     describe('formatNumber::value-type-resolver', () => {
         it('should return "∞" or "-∞" for `Infinity` value types', () => {
-            expect(formatNumber(Infinity, '0000,0.00')).toBe('∞');
-            expect(formatNumber(-Infinity, '0000,0.00')).toBe('-∞');
+            expect(format(Infinity, '0000,0.00')).toBe('∞');
+            expect(format(-Infinity, '0000,0.00')).toBe('-∞');
         });
 
         it('should return empty string if `null` or `undefined` is passed', () => {
-            expect(formatNumber(null, '0,0.00')).toBe('');
-            expect(formatNumber(undefined, '0,0.00')).toBe('');
-            expect(formatNumber(null, '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
-            expect(formatNumber(undefined, '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
+            expect(format(null, '0,0.00')).toBe('');
+            expect(format(undefined, '0,0.00')).toBe('');
+            expect(format(null, '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
+            expect(format(undefined, '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
         });
 
         it('should return empty string if `NaN` is passed', () => {
-            expect(formatNumber(NaN, '0,0.00')).toBe('');
-            expect(formatNumber(NaN, '0,0.00', { nanFormat: 'N/A' })).toBe('N/A');
-            expect(formatNumber(NaN, '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
-            expect(formatNumber(NaN, '0,0.00', { nanFormat: 'nan-format', nullFormat: 'N/A' })).toBe('nan-format');
-            expect(formatNumber('this-string-will-be-parsed-as-NaN', '0,0.00')).toBe('');
-            expect(formatNumber('', '0,0.00')).toBe('');
+            expect(format(NaN, '0,0.00')).toBe('');
+            expect(format(NaN, '0,0.00', { nanFormat: 'N/A' })).toBe('N/A');
+            expect(format(NaN, '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
+            expect(format(NaN, '0,0.00', { nanFormat: 'nan-format', nullFormat: 'N/A' })).toBe('nan-format');
+            expect(format('this-string-will-be-parsed-as-NaN', '0,0.00')).toBe('');
+            expect(format('', '0,0.00')).toBe('');
         });
 
         it('should apply parseFloat to the value if the provided value type is string', () => {
-            expect(formatNumber('123.45', '0000,0.00')).toBe('0,123.45');
-            expect(formatNumber('1,23.45', '0000,0.00')).toBe('0,001.00');
-            expect(formatNumber('12,3.45', '0000,0.00')).toBe('0,012.00');
-            expect(formatNumber('123.45 %', '0000,0.00')).toBe('0,123.45');
-            expect(formatNumber('1e+2', '0,0.00')).toBe('100.00');
-            expect(formatNumber('1e-2', '0,0.00')).toBe('0.01');
-            expect(formatNumber(' 1e-2', '0,0.00')).toBe('0.01');
-            expect(formatNumber('   123', '0,0.00')).toBe('123.00');
-            expect(formatNumber('234testTESTtestTEST', '0,0.00')).toBe('234.00');
-            expect(formatNumber('', '0,0.00')).toBe('');
-            expect(formatNumber('no-valid-string', '0,0.00')).toBe('');
-            expect(formatNumber('this-should-be-same-as-passing-NaN', '0,0.00', { nanFormat: 'N/A' })).toBe('N/A');
-            expect(formatNumber('this-should-be-same-as-passing-NaN', '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
-            expect(formatNumber('this-should-be-same-as-passing-NaN', '0,0.00', { nanFormat: 'N-A-N', nullFormat: '-' })).toBe('N-A-N');
+            expect(format('123.45', '0000,0.00')).toBe('0,123.45');
+            expect(format('1,23.45', '0000,0.00')).toBe('0,001.00');
+            expect(format('12,3.45', '0000,0.00')).toBe('0,012.00');
+            expect(format('123.45 %', '0000,0.00')).toBe('0,123.45');
+            expect(format('1e+2', '0,0.00')).toBe('100.00');
+            expect(format('1e-2', '0,0.00')).toBe('0.01');
+            expect(format(' 1e-2', '0,0.00')).toBe('0.01');
+            expect(format('   123', '0,0.00')).toBe('123.00');
+            expect(format('234testTESTtestTEST', '0,0.00')).toBe('234.00');
+            expect(format('', '0,0.00')).toBe('');
+            expect(format('no-valid-string', '0,0.00')).toBe('');
+            expect(format('this-should-be-same-as-passing-NaN', '0,0.00', { nanFormat: 'N/A' })).toBe('N/A');
+            expect(format('this-should-be-same-as-passing-NaN', '0,0.00', { nullFormat: 'N/A' })).toBe('N/A');
+            expect(format('this-should-be-same-as-passing-NaN', '0,0.00', { nanFormat: 'N-A-N', nullFormat: '-' })).toBe('N-A-N');
         });
     });
 
     describe('pattern type resolver', () => {
         // no valid pattern means '', null or undefined
         it('should format with DEFAULT_OPTIONS defaultPattern if no valid pattern is provided', () => {
-            expect(formatNumber(1234.56, '')).toBe(formatNumber(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
-            expect(formatNumber(1234.56, undefined as any)).toBe(formatNumber(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
-            expect(formatNumber(1234.56, null as any)).toBe(formatNumber(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
+            expect(format(1234.56, '')).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
+            expect(format(1234.56, undefined as any)).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
+            expect(format(1234.56, null as any)).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
         });
 
         it('should format with "0,0.##########" if no valid pattern is provided, and no defaultPattern exists in global', () => {
             const previousDefaultPattern = DEFAULT_FORMAT_OPTIONS.defaultPattern;
             DEFAULT_FORMAT_OPTIONS.defaultPattern = undefined as any;
 
-            expect(formatNumber(1234.56443322114, '')).toBe('1,234.5644332211');
-            expect(formatNumber(1234.56443322114, undefined as any)).toBe('1,234.5644332211');
-            expect(formatNumber(1234.56443322114, null as any)).toBe('1,234.5644332211');
+            expect(format(1234.56443322114, '')).toBe('1,234.5644332211');
+            expect(format(1234.56443322114, undefined as any)).toBe('1,234.5644332211');
+            expect(format(1234.56443322114, null as any)).toBe('1,234.5644332211');
 
             DEFAULT_FORMAT_OPTIONS.defaultPattern = previousDefaultPattern;
         });
 
         it('should format with the provided defaultPattern in options if no valid pattern is provided in the arguments', () => {
-            expect(formatNumber(1234.503, null, { defaultPattern: '0.0' })).toBe('1234.5');
-            expect(formatNumber(1234.503, undefined, { defaultPattern: '0.0' })).toBe('1234.5');
-            expect(formatNumber(1234.503, '', { defaultPattern: '0.0' })).toBe('1234.5');
+            expect(format(1234.503, null, { defaultPattern: '0.0' })).toBe('1234.5');
+            expect(format(1234.503, undefined, { defaultPattern: '0.0' })).toBe('1234.5');
+            expect(format(1234.503, '', { defaultPattern: '0.0' })).toBe('1234.5');
         });
     });
 
@@ -708,7 +708,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -753,7 +753,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -795,7 +795,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -803,19 +803,19 @@ describe('numerable', () => {
 
         it('should handle other features cases with exponential numbers', () => {
             // Rounding
-            expect(formatNumber(0.000000012345, '0.00000000', { rounding: 'ceil' })).toBe('0.00000002');
-            expect(formatNumber(-0.000000012345, '0.00000000', { rounding: 'floor' })).toBe('-0.00000002');
+            expect(format(0.000000012345, '0.00000000', { rounding: 'ceil' })).toBe('0.00000002');
+            expect(format(-0.000000012345, '0.00000000', { rounding: 'floor' })).toBe('-0.00000002');
             // Abbreviation
-            expect(formatNumber(1234123412341230000000, '0.0a')).toBe('1234123412.3T');
-            expect(formatNumber(1234123412341230000000, '0,0.0a')).toBe('1,234,123,412.3T');
+            expect(format(1234123412341230000000, '0.0a')).toBe('1234123412.3T');
+            expect(format(1234123412341230000000, '0,0.0a')).toBe('1,234,123,412.3T');
             // Locales
-            expect(formatNumber(1234123412341230000000, '0,0.0a', { locale: fr })).toBe('1 234 123 412,3Bn');
-            expect(formatNumber(0.000000012345, '0.00000000', { locale: fr })).toBe('0,00000001');
+            expect(format(1234123412341230000000, '0,0.0a', { locale: fr })).toBe('1 234 123 412,3Bn');
+            expect(format(0.000000012345, '0.00000000', { locale: fr })).toBe('0,00000001');
             // Percentage format
-            expect(formatNumber(0.00000000012345, '0.00000000%')).toBe('0.00000001%');
-            expect(formatNumber(123412341234123000000000, '0%')).toBe('12341234123412300000000000%');
-            expect(formatNumber(123412341234123000000000, '0,0%')).toBe('12,341,234,123,412,300,000,000,000%');
-            expect(formatNumber(123412341234123000000000, '0,0.00%')).toBe('12,341,234,123,412,300,000,000,000.00%');
+            expect(format(0.00000000012345, '0.00000000%')).toBe('0.00000001%');
+            expect(format(123412341234123000000000, '0%')).toBe('12341234123412300000000000%');
+            expect(format(123412341234123000000000, '0,0%')).toBe('12,341,234,123,412,300,000,000,000%');
+            expect(format(123412341234123000000000, '0,0.00%')).toBe('12,341,234,123,412,300,000,000,000.00%');
         });
     });
 
@@ -837,7 +837,7 @@ describe('numerable', () => {
                 [[3,1,4], 123456789, '0,0', '1,2345,6,789'],
             ];
             tests.forEach(([digitGroupingStyle, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { locale: getEnLocaleWithCustomDigitGroupingStyle(digitGroupingStyle) });
+                const result = format(value, pattern, { locale: getEnLocaleWithCustomDigitGroupingStyle(digitGroupingStyle) });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -873,7 +873,7 @@ describe('numerable', () => {
                 [['a', 'b'], 1234567890, '0', '1234567890'],
             ];
             tests.forEach(([numeralSystem, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { locale: getEnLocaleWithCustomNumeralSystem(numeralSystem) });
+                const result = format(value, pattern, { locale: getEnLocaleWithCustomNumeralSystem(numeralSystem) });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -910,7 +910,7 @@ describe('numerable', () => {
                 ['|||||||||||', 1234, '0 a', '1234'],
             ];
             tests.forEach(([abbreviations, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { locale: { ...en, abbreviations } });
+                const result = format(value, pattern, { locale: { ...en, abbreviations } });
                 expect([abbreviations, value, pattern, result]).toEqual([abbreviations, value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -948,7 +948,7 @@ describe('numerable', () => {
 
             ];
             tests.forEach(([abbreviations, value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { locale: { ...en, abbreviations } });
+                const result = format(value, pattern, { locale: { ...en, abbreviations } });
                 expect([abbreviations, value, pattern, result]).toEqual([abbreviations, value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -971,7 +971,7 @@ describe('numerable', () => {
                 [['.', '.'], 1234.4, '0,0.0', '1,234.4'],
             ];
             tests.forEach(([[thousands, decimals], value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, getOptionsWithDelimiters(thousands, decimals));
+                const result = format(value, pattern, getOptionsWithDelimiters(thousands, decimals));
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
@@ -980,28 +980,28 @@ describe('numerable', () => {
 
     describe('.withOptions wrapper', () => {
         it('should apply the given options in .withOptions()', () => {
-            expect(formatNumber.withOptions({ nullFormat: 'NULL' })(null, '0,0.0')).toBe('NULL');
-            expect(formatNumber.withOptions({ nanFormat: 'NAN REPLACER' })(NaN, '0,0.0')).toBe('NAN REPLACER');
-            expect(formatNumber.withOptions({ nullFormat: 'NULL', nanFormat: 'NAN REPLACER' })(NaN, '0,0.0')).toBe('NAN REPLACER');
-            expect(formatNumber.withOptions({ zeroFormat: 'MY ZERO FORMAT' })(0, '0,0.0')).toBe('MY ZERO FORMAT');
-            expect(formatNumber.withOptions({ defaultPattern: '0000' })(1)).toBe('0001');
-            expect(formatNumber.withOptions({ rounding: 'floor' })(2.9, '0')).toBe('2');
-            expect(formatNumber.withOptions({ locale: fr })(12345.67, '0,0.000')).toBe('12 345,670');
+            expect(format.withOptions({ nullFormat: 'NULL' })(null, '0,0.0')).toBe('NULL');
+            expect(format.withOptions({ nanFormat: 'NAN REPLACER' })(NaN, '0,0.0')).toBe('NAN REPLACER');
+            expect(format.withOptions({ nullFormat: 'NULL', nanFormat: 'NAN REPLACER' })(NaN, '0,0.0')).toBe('NAN REPLACER');
+            expect(format.withOptions({ zeroFormat: 'MY ZERO FORMAT' })(0, '0,0.0')).toBe('MY ZERO FORMAT');
+            expect(format.withOptions({ defaultPattern: '0000' })(1)).toBe('0001');
+            expect(format.withOptions({ rounding: 'floor' })(2.9, '0')).toBe('2');
+            expect(format.withOptions({ locale: fr })(12345.67, '0,0.000')).toBe('12 345,670');
         });
 
         it('should merge the options from .withOptions with the options from the call', () => {
-            expect(formatNumber.withOptions({ nullFormat: 'NULLFROMWITHOPTIONS' })(null, '0,0.0', { zeroFormat: 'FROMCALL' })).toBe('NULLFROMWITHOPTIONS');
-            expect(formatNumber.withOptions({ nullFormat: 'NULLFROMWITHOPTIONS' })(0, '0,0.0', { zeroFormat: 'FROMCALL' })).toBe('FROMCALL');
+            expect(format.withOptions({ nullFormat: 'NULLFROMWITHOPTIONS' })(null, '0,0.0', { zeroFormat: 'FROMCALL' })).toBe('NULLFROMWITHOPTIONS');
+            expect(format.withOptions({ nullFormat: 'NULLFROMWITHOPTIONS' })(0, '0,0.0', { zeroFormat: 'FROMCALL' })).toBe('FROMCALL');
         });
 
         it('should override the options from .withOptions with the options from the call', () => {
-            expect(formatNumber.withOptions({ nullFormat: 'NULL' })(null, '0,0.0', { nullFormat: 'FROMCALL' })).toBe('FROMCALL');
+            expect(format.withOptions({ nullFormat: 'NULL' })(null, '0,0.0', { nullFormat: 'FROMCALL' })).toBe('FROMCALL');
         });
 
         it('should resolve the locale function in case it is a function', () => {
             const localeAsFunction = (): NumerableLocale => ({ ...en, delimiters: { thousands: ' ** ', decimal: ' && ' } });
             expect(
-                formatNumber.withOptions({ locale: localeAsFunction })(12345.67, '0,0.000')
+                format.withOptions({ locale: localeAsFunction })(12345.67, '0,0.000')
             ).toBe('12 ** 345 && 670');
         });
     });
@@ -1020,7 +1020,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern);
+                const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });

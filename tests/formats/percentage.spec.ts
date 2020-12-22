@@ -1,4 +1,4 @@
-import { formatNumber } from '../../index';
+import { format } from '../../src';
 import parse from '../../src/formatter/parse/parse';
 
 describe('format: percentage', () => {
@@ -14,7 +14,7 @@ describe('format: percentage', () => {
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                expect([value, pattern, formatNumber(value, pattern)]).toEqual([value, pattern, expectedResult]);
+                expect([value, pattern, format(value, pattern)]).toEqual([value, pattern, expectedResult]);
             });
         });
 
@@ -40,7 +40,7 @@ describe('format: percentage', () => {
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { scalePercentBy100: true });
+                const result = format(value, pattern, { scalePercentBy100: true });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
@@ -58,7 +58,7 @@ describe('format: percentage', () => {
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = formatNumber(value, pattern, { scalePercentBy100: false });
+                const result = format(value, pattern, { scalePercentBy100: false });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
