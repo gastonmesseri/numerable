@@ -1,6 +1,6 @@
 {
     "name": "numerable",
-    "version": "0.2.2",
+    "version": "0.2.3",
     "description": "Number formatting and manipulation library for Javascript and Node.js apps",
     "homepage": "https://numerablejs.com",
     "author": {
