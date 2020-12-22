@@ -1,9 +1,9 @@
 {
     "name": "numerable",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "description": "Number formatting and manipulation library for Javascript and Node.js apps",
     "homepage": "https://numerablejs.com",
-    "author": { 
+    "author": {
         "name": "Gaston Meseri"
     },
     "license": "MIT",
