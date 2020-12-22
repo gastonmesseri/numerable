@@ -16,8 +16,7 @@
         "format",
         "parse",
         "formatting",
-        "functional",
-        "immutable"
+        "functional"
     ],
     "scripts": {
         "test": "jest --watchAll",
