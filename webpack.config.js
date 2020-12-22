@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 
 module.exports = {
     mode: 'production',
-    entry: './src/format-number/format-number.ts',
+    entry: './src/index.ts',
     module: {
         rules: [
             {
@@ -20,7 +20,7 @@ module.exports = {
         // new BundleAnalyzerPlugin(),
     ],
     output: {
-        filename: 'main.js',
+        filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
     },
 };

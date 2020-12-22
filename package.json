@@ -7,7 +7,7 @@
         "name": "Gaston Meseri"
     },
     "license": "MIT",
-    "main": "index.js",
+    "main": "dist/index.js",
     "repository": "github:gastonmesseri/numerable",
     "bugs": "https://github.com/gastonmesseri/numerable/issues",
     "keywords": [
@@ -22,7 +22,9 @@
         "test": "jest --watchAll",
         "test:coverage": "jest --coverage",
         "lint": "eslint . --ext .ts",
-        "build": "webpack --config webpack.config.js"
+        "build": "webpack --config webpack.config.js",
+        "prepare": "npm run build",
+        "prepublishOnly" : "npm test && npm run lint"
     },
     "dependencies": {},
     "devDependencies": {
@@ -41,14 +43,7 @@
         "webpack-cli": "^4.2.0"
     },
     "npmName": "numerable",
-    "npmFileMap": [
-        {
-            "basePath": "/dist/",
-            "files": [
-                "*.js"
-            ]
-        }
-    ],
+    "files": ["dist/**/*"],
     "jest": {
         "transform": {
             ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
