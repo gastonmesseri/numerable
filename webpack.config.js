@@ -29,5 +29,9 @@ module.exports = {
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
+        // path: path.join(__dirname, "dist"),
+		// filename: "MyLibrary.[name].js",
+		library: 'numerable',
+		libraryTarget: 'umd',
     },
 };
