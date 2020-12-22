@@ -1,9 +1,9 @@
 import stringIncludes from '../../../core/utils/string-includes';
 import splitStringInTwoParts from '../../../core/utils/split-string-in-two-parts';
 
-const countChars = (string: string, char: string) => {
-    return string.split('').filter(stringChar => stringChar === char).length;
-};
+// const countChars = (string: string, char: string) => {
+//     return string.split('').filter(stringChar => stringChar === char).length;
+// };
 
 /**
  * Fraction digits (decimals) count rule (optional and forced)

@@ -4,19 +4,19 @@ import { NumerableLocale } from '../../core/types/numerable-locale';
 
 // TODO: Handle rtl
 
-const toLocaleStringSupportsLocales = () => {
-    const number = 0;
-    try {
-        number.toLocaleString('i');
-    } catch (e) {
-        return e.name === 'RangeError';
-    }
-    return false;
-};
+// const toLocaleStringSupportsLocales = () => {
+//     const number = 0;
+//     try {
+//         number.toLocaleString('i');
+//     } catch (e) {
+//         return e.name === 'RangeError';
+//     }
+//     return false;
+// };
 
-const toLocaleStringSupportsOptions = () => {
-    return !!(typeof Intl == 'object' && Intl && typeof Intl.NumberFormat == 'function');
-};
+// const toLocaleStringSupportsOptions = () => {
+//     return !!(typeof Intl == 'object' && Intl && typeof Intl.NumberFormat == 'function');
+// };
 
 const getDigits = (languageTag: string) => {
     const localizedNumber = (1234567890).toLocaleString(languageTag, { useGrouping: false });
