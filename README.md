@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img alt="numerable-format-demo" src="resources/numerable-format-demo.gif">
+  <img alt="numerable-format-demo" width="400" src="resources/numerable-format-demo.gif">
 </p>
 
 # [numerable](https://github.com/gastonmesseri/numerable)
