@@ -1,6 +1,6 @@
 {
     "name": "numerable",
-    "version": "0.2.0",
+    "version": "0.2.1",
     "description": "Number formatting and manipulation library for Javascript and Node.js apps",
     "homepage": "https://numerablejs.com",
     "author": {
@@ -25,7 +25,7 @@
         "lint": "eslint . --ext .ts",
         "build": "webpack --config webpack.config.js",
         "prepare": "npm run build",
-        "prepublishOnly" : "npm test && npm run lint"
+        "prepublishOnly": "npm test && npm run lint"
     },
     "dependencies": {},
     "devDependencies": {
@@ -44,7 +44,9 @@
         "webpack-cli": "^4.2.0"
     },
     "npmName": "numerable",
-    "files": ["dist/**/*"],
+    "files": [
+        "dist/**/*"
+    ],
     "jest": {
         "transform": {
             ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
