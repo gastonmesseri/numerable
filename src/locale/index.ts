@@ -1,0 +1,14 @@
+export { default as arEG } from './ar-eg';
+export { default as ar } from './ar';
+export { default as de } from './de';
+export { default as enGB } from './en-gb';
+export { default as enIN } from './en-in';
+export { default as en } from './en';
+export { default as es } from './es';
+export { default as fr } from './fr';
+export { default as hi } from './hi';
+export { default as id } from './id';
+export { default as ja } from './ja';
+export { default as pt } from './pt';
+export { default as ru } from './ru';
+export { default as zh } from './zh';

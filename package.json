@@ -1,0 +1,64 @@
+{
+    "name": "numerable",
+    "version": "0.0.1",
+    "description": "Number formatting and manipulation library for Javascript and Node.js apps",
+    "homepage": "https://numerablejs.com",
+    "author": { 
+        "name": "Gaston Meseri"
+    },
+    "license": "MIT",
+    "main": "index.js",
+    "repository": "github:gastonmesseri/numerable",
+    "bugs": "https://github.com/gastonmesseri/numerable/issues",
+    "keywords": [
+        "numerable",
+        "number",
+        "format",
+        "parse",
+        "formatting",
+        "functional",
+        "immutable"
+    ],
+    "scripts": {
+        "test": "jest --watchAll",
+        "test:coverage": "jest --coverage",
+        "lint": "eslint . --ext .ts",
+        "build": "webpack --config webpack.config.js"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "@types/chance": "^1.1.0",
+        "@types/jest": "^26.0.14",
+        "@typescript-eslint/eslint-plugin": "^4.9.0",
+        "@typescript-eslint/parser": "^4.9.0",
+        "chance": "^1.1.7",
+        "eslint": "^7.14.0",
+        "jest": "^26.5.2",
+        "ts-jest": "^26.4.1",
+        "ts-loader": "^8.0.12",
+        "typescript": "^4.1.2",
+        "webpack": "^5.10.0",
+        "webpack-bundle-analyzer": "^4.2.0",
+        "webpack-cli": "^4.2.0"
+    },
+    "npmName": "numerable",
+    "npmFileMap": [
+        {
+            "basePath": "/dist/",
+            "files": [
+                "*.js"
+            ]
+        }
+    ],
+    "jest": {
+        "transform": {
+            ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+        },
+        "testRegex": "(/__tests__/.*|\\.(spec))\\.(ts|tsx|js)$",
+        "moduleFileExtensions": [
+            "ts",
+            "tsx",
+            "js"
+        ]
+    }
+}
