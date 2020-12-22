@@ -1,8 +1,12 @@
 <p align="center">
-  <img src="resources/numerable-logo-with-text-384-320.png">
+  <img alt="numerable" src="resources/numerable-logo-with-text-384-320.png">
 </p>
 
-# numerable
+<p align="center">
+  <img alt="numerable-format-demo" src="resources/numerable-format-demo.gif">
+</p>
+
+# [numerable](https://github.com/gastonmesseri/numerable)
 
 **numerable** is a Javascript library with a set of formatting and manipulation tools for dealing with numbers.
 
