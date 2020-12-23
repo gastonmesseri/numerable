@@ -28,7 +28,8 @@
         "build:main": "tsc --project tsconfig.build-lib.json",
         "build:locale": "tsc --project tsconfig.build-locale.json",
         "prepare": "npm run build",
-        "prepublishOnly": "npm test && npm run lint"
+        "prepublishOnly": "npm test && npm run lint",
+        "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
     },
     "dependencies": {},
     "devDependencies": {
@@ -37,6 +38,7 @@
         "@typescript-eslint/eslint-plugin": "^4.9.0",
         "@typescript-eslint/parser": "^4.9.0",
         "chance": "^1.1.7",
+        "coveralls": "^3.1.0",
         "eslint": "^7.14.0",
         "jest": "^26.5.2",
         "ts-jest": "^26.4.1",

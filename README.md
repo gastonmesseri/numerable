@@ -7,7 +7,7 @@
 </p>
 
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Build](https://travis-ci.com/gastonmesseri/numerable.svg?branch=master) ![Coveralls](https://coveralls.io/repos/github/gastonmesseri/numerable/badge.svg?branch=master) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 
 # [numerable](https://github.com/gastonmesseri/numerable)
