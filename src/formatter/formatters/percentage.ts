@@ -7,14 +7,17 @@ import numberToFormattedNumber from '../../formatter/format/number-to-formatted-
 const percentageFormatter: NumerableFormatter = {
     name: 'percentage',
     regexps: {
-        format: /(%)/,
-        unformat: /(%)/,
+        format: /%!?/,
+        unformat: /%/,
     },
     format: (number, pattern, options) => {
         const percentageSpace = stringIncludes(pattern, ' %') ? ' ' : '';
         const resolvedValue = number || 0;
-        const scaledValue = options.scalePercentage ? multiplyByPowerOfTen(resolvedValue, 2) : resolvedValue;
-        const patternWithoutPercentage = pattern.replace(/\s?%/, '');
+        const hasNotScalePercentageSymbolInPattern = stringIncludes(pattern, '%!');
+        const scaledValue = options.scalePercentage && !hasNotScalePercentageSymbolInPattern
+            ? multiplyByPowerOfTen(resolvedValue, 2)
+            : resolvedValue;
+        const patternWithoutPercentage = pattern.replace(/\s?%!?/, '');
         const formatResult = numberToFormattedNumber(scaledValue, patternWithoutPercentage, options);
 
         if (stringIncludes(formatResult, ')')) {

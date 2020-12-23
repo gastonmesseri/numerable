@@ -44,6 +44,7 @@ describe('format: percentage', () => {
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
+
         it('should format to percentages without 100 upscale', () => {
             const tests = [
                 [0, '0%', '0%'],
@@ -55,6 +56,32 @@ describe('format: percentage', () => {
                 [-43, '(0.00# %)', '(43.00 %)'],
                 [8.9, '(0.00%)', '8.90%'],
                 [-8.9, '(0.00%)', '(8.90%)'],
+            ] as const;
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { scalePercentage: false });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+
+        it('should format without scaling if the "%!" is found in the pattern', () => {
+            const tests = [
+                [10, '0,0.00%!', '10.00%'],
+                [-10, '0,0.00%!', '-10.00%'],
+                [10, '0.00 %!', '10.00 %'],
+                [-10, '0.00 %!', '-10.00 %'],
+                [50, '(0.00 %!)', '50.00 %'],
+                [-50, '(0.00 %!)', '(50.00 %)'],
+                [-50, '(0.00%!)', '(50.00%)'],
+                [50, '+0.00 %!', '+50.00 %'],
+                [-50, '+0.00%!', '-50.00%'],
+                [50, '-0.00 %!', '50.00 %'],
+                [-50, '-0.00%!', '-50.00%'],
+                [50, '0.00+ %!', '50.00+ %'],
+                [-50, '0.00+ %!', '50.00- %'],
+                [50, '0.00-%!', '50.00%'],
+                [-50, '0.00-%!', '50.00-%'],
+                [20, '0 %!', '20 %'],
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
