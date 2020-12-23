@@ -25,7 +25,9 @@
         "lint": "eslint . --ext .ts",
         "build": "webpack --config webpack.config.js",
         "prepare": "npm run build",
-        "prepublishOnly": "npm test && npm run lint"
+        "prepublishOnly": "npm test && npm run lint",
+        "bundle-report:server": "webpack-bundle-analyzer --port 4200 dist/stats.json",
+        "bundle-report": "npm run build && npm run bundle-report:server"
     },
     "dependencies": {},
     "devDependencies": {

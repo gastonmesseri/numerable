@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 module.exports = {
     mode: 'production',
@@ -24,13 +24,15 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerMode: 'disabled',
+            generateStatsFile: true,
+            statsOptions: { source: false },
+        }),
     ],
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'dist'),
-        // path: path.join(__dirname, "dist"),
-		// filename: "MyLibrary.[name].js",
 		library: 'numerable',
 		libraryTarget: 'umd',
     },
