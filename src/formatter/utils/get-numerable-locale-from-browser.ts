@@ -4,7 +4,14 @@ import memoize from '../../core/utils/memoize';
 import stringRepeat from '../../core/utils/string-repeat';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 
-// TODO: Handle rtl
+/**
+ * <i> Extracted from https://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
+ */
+const leftToRightMark = '\u200e';
+const rtlChars = '\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC';
+const rtlDirCheck = new RegExp('^[^'+rtlChars+']*?['+rtlChars+']');
+const isRTL = (string: string) => rtlDirCheck.test(string);
+const appendLeftToRightMarkIfIsRTL = (string: string) => isRTL(string) ? string + leftToRightMark : string;
 
 const languagesWith4DigitsGroupingStyle = ['zh', 'yue', 'ko', 'ja'];
 
@@ -20,8 +27,7 @@ const getNumeralSystemDigits = (languageTag: string) => {
             if (lookupObject[char]) return char;
             lookupObject[char] = true;
         });
-        if (!repeatedChar) return null;
-        const digitsWithoutGroupingDelimiters = localizedNumber.replace(new RegExp(repeatedChar, 'g'), '');
+        const digitsWithoutGroupingDelimiters = localizedNumber.replace(new RegExp(repeatedChar || '', 'g'), '');
         const digitsAsArray = digitsWithoutGroupingDelimiters.split('');
         const sortedDigits = [digitsAsArray[digitsAsArray.length - 1], ...digitsAsArray.slice(0, -1)];
         return sortedDigits.join('');
@@ -85,9 +91,10 @@ const getAbbreviations = (languageTag: string, digits: string, type: 'short' | '
                     const abbreviationResultForTwo = (+(2 + stringRepeat('0', i))).toLocaleString(languageTag, intlFormatOptions);
                     const abbreviationOne = abbreviationResultForOne.replace(new RegExp(`${digitOfOne}`, 'g'), '').trim();
                     const abbreviationTwo = abbreviationResultForTwo.replace(new RegExp(`${digitOfTwo}`, 'g'), '').trim();
-                    abbreviations += '|' + abbreviationOne + ':::' + abbreviationTwo;
+                    abbreviations += '|' + appendLeftToRightMarkIfIsRTL(abbreviationOne) + ':::' + appendLeftToRightMarkIfIsRTL(abbreviationTwo);
                 } else {
-                    abbreviations += '|' + abbreviationResultForOne.replace(new RegExp(`${digitOfOne}`, 'g'), '').trim();
+                    const abbreviation = abbreviationResultForOne.replace(new RegExp(`${digitOfOne}`, 'g'), '').trim();
+                    abbreviations += '|' + appendLeftToRightMarkIfIsRTL(abbreviation);
                 }
             } else {
                 abbreviations += '|';
@@ -123,7 +130,7 @@ const getNumerableLocaleFromIntl = (languageTag: string): ResolvedNumerableLocal
         delimiters: { thousands: groupingDelimiter, decimal: fractionDelimiter },
         abbreviations: shortAbbreviations || en.abbreviations!,
         digitGroupingStyle: !!groupingStyle?.length ? groupingStyle : undefined,
-        numeralSystem: digits !== '0123456789' ? digits?.split('') : undefined,
+        numeralSystem: digits !== '0123456789' ? digits?.split('').map(appendLeftToRightMarkIfIsRTL) : undefined,
         ordinal: en.ordinal!,
     };
 };
