@@ -1,4 +1,4 @@
-import stringIncludes from '../../../core/utils/string-includes';
+import stringIncludes from '../../../../core/utils/string-includes';
 
 /**
  * What does it look for in the pattern?

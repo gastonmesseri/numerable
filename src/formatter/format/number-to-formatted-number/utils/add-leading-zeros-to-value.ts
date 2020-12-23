@@ -1,5 +1,5 @@
-import stringRepeat from '../../../core/utils/string-repeat';
-import { NumberFormatRules } from '../../../core/types/rules';
+import stringRepeat from '../../../../core/utils/string-repeat';
+import { NumberFormatRules } from '../../../../core/types/rules';
 
 /**
  * <i> Adds leading zeros

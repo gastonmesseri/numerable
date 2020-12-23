@@ -1,9 +1,9 @@
-import { Nil } from '../../core/types/nil';
 import { signRule } from './rules/sign-rule';
-import memoize from '../../core/utils/memoize';
-import isString from '../../core/utils/is-string';
-import { NumberFormatRules } from '../../core/types/rules';
+import { Nil } from '../../../core/types/nil';
+import memoize from '../../../core/utils/memoize';
+import isString from '../../../core/utils/is-string';
 import { abbreviationRule } from './rules/abbreviation-rule';
+import { NumberFormatRules } from '../../../core/types/rules';
 import { decimalPlacesRule } from './rules/decimal-places-rule';
 import { optionalDecimalPlacesRule } from './rules/optional-decimal-places-rule';
 

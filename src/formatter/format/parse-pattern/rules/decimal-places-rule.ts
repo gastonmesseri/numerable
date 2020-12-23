@@ -1,5 +1,5 @@
-import stringIncludes from '../../../core/utils/string-includes';
-import splitStringInTwoParts from '../../../core/utils/split-string-in-two-parts';
+import stringIncludes from '../../../../core/utils/string-includes';
+import splitStringInTwoParts from '../../../../core/utils/split-string-in-two-parts';
 
 const countChars = (string: string, char: string) => {
     return !string ? 0 : string.split('').filter(stringChar => stringChar === char).length;

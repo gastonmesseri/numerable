@@ -1,4 +1,4 @@
-import { NumberFormatRules } from '../../../core/types/rules';
+import { NumberFormatRules } from '../../../../core/types/rules';
 
 const getAbbreviationScaleSuffix = (abbreviationScale: string | null, patternRules: NumberFormatRules): string => {
     if (!abbreviationScale) return '';

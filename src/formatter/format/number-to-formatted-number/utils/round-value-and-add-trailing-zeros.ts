@@ -1,6 +1,6 @@
-import { NumberFormatRules } from '../../../core/types/rules';
-import numberToFixed from '../../../core/utils/number-to-fixed';
-import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
+import { NumberFormatRules } from '../../../../core/types/rules';
+import numberToFixed from '../../../../core/utils/number-to-fixed';
+import { ResolvedNumerableFormatNumberOptions } from '../../../types/resolved-format-number-options';
 
 const roundValueAndAddTrailingZeros = (value: number, patternRules: NumberFormatRules, options: ResolvedNumerableFormatNumberOptions) => {
     const { rounding } = options;

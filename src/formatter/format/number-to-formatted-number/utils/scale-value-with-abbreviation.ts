@@ -1,8 +1,8 @@
-import { NumberFormatRules } from '../../../core/types/rules';
-import { AbbreviationScale } from '../../../core/types/abbreviation-scale';
-import multiplyByPowerOfTen from '../../../core/utils/multiply-by-power-of-ten';
-import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
-import createUnitScaleFromLocaleAbbreviations from '../../../formatter/utils/create-unit-scale-from-locale-abbreviations';
+import { NumberFormatRules } from '../../../../core/types/rules';
+import { AbbreviationScale } from '../../../../core/types/abbreviation-scale';
+import multiplyByPowerOfTen from '../../../../core/utils/multiply-by-power-of-ten';
+import { ResolvedNumerableFormatNumberOptions } from '../../../types/resolved-format-number-options';
+import createUnitScaleFromLocaleAbbreviations from '../../../utils/create-unit-scale-from-locale-abbreviations';
 
 /**
  * If abbreviation is forced, looks for the closest (in terms of power of ten) abbreviation in the current locale

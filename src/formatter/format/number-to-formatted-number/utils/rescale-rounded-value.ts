@@ -1,6 +1,6 @@
-import { NumberFormatRules } from '../../../core/types/rules';
-import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
-import createUnitScaleFromLocaleAbbreviations from '../../../formatter/utils/create-unit-scale-from-locale-abbreviations';
+import { NumberFormatRules } from '../../../../core/types/rules';
+import { ResolvedNumerableFormatNumberOptions } from '../../../types/resolved-format-number-options';
+import createUnitScaleFromLocaleAbbreviations from '../../../utils/create-unit-scale-from-locale-abbreviations';
 
 /**
  * This process only is applied for automatic abbreviation ('a'), and only in the rounding

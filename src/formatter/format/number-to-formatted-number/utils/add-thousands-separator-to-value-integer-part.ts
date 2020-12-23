@@ -1,5 +1,5 @@
-import { NumberFormatRules } from '../../../core/types/rules';
-import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
+import { NumberFormatRules } from '../../../../core/types/rules';
+import { ResolvedNumerableFormatNumberOptions } from '../../../../formatter/types/resolved-format-number-options';
 
 const addThousandsSeparatorToValueIntegerPart = (
     valueIntegerPartWithLeadingZerosAndWithoutSign: string,

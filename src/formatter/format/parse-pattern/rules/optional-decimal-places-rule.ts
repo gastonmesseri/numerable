@@ -1,4 +1,4 @@
-import stringIncludes from '../../../core/utils/string-includes';
+import stringIncludes from '../../../../core/utils/string-includes';
 
 /**
  * Check for optional decimals.

@@ -1,5 +1,5 @@
-import stringIncludes from '../../../core/utils/string-includes';
-import { AbbreviationScale } from '../../../core/types/abbreviation-scale';
+import stringIncludes from '../../../../core/utils/string-includes';
+import { AbbreviationScale } from '../../../../core/types/abbreviation-scale';
 
 /**
  * Checks if abbreviation is wanted

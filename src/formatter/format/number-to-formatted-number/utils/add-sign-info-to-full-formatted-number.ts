@@ -1,4 +1,4 @@
-import { NumberFormatRules } from '../../../core/types/rules';
+import { NumberFormatRules } from '../../../../core/types/rules';
 
 const addSignInfoToFullFormattedNumber = (
     fullFormattedValueWithoutSign: string,

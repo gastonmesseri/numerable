@@ -1,5 +1,5 @@
-import { NumberFormatRules } from '../../../core/types/rules';
-import splitStringInTwoParts from '../../../core/utils/split-string-in-two-parts';
+import { NumberFormatRules } from '../../../../core/types/rules';
+import splitStringInTwoParts from '../../../../core/utils/split-string-in-two-parts';
 
 /**
  * Splits the given number (as string) in the integer and decimal parts.
