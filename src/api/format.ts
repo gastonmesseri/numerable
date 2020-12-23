@@ -21,34 +21,34 @@ import { NumerableFormatNumberOptions } from '../formatter/types/format-number-o
  * options:
  * ```typescript
  * {
- * nullFormat?: string;
- * nanFormat?: string;
- * zeroFormat?: string;
- * defaultPattern?: string;
- * rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
- * locale?: NumerableLocale;
- * type?: string;
- * scalePercentBy100?: boolean;
- * formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
+ *   nullFormat?: string;
+ *   nanFormat?: string;
+ *   zeroFormat?: string;
+ *   defaultPattern?: string;
+ *   rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
+ *   locale?: NumerableLocale;
+ *   type?: string;
+ *   scalePercentBy100?: boolean;
+ *   formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
  * }
  * ```
  *
  * @param number number: The number to format (e.g. **10.23**)
  * @param pattern pattern: The formatting pattern (e.g. **'0,0.00 %'**)
  * @param options options: The options used to format the number
- * ```typescript
- * {
- * nullFormat?: string;
- * nanFormat?: string;
- * zeroFormat?: string;
- * defaultPattern?: string;
- * rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
- * locale?: NumerableLocale;
- * type?: string;
- * scalePercentBy100?: boolean;
- * formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
- * }
- * ```
+ *     ```typescript
+ *     {
+ *        nullFormat?: string;
+ *        nanFormat?: string;
+ *        zeroFormat?: string;
+ *        defaultPattern?: string;
+ *        rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
+ *        locale?: NumerableLocale;
+ *        type?: string;
+ *        scalePercentBy100?: boolean;
+ *        formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
+ *     }
+ *     ```
  */
 function format(number: number | string | null | undefined, pattern: string | null | undefined, options?: NumerableFormatNumberOptions): string;
 function format(number: number | string | null | undefined, options: NumerableFormatNumberOptions): string;
