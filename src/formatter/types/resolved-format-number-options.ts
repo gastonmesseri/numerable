@@ -9,6 +9,6 @@ export interface ResolvedNumerableFormatNumberOptions {
     rounding: (scaledValueForRounding: number) => number;
     locale: ResolvedNumerableLocale;
     type: string | null;
-    scalePercentBy100: boolean;
+    scalePercentage: boolean;
     formatters: NumerableFormatter[];
 }

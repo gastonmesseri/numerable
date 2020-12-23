@@ -40,7 +40,7 @@ describe('format: percentage', () => {
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = format(value, pattern, { scalePercentBy100: true });
+                const result = format(value, pattern, { scalePercentage: true });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
@@ -58,7 +58,7 @@ describe('format: percentage', () => {
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = format(value, pattern, { scalePercentBy100: false });
+                const result = format(value, pattern, { scalePercentage: false });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
@@ -95,7 +95,7 @@ describe('format: percentage', () => {
             ];
 
             tests.forEach(([formattedString, expectedResult]) => {
-                expect([formattedString, parse(formattedString, { scalePercentBy100: false })])
+                expect([formattedString, parse(formattedString, { scalePercentage: false })])
                     .toEqual([formattedString, expectedResult]);
             });
         });
@@ -110,7 +110,7 @@ describe('format: percentage', () => {
             ];
 
             tests.forEach(([formattedString, expectedResult]) => {
-                expect([formattedString, parse(formattedString, { scalePercentBy100: true })])
+                expect([formattedString, parse(formattedString, { scalePercentage: true })])
                     .toEqual([formattedString, expectedResult]);
             });
         });

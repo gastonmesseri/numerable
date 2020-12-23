@@ -8,7 +8,7 @@ const DEFAULT_FORMAT_OPTIONS = {
     locale: en,
     rounding: Math.round,
     type: null,
-    scalePercentBy100: true,
+    scalePercentage: true,
 };
 
 export default DEFAULT_FORMAT_OPTIONS;

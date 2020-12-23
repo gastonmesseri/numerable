@@ -15,6 +15,6 @@ export interface NumerableFormatNumberOptions {
     rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
     locale?: NumerableLocale;
     type?: string;
-    scalePercentBy100?: boolean;
+    scalePercentage?: boolean;
     formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
 }

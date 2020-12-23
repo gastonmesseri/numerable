@@ -13,7 +13,7 @@ const percentageFormatter: NumerableFormatter = {
     format: (number, pattern, options) => {
         const percentageSpace = stringIncludes(pattern, ' %') ? ' ' : '';
         const resolvedValue = number || 0;
-        const scaledValue = options.scalePercentBy100 ? multiplyByPowerOfTen(resolvedValue, 2) : resolvedValue;
+        const scaledValue = options.scalePercentage ? multiplyByPowerOfTen(resolvedValue, 2) : resolvedValue;
         const patternWithoutPercentage = pattern.replace(/\s?%/, '');
         const formatResult = numberToFormattedNumber(scaledValue, patternWithoutPercentage, options);
 
@@ -27,7 +27,7 @@ const percentageFormatter: NumerableFormatter = {
     },
     unformat: (string, options) => {
         const number = formattedStringToNumber(string.replace(/\s?%/, ''), options);
-        return number && options.scalePercentBy100 ? multiplyByPowerOfTen(number, -2) : number;
+        return number && options.scalePercentage ? multiplyByPowerOfTen(number, -2) : number;
     },
 };
 
