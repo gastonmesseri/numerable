@@ -1,7 +1,7 @@
 import merge from '../../core/utils/merge';
+import BUILT_IN_FORMATTERS from '../formatters';
 import isObject from '../../core/utils/is-object';
 import isString from '../../core/utils/is-string';
-import BUILT_IN_FORMATTERS from '../../formatters';
 import isFunction from '../../core/utils/is-function';
 import truncateNumber from '../../core/utils/truncate-number';
 import { NumerableLocale } from '../../locale/types/numerable-locale';

@@ -1,6 +1,6 @@
-import stringIncludes from '../core/utils/string-includes';
-import { NumerableFormatter } from '../core/types/numerable-formatter';
-import numberToFormattedNumber from '../format/number-to-formatted-number/number-to-formatted-number';
+import stringIncludes from '../../core/utils/string-includes';
+import { NumerableFormatter } from '../../core/types/numerable-formatter';
+import numberToFormattedNumber from '../../format/number-to-formatted-number/number-to-formatted-number';
 
 const ordinalFormatter: NumerableFormatter = {
     name: 'ordinal',
