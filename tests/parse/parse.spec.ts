@@ -1,6 +1,7 @@
 import { en } from '../../src/locale';
 import parse from '../../src/formatter/parse/parse';
 import { NumerableLocale } from '../../src/core/types/numerable-locale';
+import { NumerableFormatter } from '../../src/core/types/numerable-formatter';
 
 describe('parse', () => {
     it('should parse NaN, null, undefined as null', () => {
@@ -214,5 +215,55 @@ describe('parse', () => {
         expect(parse('NULL', { nullFormat: 'NULL' })).toBe(null);
         expect(parse('2 NULL', { nullFormat: '2 NULL' })).toBe(null);
         expect(parse('', { nullFormat: '' })).toBe(null);
+    });
+
+    describe('formatters', () => {
+        const getTestFormatter = (
+            unformatMatcher: NumerableFormatter['regexps']['unformat'],
+            unformatFunction: NumerableFormatter['unformat'],
+        ): NumerableFormatter => ({
+            name: 'test-formatter',
+            regexps: {
+                // format: formatMatcher,
+                format: /t/,
+                unformat: unformatMatcher,
+            },
+            format: () => '',
+            unformat: unformatFunction,
+        });
+
+        it('should unformat using the provided formatter', () => {
+            // Should return the specified value
+            const formatter1 = getTestFormatter(/\*\*/, () => 3333);
+            expect(parse('test **', { formatters: [formatter1] })).toBe(3333);
+
+            // Should receive the string
+            const formatter2 = getTestFormatter(/eee/, (string) => string === 'eee' ? 33 : null);
+            expect(parse('eee', { formatters: [formatter2] })).toBe(33);
+
+            // Should Call the matcher function
+            const formatter3 = getTestFormatter(pattern => pattern === '1987 &*', () => 57);
+            expect(parse('1987 &*', { formatters: [formatter3] })).toBe(57);
+
+            // Should avoid the formatter if matcher function returns false
+            const avoidFormatSpy = jest.fn();
+            parse('1,200.000 &*', { formatters: [getTestFormatter(() => false, avoidFormatSpy)] });
+            expect(avoidFormatSpy).toHaveBeenCalledTimes(0);
+        });
+
+        it('should call the formatters resolver if it is provided', () => {
+            // Using percentage sign (it should be by default catched by built-in percentage formatter, but not in this case)
+            const formatter = getTestFormatter(/%/, () => 50);
+            expect(parse('1,2000.000 %', { formatters: builtInFormatters => [formatter, ...builtInFormatters] })).toBe(50);
+
+            // Not applying percentage (no formatters)
+            expect(parse('10 %', { formatters: () => [] })).toBe(10);
+        });
+
+        it('should apply first the built-in formatters', () => {
+            // Using percentage sign (it should be by default catched by built-in percentage formatter)
+            const formatter = getTestFormatter(/%/, () => 2000);
+            expect(parse('100 %', { formatters: [formatter] })).toBe(1);
+        });
     });
 });

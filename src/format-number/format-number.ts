@@ -1,5 +1,4 @@
 import isNil from '../core/utils/is-nil';
-import BUILT_IN_FORMATS from '../formats';
 import isObject from '../core/utils/is-object';
 import isString from '../core/utils/is-string';
 import isFunction from '../core/utils/is-function';
@@ -10,10 +9,11 @@ import numberToFormattedNumber from './number-to-formatted-number/number-to-form
 import { NumerableFormatNumberOptions, ResolvedNumerableFormatNumberOptions } from '../formatter/types/format-number-options';
 
 const getFormatFunctionIfMatch = (pattern: string, resolvedOptions: ResolvedNumerableFormatNumberOptions) => {
-    for (const formatDefinition of BUILT_IN_FORMATS) {
-        const matcher = formatDefinition.regexps.format;
+    for (const formatter of resolvedOptions.formatters) {
+        const matcher = formatter.regexps.format;
+        if (!matcher) continue;
         const matcherResult = isFunction(matcher) ? matcher(pattern, resolvedOptions) : pattern.match(matcher);
-        if (matcherResult) return formatDefinition.format;
+        if (matcherResult) return formatter.format;
     }
 };
 
@@ -39,8 +39,8 @@ export const format = (value: number | string | null | undefined, pattern: strin
             // <!> Here value should always be a number
             const resolvedValueAsNumber = resolvedValue || 0;
 
-            const formatFunctionFromFormats = getFormatFunctionIfMatch(resolvedPattern, resolvedOptions);
-            const resolvedFormatFunction = formatFunctionFromFormats || numberToFormattedNumber;
+            const formatFunctionFromFormatters = getFormatFunctionIfMatch(resolvedPattern, resolvedOptions);
+            const resolvedFormatFunction = formatFunctionFromFormatters || numberToFormattedNumber;
             output = resolvedFormatFunction(resolvedValueAsNumber, resolvedPattern, resolvedOptions);
         }
 

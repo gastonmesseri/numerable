@@ -1,7 +1,7 @@
 import toObject from '../core/utils/to-object';
 import { unitScale } from '../core/utils/unit-scale';
 import stringIncludes from '../core/utils/string-includes';
-import { NumerableFormatType } from '../core/types/numerable-format-type';
+import { NumerableFormatter } from '../core/types/numerable-formatter';
 import formattedStringToNumber from '../formatter/parse/utils/formatted-string-to-number';
 import numberToFormattedNumber from '../format-number/number-to-formatted-number/number-to-formatted-number';
 
@@ -15,7 +15,7 @@ const unformatRegex = `(${allSuffixes.join('|').replace('B', 'B(?!PS)')})`;
 const bytesDecimalScale = unitScale({ base: 'B', scale: toObject(decimalSuffixes, (unit, unitIndex) => [unit, 1000 ** unitIndex]) });
 const bytesBinaryScale = unitScale({ base: 'B', scale: toObject(binarySuffixes, (unit, unitIndex) => [unit, 1024 ** unitIndex]) });
 
-const bytesFormat: NumerableFormatType = {
+const bytesFormatter: NumerableFormatter = {
     name: 'bytes',
     regexps: {
         format: /([0\s]i?b)/,
@@ -38,4 +38,4 @@ const bytesFormat: NumerableFormatType = {
     }
 };
 
-export default bytesFormat;
+export default bytesFormatter;

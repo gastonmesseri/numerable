@@ -4,6 +4,7 @@ import { format } from '../../src/index';
 import { en, fr } from '../../src/locale';
 import truncateNumber from '../../src/core/utils/truncate-number';
 import { NumerableLocale } from '../../src/core/types/numerable-locale';
+import { NumerableFormatter } from '../../src/core/types/numerable-formatter';
 import DEFAULT_FORMAT_OPTIONS from '../../src/formatter/constants/default-format-options';
 
 describe('numerable', () => {
@@ -1024,6 +1025,55 @@ describe('numerable', () => {
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
             });
+        });
+    });
+
+    describe('formatters', () => {
+        const getTestFormatter = (
+            formatMatcher: NumerableFormatter['regexps']['format'],
+            formatFunction: NumerableFormatter['format'],
+        ): NumerableFormatter => ({
+            name: 'test-formatter',
+            regexps: {
+                format: formatMatcher,
+                unformat: /t/,
+            },
+            format: formatFunction,
+            unformat: undefined,
+        });
+
+        it('should format using the provided formatter', () => {
+            // Should receive the value
+            const formatter1 = getTestFormatter(/\*\*/, (value) => '' + value);
+            expect(format(1000, '0,0.000 **', { formatters: [formatter1] })).toBe('1000');
+
+            // Should receive the pattern
+            const formatter2 = getTestFormatter(/TEST/, (_value, pattern) => '' + pattern);
+            expect(format(1000, '0,0.000 TEST', { formatters: [formatter2] })).toBe('0,0.000 TEST');
+
+            // Should Call the matcher function
+            const formatter3 = getTestFormatter(pattern => pattern === '0,0.000 &*', (_value, pattern) => '' + pattern);
+            expect(format(1000, '0,0.000 &*', { formatters: [formatter3] })).toBe('0,0.000 &*');
+
+            // Should avoid the formatter if matcher function returns false
+            const avoidFormatSpy = jest.fn();
+            format(1000, '0,0.000 &*', { formatters: [getTestFormatter(() => false, avoidFormatSpy)] });
+            expect(avoidFormatSpy).toHaveBeenCalledTimes(0);
+        });
+
+        it('should call the formatters resolver if it is provided', () => {
+            // Using percentage sign (it should be by default catched by built-in percentage formatter, but not in this case)
+            const formatter = getTestFormatter(/%/, () => 'TEST_STRING');
+            expect(format(1000, '0,0.000 %', { formatters: builtInFormatters => [formatter, ...builtInFormatters] })).toBe('TEST_STRING');
+
+            // Not applying percentage
+            expect(format(1000, '0,0.000 %', { formatters: () => [] })).toBe('1,000.000');
+        });
+
+        it('should apply first the built-in formatters', () => {
+            // Using percentage sign (it should be by default catched by built-in percentage formatter)
+            const formatter = getTestFormatter(/%/, () => 'TEST_STRING');
+            expect(format(0.01, '0,0.000 %', { formatters: [formatter] })).toBe('1.000 %');
         });
     });
 });

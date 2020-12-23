@@ -1,10 +1,10 @@
 import stringIncludes from '../core/utils/string-includes';
-import { NumerableFormatType } from '../core/types/numerable-format-type';
+import { NumerableFormatter } from '../core/types/numerable-formatter';
 import multiplyByPowerOfTen from '../core/utils/multiply-by-power-of-ten';
 import formattedStringToNumber from '../formatter/parse/utils/formatted-string-to-number';
 import numberToFormattedNumber from '../format-number/number-to-formatted-number/number-to-formatted-number';
 
-const percentageFormat: NumerableFormatType = {
+const percentageFormatter: NumerableFormatter = {
     name: 'percentage',
     regexps: {
         format: /(%)/,
@@ -31,4 +31,4 @@ const percentageFormat: NumerableFormatType = {
     },
 };
 
-export default percentageFormat;
+export default percentageFormatter;

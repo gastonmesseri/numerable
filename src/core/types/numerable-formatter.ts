@@ -1,7 +1,7 @@
 import { Nil } from './nil';
 import { ResolvedNumerableFormatNumberOptions } from '../../formatter/types/format-number-options';
 
-export interface NumerableFormatType {
+export interface NumerableFormatter {
     name: string;
     regexps: {
         format: RegExp | ((pattern: string, options: ResolvedNumerableFormatNumberOptions) => boolean);

@@ -3,12 +3,12 @@
  */
 import stringIncludes from '../core/utils/string-includes';
 import isFiniteNumber from '../core/utils/is-finite-number';
-import { NumerableFormatType } from '../core/types/numerable-format-type';
+import { NumerableFormatter } from '../core/types/numerable-formatter';
 import multiplyByPowerOfTen from '../core/utils/multiply-by-power-of-ten';
 import formattedStringToNumber from '../formatter/parse/utils/formatted-string-to-number';
 import numberToFormattedNumber from '../format-number/number-to-formatted-number/number-to-formatted-number';
 
-const bpsFormat: NumerableFormatType = {
+const bpsFormatter: NumerableFormatter = {
     name: 'bps',
     regexps: {
         format: /(BPS)/,
@@ -34,4 +34,4 @@ const bpsFormat: NumerableFormatType = {
     },
 };
 
-export default bpsFormat;
+export default bpsFormatter;

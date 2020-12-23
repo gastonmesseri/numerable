@@ -1,6 +1,6 @@
-import { NumerableFormatType } from '../core/types/numerable-format-type';
+import { NumerableFormatter } from '../core/types/numerable-formatter';
 
-const timeFormat: NumerableFormatType = {
+const timeFormatter: NumerableFormatter = {
     name: 'time',
     regexps: {
         format: /([0-9]{1,2}:[0-9]{2}) *$/,
@@ -34,4 +34,4 @@ const timeFormat: NumerableFormatType = {
     },
 };
 
-export default timeFormat;
+export default timeFormatter;

@@ -1,5 +1,4 @@
 import isNil from '../../core/utils/is-nil';
-import BUILT_IN_FORMATS from '../../formats';
 import isFunction from '../../core/utils/is-function';
 import isNanNumber from '../../core/utils/is-nan-number';
 import resolveFormatOptions from '../utils/resolve-format-options';
@@ -7,11 +6,11 @@ import formattedStringToNumber from './utils/formatted-string-to-number';
 import { NumerableFormatNumberOptions, ResolvedNumerableFormatNumberOptions } from '../types/format-number-options';
 
 const getUnformatFunctionIfMatch = (input: string, resolvedOptions: ResolvedNumerableFormatNumberOptions) => {
-    for (const formatDefinition of BUILT_IN_FORMATS) {
-        const matcher = formatDefinition.regexps.unformat;
+    for (const formatter of resolvedOptions.formatters) {
+        const matcher = formatter.regexps.unformat;
         if (!matcher) continue;
         const matcherResult = isFunction(matcher) ? matcher(input, resolvedOptions) : input.match(matcher);
-        if (matcherResult) return formatDefinition.unformat;
+        if (matcherResult) return formatter.unformat;
     }
 };
 
@@ -31,8 +30,8 @@ const parse = (input: string | number, options?: NumerableFormatNumberOptions) =
         } else if (resolvedOptions.nullFormat && input === resolvedOptions.nullFormat) {
             value = null;
         } else {
-            const unformatFunctionFromFormats = getUnformatFunctionIfMatch(input, resolvedOptions);
-            const unformatFunction = unformatFunctionFromFormats || formattedStringToNumber;
+            const unformatFunctionFromFormatters = getUnformatFunctionIfMatch(input, resolvedOptions);
+            const unformatFunction = unformatFunctionFromFormatters || formattedStringToNumber;
             value = unformatFunction(input, resolvedOptions);
         }
     } else {

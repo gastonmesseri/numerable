@@ -1,3 +1,4 @@
+import { NumerableFormatter } from '../../core/types/numerable-formatter';
 import { ResolvedNumerableLocale, NumerableLocale } from '../../core/types/numerable-locale';
 
 export interface NumerableFormatNumberOptions {
@@ -15,6 +16,7 @@ export interface NumerableFormatNumberOptions {
     locale?: NumerableLocale;
     type?: string;
     scalePercentBy100?: boolean;
+    formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
 }
 
 export interface ResolvedNumerableFormatNumberOptions {
@@ -26,4 +28,5 @@ export interface ResolvedNumerableFormatNumberOptions {
     locale: ResolvedNumerableLocale;
     type: string | null;
     scalePercentBy100: boolean;
+    formatters: NumerableFormatter[];
 }

@@ -1,8 +1,8 @@
 import stringIncludes from '../core/utils/string-includes';
-import { NumerableFormatType } from '../core/types/numerable-format-type';
+import { NumerableFormatter } from '../core/types/numerable-formatter';
 import numberToFormattedNumber from '../format-number/number-to-formatted-number/number-to-formatted-number';
 
-const ordinalFormat: NumerableFormatType = {
+const ordinalFormatter: NumerableFormatter = {
     name: 'ordinal',
     regexps: {
         format: /(o)/,
@@ -17,4 +17,4 @@ const ordinalFormat: NumerableFormatType = {
     }
 };
 
-export default ordinalFormat;
+export default ordinalFormatter;
