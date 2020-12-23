@@ -6,6 +6,10 @@
   <img alt="numerable-format-demo" width="400" src="resources/numerable-format-demo.gif">
 </p>
 
+
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+
+
 # [numerable](https://github.com/gastonmesseri/numerable)
 
 **numerable** is a Javascript library with a set of formatting and manipulation tools for dealing with numbers.
