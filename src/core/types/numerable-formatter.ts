@@ -1,5 +1,5 @@
 import { Nil } from './nil';
-import { ResolvedNumerableFormatNumberOptions } from '../../formatter/types/format-number-options';
+import { ResolvedNumerableFormatNumberOptions } from '../../formatter/types/resolved-format-number-options';
 
 export interface NumerableFormatter {
     name: string;

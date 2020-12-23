@@ -1,6 +1,6 @@
 import en from '../../locale/en';
 import stringRepeat from '../../core/utils/string-repeat';
-import { NumerableLocale } from '../../core/types/numerable-locale';
+import { NumerableLocale } from '../../locale/types/numerable-locale';
 
 // TODO: Handle rtl
 

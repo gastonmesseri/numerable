@@ -1,6 +1,6 @@
 import { en } from '../../src/locale';
 import parse from '../../src/formatter/parse/parse';
-import { NumerableLocale } from '../../src/core/types/numerable-locale';
+import { NumerableLocale } from '../../src/locale/types/numerable-locale';
 import { NumerableFormatter } from '../../src/core/types/numerable-formatter';
 
 describe('parse', () => {

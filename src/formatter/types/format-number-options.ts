@@ -1,5 +1,5 @@
+import { NumerableLocale } from '../../locale/types/numerable-locale';
 import { NumerableFormatter } from '../../core/types/numerable-formatter';
-import { ResolvedNumerableLocale, NumerableLocale } from '../../core/types/numerable-locale';
 
 export interface NumerableFormatNumberOptions {
     nullFormat?: string;
@@ -17,16 +17,4 @@ export interface NumerableFormatNumberOptions {
     type?: string;
     scalePercentBy100?: boolean;
     formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
-}
-
-export interface ResolvedNumerableFormatNumberOptions {
-    nullFormat: string;
-    nanFormat?: string;
-    zeroFormat?: string;
-    defaultPattern: string;
-    rounding: (scaledValueForRounding: number) => number;
-    locale: ResolvedNumerableLocale;
-    type: string | null;
-    scalePercentBy100: boolean;
-    formatters: NumerableFormatter[];
 }

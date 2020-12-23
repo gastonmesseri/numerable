@@ -3,10 +3,11 @@ import isObject from '../core/utils/is-object';
 import isString from '../core/utils/is-string';
 import isFunction from '../core/utils/is-function';
 import isNaNNumber from '../core/utils/is-nan-number';
-import { NumerableLocale } from '../core/types/numerable-locale';
+import { NumerableLocale } from '../locale/types/numerable-locale';
 import resolveFormatOptions from '../formatter/utils/resolve-format-options';
+import { NumerableFormatNumberOptions } from '../formatter/types/format-number-options';
 import numberToFormattedNumber from './number-to-formatted-number/number-to-formatted-number';
-import { NumerableFormatNumberOptions, ResolvedNumerableFormatNumberOptions } from '../formatter/types/format-number-options';
+import { ResolvedNumerableFormatNumberOptions } from '../formatter/types/resolved-format-number-options';
 
 const getFormatFunctionIfMatch = (pattern: string, resolvedOptions: ResolvedNumerableFormatNumberOptions) => {
     for (const formatter of resolvedOptions.formatters) {

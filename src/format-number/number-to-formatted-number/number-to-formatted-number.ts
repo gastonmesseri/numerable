@@ -9,8 +9,8 @@ import roundValueAndAddTrailingZeros from './utils/round-value-and-add-trailing-
 import replaceDigitsWithNumeralSystem from './utils/replace-digits-with-numeral-system';
 import addSignInfoToFullFormattedNumber from './utils/add-sign-info-to-full-formatted-number';
 import splitNumberIntegerAndDecimalParts from './utils/split-number-integer-and-decimal-parts';
-import { ResolvedNumerableFormatNumberOptions } from '../../formatter/types/format-number-options';
 import addThousandsSeparatorToValueIntegerPart from './utils/add-thousands-separator-to-value-integer-part';
+import { ResolvedNumerableFormatNumberOptions } from '../../formatter/types/resolved-format-number-options';
 
 const numberToFormattedNumber = (number: number, pattern: string, options: ResolvedNumerableFormatNumberOptions): string => {
     const patternRules = parsePattern(pattern);

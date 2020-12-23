@@ -2,7 +2,7 @@ import log10 from '../../../core/utils/log-10';
 import toObject from '../../../core/utils/to-object';
 import escapeRegexString from '../../../core/utils/escape-regex-string';
 import multiplyByPowerOfTen from '../../../core/utils/multiply-by-power-of-ten';
-import { ResolvedNumerableFormatNumberOptions } from '../../types/format-number-options';
+import { ResolvedNumerableFormatNumberOptions } from '../../types/resolved-format-number-options';
 import createUnitScaleFromLocaleAbbreviations from '../../utils/create-unit-scale-from-locale-abbreviations';
 
 const replaceNumeralSystemWithLatinNumbers = (numericStringWithExtraInfo: string, numeralSystemMap: string[] | undefined) => {

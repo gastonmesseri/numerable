@@ -1,7 +1,7 @@
 import { NumberFormatRules } from '../../../core/types/rules';
 import { AbbreviationScale } from '../../../core/types/abbreviation-scale';
 import multiplyByPowerOfTen from '../../../core/utils/multiply-by-power-of-ten';
-import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/format-number-options';
+import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
 import createUnitScaleFromLocaleAbbreviations from '../../../formatter/utils/create-unit-scale-from-locale-abbreviations';
 
 /**

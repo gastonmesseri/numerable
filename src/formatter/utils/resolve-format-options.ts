@@ -4,9 +4,11 @@ import isString from '../../core/utils/is-string';
 import BUILT_IN_FORMATTERS from '../../formatters';
 import isFunction from '../../core/utils/is-function';
 import truncateNumber from '../../core/utils/truncate-number';
+import { NumerableLocale } from '../../locale/types/numerable-locale';
 import DEFAULT_FORMAT_OPTIONS from '../constants/default-format-options';
-import { NumerableLocale, ResolvedNumerableLocale } from '../../core/types/numerable-locale';
-import { NumerableFormatNumberOptions, ResolvedNumerableFormatNumberOptions } from '../types/format-number-options';
+import { NumerableFormatNumberOptions } from '../types/format-number-options';
+import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
+import { ResolvedNumerableFormatNumberOptions } from '../types/resolved-format-number-options';
 
 const areDelimitersValid = (delimiters: NumerableLocale['delimiters']): delimiters is NonNullable<typeof delimiters>  => {
     return !!delimiters?.decimal

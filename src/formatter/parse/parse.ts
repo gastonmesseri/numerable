@@ -3,7 +3,8 @@ import isFunction from '../../core/utils/is-function';
 import isNanNumber from '../../core/utils/is-nan-number';
 import resolveFormatOptions from '../utils/resolve-format-options';
 import formattedStringToNumber from './utils/formatted-string-to-number';
-import { NumerableFormatNumberOptions, ResolvedNumerableFormatNumberOptions } from '../types/format-number-options';
+import { NumerableFormatNumberOptions } from '../types/format-number-options';
+import { ResolvedNumerableFormatNumberOptions } from '../types/resolved-format-number-options';
 
 const getUnformatFunctionIfMatch = (input: string, resolvedOptions: ResolvedNumerableFormatNumberOptions) => {
     for (const formatter of resolvedOptions.formatters) {

@@ -3,7 +3,7 @@ import chance from 'chance';
 import { format } from '../../src/index';
 import { en, fr } from '../../src/locale';
 import truncateNumber from '../../src/core/utils/truncate-number';
-import { NumerableLocale } from '../../src/core/types/numerable-locale';
+import { NumerableLocale } from '../../src/locale/types/numerable-locale';
 import { NumerableFormatter } from '../../src/core/types/numerable-formatter';
 import DEFAULT_FORMAT_OPTIONS from '../../src/formatter/constants/default-format-options';
 

@@ -1,5 +1,5 @@
 import { NumberFormatRules } from '../../../core/types/rules';
-import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/format-number-options';
+import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
 import createUnitScaleFromLocaleAbbreviations from '../../../formatter/utils/create-unit-scale-from-locale-abbreviations';
 
 /**
