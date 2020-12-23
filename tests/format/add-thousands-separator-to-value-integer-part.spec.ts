@@ -1,7 +1,7 @@
 import { NumberFormatRules } from '../../src/core/types/rules';
 import { NumerableLocale } from '../../src/locale/types/numerable-locale';
 import { ResolvedNumerableFormatNumberOptions } from '../../src/formatter/types/resolved-format-number-options';
-import addThousandsSeparatorToValueIntegerPart from '../../src/format-number/number-to-formatted-number/utils/add-thousands-separator-to-value-integer-part';
+import addThousandsSeparatorToValueIntegerPart from '../../src/format/number-to-formatted-number/utils/add-thousands-separator-to-value-integer-part';
 
 describe('add-thousands-separator-to-value-integer-part', () => {
     describe('addThousandsSeparatorToValueIntegerPart', () => {

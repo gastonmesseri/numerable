@@ -3,7 +3,7 @@ import { unitScale } from '../core/utils/unit-scale';
 import stringIncludes from '../core/utils/string-includes';
 import { NumerableFormatter } from '../core/types/numerable-formatter';
 import formattedStringToNumber from '../formatter/parse/utils/formatted-string-to-number';
-import numberToFormattedNumber from '../format-number/number-to-formatted-number/number-to-formatted-number';
+import numberToFormattedNumber from '../format/number-to-formatted-number/number-to-formatted-number';
 
 const decimalSuffixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
 const binarySuffixes = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'YiB'];

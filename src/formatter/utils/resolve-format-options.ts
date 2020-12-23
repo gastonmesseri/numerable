@@ -45,7 +45,7 @@ const resolveOptionsFormatters = (optionsFormatters: NumerableFormatNumberOption
 };
 
 const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
-    const optionsWithDefaults: ResolvedNumerableFormatNumberOptions = merge(DEFAULT_FORMAT_OPTIONS, options);
+    const optionsWithDefaults = merge(DEFAULT_FORMAT_OPTIONS, options) as ResolvedNumerableFormatNumberOptions;
     const resolvedPattern = optionsWithDefaults.defaultPattern || '0,0.##########';
     const resolvedRoundingFunction = resolveRoundingOption(optionsWithDefaults.rounding);
     const resolvedLocale = resolveOptionsLocale(optionsWithDefaults.locale);
