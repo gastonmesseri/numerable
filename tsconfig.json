@@ -12,4 +12,7 @@
         "sourceMap": true,
         "allowSyntheticDefaultImports": true,
     },
+    "include": [
+        "src/**/*.ts",
+    ],
 }
