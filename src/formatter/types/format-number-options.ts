@@ -13,7 +13,7 @@ export interface NumerableFormatNumberOptions {
      */
     defaultPattern?: string;
     rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
-    locale?: NumerableLocale;
+    locale?: NumerableLocale | string;
     type?: string;
     scalePercentage?: boolean;
     formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);

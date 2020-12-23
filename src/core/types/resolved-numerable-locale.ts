@@ -8,4 +8,5 @@ export interface ResolvedNumerableLocale {
     ordinal: (value: number) => string;
     digitGroupingStyle?: number[];
     numeralSystem?: string[];
+    _abbreviationsLong?: string;
 }

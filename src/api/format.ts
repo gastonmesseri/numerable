@@ -64,7 +64,7 @@ function format(
 }
 
 interface NumerableFormatNumberWithOptionsOptions extends Omit<NumerableFormatNumberOptions, 'locale'> {
-    locale?: NumerableLocale | (() => NumerableLocale);
+    locale?: NumerableLocale | string | (() => NumerableLocale | string);
 }
 
 export const createFormatFunction = (options: NumerableFormatNumberWithOptionsOptions): typeof format => {

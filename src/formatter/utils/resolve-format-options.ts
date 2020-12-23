@@ -7,6 +7,7 @@ import truncateNumber from '../../core/utils/truncate-number';
 import { NumerableLocale } from '../../locale/types/numerable-locale';
 import DEFAULT_FORMAT_OPTIONS from '../constants/default-format-options';
 import { NumerableFormatNumberOptions } from '../types/format-number-options';
+import getNumerableLocaleFromBrowser from './get-numerable-locale-from-browser';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 import { ResolvedNumerableFormatNumberOptions } from '../types/resolved-format-number-options';
 
@@ -16,9 +17,14 @@ const areDelimitersValid = (delimiters: NumerableLocale['delimiters']): delimite
         && delimiters.decimal !== delimiters.thousands;
 };
 
-const resolveOptionsLocale = (optionsLocale: NumerableLocale | undefined): ResolvedNumerableLocale => {
+const resolveOptionsLocale = (optionsLocale: NumerableLocale | string | undefined): ResolvedNumerableLocale => {
     const defaultLocale = DEFAULT_FORMAT_OPTIONS.locale as ResolvedNumerableLocale;
-    if (!isObject(optionsLocale)) return defaultLocale;
+
+    if (isString(optionsLocale)) {
+        return getNumerableLocaleFromBrowser(optionsLocale);
+    } else if (!isObject(optionsLocale)) {
+        return defaultLocale;
+    }
 
     return merge(optionsLocale, {
         delimiters: areDelimitersValid(optionsLocale.delimiters) ? optionsLocale.delimiters : defaultLocale.delimiters,
@@ -45,13 +51,16 @@ const resolveOptionsFormatters = (optionsFormatters: NumerableFormatNumberOption
 };
 
 const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
-    const optionsWithDefaults = merge(DEFAULT_FORMAT_OPTIONS, options) as ResolvedNumerableFormatNumberOptions;
+    const optionsWithDefaults = merge(DEFAULT_FORMAT_OPTIONS, options) as NumerableFormatNumberOptions;
     const resolvedPattern = optionsWithDefaults.defaultPattern || '0,0.##########';
     const resolvedRoundingFunction = resolveRoundingOption(optionsWithDefaults.rounding);
     const resolvedLocale = resolveOptionsLocale(optionsWithDefaults.locale);
     const resolvedFormatters = resolveOptionsFormatters(options?.formatters);
 
     return merge(optionsWithDefaults, {
+        nullFormat: optionsWithDefaults.nullFormat || '',
+        type: optionsWithDefaults.type || null,
+        scalePercentage: optionsWithDefaults.scalePercentage || true,
         defaultPattern: resolvedPattern,
         rounding: resolvedRoundingFunction,
         locale: resolvedLocale,
