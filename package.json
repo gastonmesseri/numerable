@@ -19,13 +19,14 @@
         "functional"
     ],
     "scripts": {
+        "clean": "rimraf dist locale",
         "test": "jest --config jest.config.js",
         "test:watch": "jest --watchAll",
         "test:coverage": "jest --coverage",
         "lint": "eslint . --ext .ts",
-        "build": "npm run build:lib && npm run build:locales",
+        "build": "npm run clean && npm run build:lib && npm run build:locale",
         "build:lib": "webpack --config webpack.config.js",
-        "build:locales": "webpack --config webpack.config.locale.js",
+        "build:locale": "tsc --project tsconfig.build-locale.json",
         "prepare": "npm run build",
         "prepublishOnly": "npm test && npm run lint",
         "bundle-report:server": "webpack-bundle-analyzer --port 4200 dist/stats.json",

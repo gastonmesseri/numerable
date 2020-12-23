@@ -3,7 +3,7 @@
  * code: zh
  * language: Chinese
  */
-import { NumerableLocale } from '../core/types/numerable-locale';
+import { NumerableLocale } from './types/numerable-locale';
 
 const locale: NumerableLocale = {
     code: 'zh',
