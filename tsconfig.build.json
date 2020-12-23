@@ -1,8 +1,9 @@
 {
     "extends": "./tsconfig.json",
-    "rootDir": "./src",
+    "rootDirs": [
+        "./src",
+    ],
     "exclude": [
         "**/*.spec.ts",
-        "**/*.test.ts",
     ]
 }

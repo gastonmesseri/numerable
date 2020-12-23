@@ -3,3 +3,4 @@ dist
 coverage
 docs/node_modules
 .vscode
+locale
