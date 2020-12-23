@@ -1,9 +1,7 @@
 import isNil from '../../core/utils/is-nil';
-import isObject from '../../core/utils/is-object';
 import isString from '../../core/utils/is-string';
 import isFunction from '../../core/utils/is-function';
 import isNaNNumber from '../../core/utils/is-nan-number';
-import { NumerableLocale } from '../../locale/types/numerable-locale';
 import resolveFormatOptions from '../../formatter/utils/resolve-format-options';
 import { NumerableFormatNumberOptions } from '../../formatter/types/format-number-options';
 import numberToFormattedNumber from './number-to-formatted-number/number-to-formatted-number';
@@ -18,7 +16,7 @@ const getFormatFunctionIfMatch = (pattern: string, resolvedOptions: ResolvedNume
     }
 };
 
-export const format = (value: number | string | null | undefined, pattern: string | null, options: NumerableFormatNumberOptions): string => {
+const format = (value: number | string | null | undefined, pattern: string | null, options: NumerableFormatNumberOptions): string => {
     try {
         const resolvedValue = isString(value) ? parseFloat(value) : value;
         const resolvedOptions = resolveFormatOptions(options);
@@ -52,44 +50,4 @@ export const format = (value: number | string | null | undefined, pattern: strin
     }
 };
 
-/**
- * This function only resolves the arguments overload
- */
-function formatNumber(value: number | string | null | undefined, pattern: string | null | undefined, options?: NumerableFormatNumberOptions): string;
-function formatNumber(value: number | string | null | undefined, options: NumerableFormatNumberOptions): string;
-function formatNumber(value: number | string | null | undefined): string;
-function formatNumber(
-    value: number | string | null | undefined,
-    arg2?: string | null | undefined | NumerableFormatNumberOptions,
-    arg3?: string | NumerableFormatNumberOptions,
-): string {
-    const pattern = isString(arg2) ? arg2 : null;
-    const options = isObject(arg2) ? arg2 : (isObject(arg3) ? arg3 : {});
-
-    return format(value, pattern, options);
-}
-
-export default formatNumber;
-
-interface NumerableFormatNumberWithOptionsOptions extends Omit<NumerableFormatNumberOptions, 'locale'> {
-    locale?: NumerableLocale | (() => NumerableLocale);
-}
-
-export const createFormatFunction = (options: NumerableFormatNumberWithOptionsOptions): typeof formatNumber => {
-    return ((
-        value: number | string | null | undefined,
-        arg2?: string | null | undefined | NumerableFormatNumberOptions,
-        arg3?: string | NumerableFormatNumberOptions,
-    ) => {
-        const pattern = isString(arg2) ? arg2 : null;
-        const optionsFromArguments = isObject(arg2) ? arg2 : (isObject(arg3) ? arg3 : {});
-
-        return format(value, pattern, {
-            ...options,
-            locale: isFunction(options.locale) ? options.locale() : options.locale,
-            ...optionsFromArguments,
-        });
-    }) as any;
-};
-
-formatNumber.withOptions = createFormatFunction;
+export default format;

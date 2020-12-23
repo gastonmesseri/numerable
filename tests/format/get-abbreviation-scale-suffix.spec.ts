@@ -1,5 +1,5 @@
 import { NumberFormatRules } from '../../src/core/types/rules';
-import getAbbreviationScaleSuffix from '../../src/format/number-to-formatted-number/utils/get-abbreviation-scale-suffix';
+import getAbbreviationScaleSuffix from '../../src/formatter/format/number-to-formatted-number/utils/get-abbreviation-scale-suffix';
 
 describe('getAbbreviationScaleSuffix', () => {
     it('should return empty string for non-valid abbreviationScale', () => {

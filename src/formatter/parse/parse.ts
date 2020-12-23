@@ -15,10 +15,10 @@ const getUnformatFunctionIfMatch = (input: string, resolvedOptions: ResolvedNume
     }
 };
 
-const parse = (input: string | number, options?: NumerableFormatNumberOptions) => {
+const parse = (input: string | number, options?: NumerableFormatNumberOptions): number | null => {
     const resolvedOptions = resolveFormatOptions(options);
 
-    let value;
+    let value: number | null;
 
     if (isNil(input) || isNanNumber(input)) {
         value = null;
