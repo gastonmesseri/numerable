@@ -10,7 +10,7 @@ const binarySuffixes = ['B', 'KiB', 'MiB', 'GiB', 'TiB', 'PiB', 'EiB', 'ZiB', 'Y
 const allSuffixes = decimalSuffixes.concat(binarySuffixes.slice(1));
 
 /** Avoid collision with BPS format @see formats|bps.ts */
-const unformatRegex = `(${allSuffixes.join('|').replace('B', 'B(?!PS)')})`;
+const unformatRegex = `(${allSuffixes.join('|').replace(/B/g, 'B(?!PS)')})`;
 
 const bytesDecimalScale = unitScale({ base: 'B', scale: toObject(decimalSuffixes, (unit, unitIndex) => [unit, 1000 ** unitIndex]) });
 const bytesBinaryScale = unitScale({ base: 'B', scale: toObject(binarySuffixes, (unit, unitIndex) => [unit, 1024 ** unitIndex]) });
