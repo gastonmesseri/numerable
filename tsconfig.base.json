@@ -11,17 +11,5 @@
         "declaration": true,
         "sourceMap": true,
         "allowSyntheticDefaultImports": true,
-
-        // This property only works for the output folder structure
-        "rootDir": "src/",
-
-        "declarationDir": "./dist/",
-        "outDir": "./dist/",
     },
-    "include": [
-        "src/**/*.ts",
-    ],
-    "exclude": [
-        "src/locale/*.ts",
-    ]
 }

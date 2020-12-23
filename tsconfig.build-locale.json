@@ -1,20 +1,7 @@
 {
+    "extends": "./tsconfig.base.json",
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-        "lib": ["dom", "es7"],
-
-        "declaration": true,
-        "sourceMap": true,
-        "allowSyntheticDefaultImports": true,
-
-        // This is only for the output folder structure
         "rootDir": "src/locale/",
-
         "declarationDir": "./locale/",
         "outDir": "./locale/",
     },
