@@ -51,16 +51,13 @@ const resolveOptionsFormatters = (optionsFormatters: NumerableFormatNumberOption
 };
 
 const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
-    const optionsWithDefaults = merge(DEFAULT_FORMAT_OPTIONS, options) as NumerableFormatNumberOptions;
+    const optionsWithDefaults = merge(DEFAULT_FORMAT_OPTIONS, options) as ResolvedNumerableFormatNumberOptions;
     const resolvedPattern = optionsWithDefaults.defaultPattern || '0,0.##########';
     const resolvedRoundingFunction = resolveRoundingOption(optionsWithDefaults.rounding);
     const resolvedLocale = resolveOptionsLocale(optionsWithDefaults.locale);
     const resolvedFormatters = resolveOptionsFormatters(options?.formatters);
 
     return merge(optionsWithDefaults, {
-        nullFormat: optionsWithDefaults.nullFormat || '',
-        type: optionsWithDefaults.type || null,
-        scalePercentage: optionsWithDefaults.scalePercentage || true,
         defaultPattern: resolvedPattern,
         rounding: resolvedRoundingFunction,
         locale: resolvedLocale,
