@@ -191,7 +191,7 @@ const locales = {
 ​
 export default function (value, pattern = '0,0.000', options) {
     const appLocaleId = window.__myLocaleId__;
-    return format(value, pattern, { locale: locales[appLocaleId] });
+    return format(value, pattern, { locale: locales[appLocaleId], ...options });
 }
 ​
 ```
