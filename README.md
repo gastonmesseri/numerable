@@ -27,12 +27,10 @@ npm install --save numerable
 yarn add numerable
 ```
 
-
-
-## Usage
+### Usage
 
 ```javascript
-import { format, parse, round } from 'numerable';
+import { format, parse } from 'numerable';
 
 format(1500250.2, '0,0.00');
 //=> '1,500,250.20'
@@ -42,71 +40,153 @@ format(0.25, '0.0 %');
 
 parse('80.5%');
 //=> 0.805
-
-round(25.4875, 2);
-//=> 25.49
 ```
 
+---
 
-#### Format examples
+## format()
+
+
+\- Syntax
+```
+format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
+```
+
+-  *number*
+    - type: ***number*** | ***string*** | ***null*** | ***undefined***
+    - The number to format
+
+- *pattern*
+    - type: ***string*** | ***null*** | ***undefined***
+    - default: ***"0,0.##########"***
+    - The pattern used to format the provided number.
+    - examples:
+        - `"0.00"`
+        - `"0,0.00##"`
+        - `"0,0.00 %"`
+        - `"0.0 a"`
+      
+- *options*
+    - type: ***FormatOptions*** | ***null*** | ***undefined***
+    - The options to apply in the format process.
+    - example:
+        ```javascript
+        format(1234.56, '0,0.00', {
+            defaultPattern: '0,0.##########',
+            nullFormat: 'N/A',
+            nanFormat: 'NaN',
+            zeroFormat: '-',
+            rounding: 'floor',
+            locale: fr,
+        });
+        ```
+    - FormatOptions properties:
+        - **defaultPattern**: 
+            - type: ***string***
+            - default: ***"0,0.##########"***
+            - It will be the formatting pattern applied in case that the provided pattern in the arguments is null, undefined or "" (empty string).
+
+        - **rounding**: 
+            - type: 
+                - ***string***: *"truncate"* | *"ceil"* | *"floor"* | *"round"*  
+                or
+                - ***function***: *(value: number) => number*
+            - default: ***Math.round***
+            - It will be the rounding function applied to the number in the resolved maximum amount of decimal places.
+
+        - **nullFormat**: 
+            - type: ***string***
+            - default: ***""***
+            - If defined, it will be the returned string when the value is ***null*** | ***undefined*** | ***NaN***.
+
+        - **nanFormat**: 
+            - type: ***string***
+            - default: ***""***
+            - If defined, it will be the returned string when the value is ***NaN***.
+
+        - **zeroFormat**: 
+            - type: ***string***
+            - default: ***undefined***
+            - If defined, it will be the returned string when the value is ***0***.
+
+        - **locale**: 
+            - type: ***NumerableLocale*** | ***string***
+            - default: ***en NumerableLocale***
+            - If a **NumerableLocale** is passed, it will format the number with the specified locale.
+            - If a **string** with a valid **language tag** is passed (e.g. "en-IN"), it will format the number based on the platform **[Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)**.
+
+        - **scalePercentage**: 
+            - type: ***boolean***
+            - default: ***true***
+            - If **true** (default), it will multiply the number by 100 when a percentage format is detected. If **false**,  the number won't be scaled when a percentage format is detected.  
+
+---
+
+
+
+## Formatting numbers
+
+Numbers formatting in **numerable** is done through a pattern-based syntax. With these patterns you can easily define common number formats, similar to date formatting. 
+
+The numeric pattern syntax defines:
+- **Amount of decimal places**
+- **Thousands separator** (grouping)
+- **Number sign type** (**+** **-** and **()**)
+- **Number sign position**
+
+
+\- Examples
 
 |          Number 	|      Pattern 	|             Result 	|
 |---------------:	|-------------:	|-------------------:	|
 |          10000 	|   "0,0.0000" 	|      "10,000.0000" 	|
-|           1.23 	|        "0,0" 	|                "1" 	|
+|           1.23 	|        "0.0" 	|              "1.2" 	|
 |       10000.23 	|        "0,0" 	|           "10,000" 	|
 |  1000.23456789 	|      "0,0.X" 	|   "1,000.23456789" 	|
 |              0 	|       "0.00" 	|             "0.00" 	|
 |         -10000 	|      "0,0.0" 	|        "-10,000.0" 	|
 |     10000.1234 	|      "0.000" 	|        "10000.123" 	|
 |      10000.001 	|     "0[.]00" 	|            "10000" 	|
-|      10000.456 	|    "0[.]00#" 	|        "10000.456" 	|
-|          10000 	| "(0,0.0000)" 	|      "10,000.0000" 	|
 |         -10000 	| "(0,0.0000)" 	|    "(10,000.0000)" 	|
 |         -12300 	|  "+0,0.0000" 	|     "-12,300.0000" 	|
-|           1230 	|       "+0,0" 	|           "+1,230" 	|
-|           1230 	|       "-0,0" 	|            "1,230" 	|
-|          -1230 	|       "-0,0" 	|           "-1,230" 	|
-|        -1230.4 	|     "0,0.0+" 	|         "1,230.4-" 	|
-|        -1230.4 	|     "0,0.0-" 	|         "1,230.4-" 	|
-|         1230.4 	|     "0,0.0-" 	|          "1,230.4" 	|
-|         100.78 	|          "0" 	|              "101" 	|
-|          1.932 	|        "0.0" 	|              "1.9" 	|
-|         1.9687 	|        "0.0" 	|              "2.0" 	|
-|          -0.23 	|        ".00" 	|             "-.23" 	|
-|          -0.23 	|      "(.00)" 	|            "(.23)" 	|
-|           0.23 	|    "0.00000" 	|          "0.23000" 	|
+|          12300 	|  "+0,0.0000" 	|     "+12,300.0000" 	|
+|           1230 	|       "0,0+" 	|           "1,230+" 	|
+|           1230 	|       "0,0-" 	|            "1,230" 	|
 |           0.67 	|    "0.0####" 	|             "0.67" 	|
+|           0.67 	|    "0.000##" 	|            "0.670" 	|
 |        3162.63 	| "0.0#######" 	|          "3162.63" 	|
-|           1.99 	|        "0.#" 	|                "2" 	|
-|         1.0501 	|      "0.00#" 	|             "1.05" 	|
-|          1.005 	|       "0.00" 	|             "1.01" 	|
-|              0 	|       "00.0" 	|             "00.0" 	|
 |           0.23 	|     "000.##" 	|           "000.23" 	|
-|              4 	|        "000" 	|              "004" 	|
-|             10 	|      "00000" 	|            "00010" 	|
-|           1000 	|      "000,0" 	|            "1,000" 	|
-|           1000 	|    "00000,0" 	|           "01,000" 	|
-|           1000 	|  "0000000,0" 	|        "0,001,000" 	|
-|     2000000000 	|       "0.0a" 	|             "2.0B" 	|
-|        1230974 	|       "0.0a" 	|             "1.2M" 	|
-|           1460 	|         "0a" 	|               "1K" 	|
-|        -104000 	|        "0 a" 	|           "-104 K" 	|
-|         999950 	|       "0.0a" 	|             "1.0M" 	|
-|      999999999 	|         "0a" 	|               "1B" 	|
-| -5444333222111 	|     "0,0 ak" 	| "-5,444,333,222 K" 	|
-|  5444333222111 	|     "0,0 am" 	|      "5,444,333 M" 	|
-| -5444333222111 	|     "0,0 ab" 	|         "-5,444 B" 	|
-| -5444333222111 	|     "0,0 at" 	|             "-5 T" 	|
-|         123456 	|    "0.0# ak" 	|         "123.46 K" 	|
-|            150 	|     "0.0 ak" 	|            "0.2 K" 	|
 |      undefined 	|     "0,0.00" 	|                 "" 	|
 |           null 	|       "0.00" 	|                 "" 	|
 |            NaN 	|        "0.0" 	|                 "" 	|
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | 
 
+#### Percentages
+
+By adding the % symbol to any of the previous patterns, the value is multiplied by 100 and the % symbol is added in the place indicated.
 
 
+|          Number 	|      Pattern 	|             Result 	|
+|---------------:	|-------------:	|-------------------:	|
+|           0.52 	|      "0.##%" 	|              "52%" 	|
+|              1 	|      "0.##%" 	|             "100%" 	|
+|              1 	|   "0,0.00 %" 	|         "100.00 %" 	|
+|          -0.88 	|        "0 %" 	|            "-88 %" 	|
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | 
+
+#### Abbreviated numbers
+
+If an abbreviation is specified in the pattern (**a**), **numerable** will look for the shortest abbreviation for your number, and it will display the number with a locale-specific abbreviation. 
+
+|          Number 	|      Pattern 	|             Result 	|  Locale            |
+|---------------:	|-------------:	|-------------------:	|:------------------:|
+|     2000000000 	|       "0.0a" 	|             "2.0B" 	|    en (English)    |
+|        1230974 	|       "0.0a" 	|             "1.2M" 	|    en (English)    |
+|           2460 	|        "0 a" 	|            "2 mil" 	|    es (Spanish)    | 
+|        -104000 	|        "0 a" 	|           "-104 K" 	|    en (English)    | 
+|         999950 	|       "0.0a" 	|          "1.0тыс." 	|    ru (Russian)    | 
+|      999999999 	|        "0 a" 	|           "1 Mio." 	|    de (German)     | 
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | |
 
 
 ---
@@ -275,8 +355,11 @@ Thank you for your support! -->
 
 ## Acknowledgements
 
-**numerable** started as a fork from [Adam Draper](https://github.com/adamwdraper)'s project [Numeral.js](http://numeraljs.com/). It has been completely rewriten in Typescript with a functional API and extended features. Also, [date-fns](https://date-fns.org/) served as inspiration for some of the features.
+**numerable** started as a fork from [Adam Draper](https://github.com/adamwdraper)'s project [Numeral.js](http://numeraljs.com/).  
+It has been completely rewriten in Typescript with a functional API and extended features.  
+Also, [date-fns](https://date-fns.org/) served as inspiration for some of the features.
 
+> The patterns used in **numerable** are an extended version of the original patterns created by [Numeral.js](http://numeraljs.com/).  
 
 
 ## Contributing
