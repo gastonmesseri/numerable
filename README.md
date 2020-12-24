@@ -61,7 +61,7 @@ The numeric pattern syntax defines:
 - **Positive sign visibility**
 
 
-\- Examples
+Examples
 
 |          Number 	|      Pattern 	|             Result 	|    Locale         |
 |---------------:	|-------------:	|-------------------:	|:-----------------:|
