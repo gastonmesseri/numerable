@@ -17,7 +17,7 @@
 > :warning: **numerable** is still under development. So I cannot yet provide an stable version of it, but you can still try it. Be aware that the current api can potentially change.  
 
 
-## Installation
+## :gear: Installation
 
 Use [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) to install **numerable**.
 
@@ -27,7 +27,7 @@ npm install --save numerable
 yarn add numerable
 ```
 
-### Usage
+## :book: Usage
 
 ```javascript
 import { format, parse } from 'numerable';
@@ -49,7 +49,7 @@ parse('80.5%');
 
 
 
-## Formatting numbers
+### Formatting numbers
 
 Numbers formatting in **numerable** is done through a pattern-based syntax. With these patterns you can easily define common number formats, similar to date formatting. 
 
@@ -58,6 +58,7 @@ The numeric pattern syntax defines:
 - **Thousands separator** (grouping)
 - **Number sign type** (**+** **-** and **()**)
 - **Number sign position**
+- **Positive sign visibility**
 
 
 \- Examples
@@ -135,7 +136,7 @@ Given an amount of seconds, it will display hours, minutes, and seconds.
 
 
 
-## format()
+### format()
 
 
 \- Syntax
@@ -215,7 +216,7 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
 
 ---
 
-## Internationalization (i18n)
+## :flags: Internationalization (i18n)
 
 **numerable** includes two functions that support i18n:
 - ***format***
@@ -377,7 +378,7 @@ Thank you for your support! -->
 
 
 
-## Acknowledgements
+## :star: Acknowledgements
 
 **numerable** started as a fork from [Adam Draper](https://github.com/adamwdraper)'s project [Numeral.js](http://numeraljs.com/).  
 It has been completely rewriten in Typescript with a functional API and extended features.  
@@ -386,7 +387,7 @@ Also, [date-fns](https://date-fns.org/) served as inspiration for some of the fe
 > The patterns used in **numerable** are an extended version of the original patterns created by [Numeral.js](http://numeraljs.com/).  
 
 
-## Contributing
+## :raised_hands: Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
@@ -394,6 +395,6 @@ Please make sure to update tests as appropriate.
 
 
 
-## License
+## :pencil: License
 
 [MIT © Gaston Meseri](LICENSE.md)
