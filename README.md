@@ -14,7 +14,7 @@
 
 **numerable** is a Javascript library with a set of formatting and manipulation tools for dealing with numbers.
 
-:warning: **numerable** is still under development. So I cannot yet provide an stable version of it, but you can still try it. Be aware that the current api can change.  
+:warning: **numerable** is still under development. So I cannot yet provide an stable version of it, but you can still try it. Be aware that the current api can potentially change.  
 
 
 ## Installation
@@ -43,6 +43,78 @@ parse('80.5%');
 ```
 
 ---
+
+
+
+## Formatting numbers
+
+Numbers formatting in **numerable** is done through a pattern-based syntax. With these patterns you can easily define common number formats, similar to date formatting. 
+
+The numeric pattern syntax defines:
+- **Amount of decimal places**
+- **Thousands separator** (grouping)
+- **Number sign type** (**+** **-** and **()**)
+- **Number sign position**
+
+
+\- Examples
+
+|          Number 	|      Pattern 	|             Result 	|    Locale         |
+|---------------:	|-------------:	|-------------------:	|:-----------------:|
+|          10000 	|   "0,0.0000" 	|      "10,000.0000" 	|  en (English)     |
+|           1.23 	|        "0.0" 	|              "1.2" 	|  en (English)     |
+|       10000.23 	|        "0,0" 	|           "10,000" 	|  en (English)     |
+|  1000.23456789 	|      "0,0.X" 	|   "1,000.23456789" 	|  en (English)     |
+|  1000.23456789 	|      "0,0.X" 	|   "1 000,23456789" 	|  fr (French)      |
+|              0 	|       "0.00" 	|             "0,00" 	|  fr (French)     |
+|         -10000 	|      "0,0.0" 	|        "-10.000,0" 	|  es (Spanish)     |
+|     10000.1234 	|      "0.000" 	|        "10000.123" 	|  en (English)     |
+|      10000.001 	|     "0[.]00" 	|            "10000" 	|  en (English)     |
+|         -10000 	| "(0,0.0000)" 	|    "(10,000.0000)" 	|  en (English)     |
+|         -12300 	|  "+0,0.0000" 	|     "-12,300.0000" 	|  en (English)     |
+|          12300 	|  "+0,0.0000" 	|     "+1,2300.0000" 	|  ja (Japanese)     |
+|           1230 	|       "0,0+" 	|           "1,230+" 	|  en (English)     |
+|           1230 	|       "0,0-" 	|            "1,230" 	|  en (English)     |
+|           0.67 	|    "0.0####" 	|             "0.67" 	|  en (English)     |
+|           0.67 	|    "0.000##" 	|            "0.670" 	|  en (English)     |
+|        3162.63 	| "0.0#######" 	|          "3162.63" 	|  en (English)     |
+|           0.23 	|     "000.##" 	|           "000.23" 	|  en (English)     |
+|       1234.567    |     "0,0.00"  |        "١‎٬٢‎٣‎٤‎٫٥‎٧‎"    |  arEG (Arabic)    |
+|      undefined 	|     "0,0.00" 	|                 "" 	|  en (English)     |
+|           null 	|       "0.00" 	|                 "" 	|  en (English)     |
+|            NaN 	|        "0.0" 	|                 "" 	|  en (English)     |
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
+
+#### Percentages
+
+By adding the % symbol to any of the previous patterns, the value is multiplied by 100 and the % symbol is added in the place indicated.
+
+
+|          Number 	|      Pattern 	|             Result 	|  Locale           |
+|---------------:	|-------------:	|-------------------:	|:-----------------:| 
+|           0.52 	|      "0.##%" 	|              "52%" 	|  en (English)     | 
+|              1 	|      "0.##%" 	|             "100%" 	|  en (English)     | 
+|              1 	|   "0,0.00 %" 	|         "100.00 %" 	|  en (English)     | 
+|          -0.88 	|        "0 %" 	|            "-88 %" 	|  en (English)     | 
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
+
+#### Abbreviated numbers
+
+If an abbreviation is specified in the pattern (**a**), **numerable** will look for the shortest abbreviation for your number, and it will display the number with a locale-specific abbreviation. 
+
+|          Number 	|      Pattern 	|             Result 	|  Locale            |
+|---------------:	|-------------:	|-------------------:	|:------------------:|
+|     2000000000 	|       "0.0a" 	|             "2.0B" 	|    en (English)    |
+|        1230974 	|       "0.0a" 	|             "1.2M" 	|    en (English)    |
+|           2460 	|        "0 a" 	|            "2 mil" 	|    es (Spanish)    | 
+|        -104000 	|        "0 a" 	|           "-104 K" 	|    en (English)    | 
+|         999950 	|       "0.0a" 	|          "1.0тыс." 	|    ru (Russian)    | 
+|      999999999 	|        "0 a" 	|           "1 Mio." 	|    de (German)     | 
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
+
+---
+
+
 
 ## format()
 
@@ -120,75 +192,6 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
             - default: ***true***
             - If **true** (default), it will multiply the number by 100 when a percentage format is detected. If **false**,  the number won't be scaled when a percentage format is detected.  
 
----
-
-
-
-## Formatting numbers
-
-Numbers formatting in **numerable** is done through a pattern-based syntax. With these patterns you can easily define common number formats, similar to date formatting. 
-
-The numeric pattern syntax defines:
-- **Amount of decimal places**
-- **Thousands separator** (grouping)
-- **Number sign type** (**+** **-** and **()**)
-- **Number sign position**
-
-
-\- Examples
-
-|          Number 	|      Pattern 	|             Result 	|    Locale         |
-|---------------:	|-------------:	|-------------------:	|:-----------------:|
-|          10000 	|   "0,0.0000" 	|      "10,000.0000" 	|  en (English)     |
-|           1.23 	|        "0.0" 	|              "1.2" 	|  en (English)     |
-|       10000.23 	|        "0,0" 	|           "10,000" 	|  en (English)     |
-|  1000.23456789 	|      "0,0.X" 	|   "1,000.23456789" 	|  en (English)     |
-|  1000.23456789 	|      "0,0.X" 	|   "1 000,23456789" 	|  fr (French)      |
-|              0 	|       "0.00" 	|             "0,00" 	|  fr (French)     |
-|         -10000 	|      "0,0.0" 	|        "-10.000,0" 	|  es (Spanish)     |
-|     10000.1234 	|      "0.000" 	|        "10000.123" 	|  en (English)     |
-|      10000.001 	|     "0[.]00" 	|            "10000" 	|  en (English)     |
-|         -10000 	| "(0,0.0000)" 	|    "(10,000.0000)" 	|  en (English)     |
-|         -12300 	|  "+0,0.0000" 	|     "-12,300.0000" 	|  en (English)     |
-|          12300 	|  "+0,0.0000" 	|     "+1,2300.0000" 	|  ja (Japanese)     |
-|           1230 	|       "0,0+" 	|           "1,230+" 	|  en (English)     |
-|           1230 	|       "0,0-" 	|            "1,230" 	|  en (English)     |
-|           0.67 	|    "0.0####" 	|             "0.67" 	|  en (English)     |
-|           0.67 	|    "0.000##" 	|            "0.670" 	|  en (English)     |
-|        3162.63 	| "0.0#######" 	|          "3162.63" 	|  en (English)     |
-|           0.23 	|     "000.##" 	|           "000.23" 	|  en (English)     |
-|       1234.567    |     "0,0.00"  |        "١‎٬٢‎٣‎٤‎٫٥‎٧‎"    |  arEG (Arabic)    |
-|      undefined 	|     "0,0.00" 	|                 "" 	|  en (English)     |
-|           null 	|       "0.00" 	|                 "" 	|  en (English)     |
-|            NaN 	|        "0.0" 	|                 "" 	|  en (English)     |
-| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
-
-#### Percentages
-
-By adding the % symbol to any of the previous patterns, the value is multiplied by 100 and the % symbol is added in the place indicated.
-
-
-|          Number 	|      Pattern 	|             Result 	|  Locale           |
-|---------------:	|-------------:	|-------------------:	|:-----------------:| 
-|           0.52 	|      "0.##%" 	|              "52%" 	|  en (English)     | 
-|              1 	|      "0.##%" 	|             "100%" 	|  en (English)     | 
-|              1 	|   "0,0.00 %" 	|         "100.00 %" 	|  en (English)     | 
-|          -0.88 	|        "0 %" 	|            "-88 %" 	|  en (English)     | 
-| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
-
-#### Abbreviated numbers
-
-If an abbreviation is specified in the pattern (**a**), **numerable** will look for the shortest abbreviation for your number, and it will display the number with a locale-specific abbreviation. 
-
-|          Number 	|      Pattern 	|             Result 	|  Locale            |
-|---------------:	|-------------:	|-------------------:	|:------------------:|
-|     2000000000 	|       "0.0a" 	|             "2.0B" 	|    en (English)    |
-|        1230974 	|       "0.0a" 	|             "1.2M" 	|    en (English)    |
-|           2460 	|        "0 a" 	|            "2 mil" 	|    es (Spanish)    | 
-|        -104000 	|        "0 a" 	|           "-104 K" 	|    en (English)    | 
-|         999950 	|       "0.0a" 	|          "1.0тыс." 	|    ru (Russian)    | 
-|      999999999 	|        "0 a" 	|           "1 Mio." 	|    de (German)     | 
-| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
 ---
@@ -374,4 +377,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](LICENSE.md) Copyright (c) 2020-present Gaston Meseri
