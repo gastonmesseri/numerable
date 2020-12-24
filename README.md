@@ -391,4 +391,4 @@ Please make sure to update tests as appropriate.
 
 ## License
 
-[MIT](LICENSE.md) Copyright (c) 2020-present Gaston Meseri
+[MIT © Gaston Meseri](LICENSE.md)
