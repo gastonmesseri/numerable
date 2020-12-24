@@ -272,7 +272,9 @@ Thank you for your support! -->
 
 
 
+## Acknowledgements
 
+**numerable** started as a fork from [Adam Draper](https://github.com/adamwdraper)'s project [Numeral.js](http://numeraljs.com/). It has been completely rewriten in Typescript with a functional API.
 
 
 
