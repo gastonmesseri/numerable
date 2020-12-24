@@ -161,7 +161,7 @@ The numeric pattern syntax defines:
 |      undefined 	|     "0,0.00" 	|                 "" 	|  en (English)     |
 |           null 	|       "0.00" 	|                 "" 	|  en (English)     |
 |            NaN 	|        "0.0" 	|                 "" 	|  en (English)     |
-| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="120" height="1"> |
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 #### Percentages
 
@@ -174,7 +174,7 @@ By adding the % symbol to any of the previous patterns, the value is multiplied 
 |              1 	|      "0.##%" 	|             "100%" 	|  en (English)     | 
 |              1 	|   "0,0.00 %" 	|         "100.00 %" 	|  en (English)     | 
 |          -0.88 	|        "0 %" 	|            "-88 %" 	|  en (English)     | 
-| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="120" height="1"> |
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 #### Abbreviated numbers
 
@@ -188,7 +188,7 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 |        -104000 	|        "0 a" 	|           "-104 K" 	|    en (English)    | 
 |         999950 	|       "0.0a" 	|          "1.0тыс." 	|    ru (Russian)    | 
 |      999999999 	|        "0 a" 	|           "1 Mio." 	|    de (German)     | 
-| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="120" height="1"> |
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
 ---
