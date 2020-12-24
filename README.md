@@ -103,6 +103,7 @@ round(25.4875, 2);
 |      undefined 	|     "0,0.00" 	|                 "" 	|
 |           null 	|       "0.00" 	|                 "" 	|
 |            NaN 	|        "0.0" 	|                 "" 	|
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | 
 
 
 
@@ -274,32 +275,7 @@ Thank you for your support! -->
 
 ## Acknowledgements
 
-**numerable** started as a fork from [Adam Draper](https://github.com/adamwdraper)'s project [Numeral.js](http://numeraljs.com/). It has been completely rewriten in Typescript with a functional API.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+**numerable** started as a fork from [Adam Draper](https://github.com/adamwdraper)'s project [Numeral.js](http://numeraljs.com/). It has been completely rewriten in Typescript with a functional API and extended features. Also, [date-fns](https://date-fns.org/) served as inspiration for some of the features.
 
 
 
