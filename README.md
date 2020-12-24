@@ -78,6 +78,7 @@ The numeric pattern syntax defines:
 |           0.67 	|    "0.0####" 	|             "0.67" 	|  en (English)     |
 |           0.67 	|    "0.000##" 	|            "0.670" 	|  en (English)     |
 |        3162.63 	| "0.0#######" 	|          "3162.63" 	|  en (English)     |
+|  3162.63389766 	| "0.0#######" 	|    "3162.63389766" 	|  en (English)     |
 |           0.23 	|     "000.##" 	|           "000.23" 	|  en (English)     |
 |       1234.567    |     "0,0.00"  |        "١‎٬٢‎٣‎٤‎٫٥‎٧‎"    |  arEG (Arabic)    |
 |      undefined 	|     "0,0.00" 	|                 "" 	|  en (English)     |
@@ -110,6 +111,19 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 |        -104000 	|        "0 a" 	|           "-104 K" 	|    en (English)    | 
 |         999950 	|       "0.0a" 	|          "1.0тыс." 	|    ru (Russian)    | 
 |      999999999 	|        "0 a" 	|           "1 Mio." 	|    de (German)     | 
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
+
+
+#### Time durations
+
+Given an amount of seconds, it will display hours, minutes, and seconds.
+
+|          Number 	|      Pattern 	|             Result 	|  Locale            |
+|---------------:	|-------------:	|-------------------:	|:------------------:|
+|              0 	|   "00:00:00" 	|         "00:00:00" 	|    en (English)    |
+|             37 	|   "00:00:00" 	|         "00:00:37" 	|    en (English)    |
+|            520 	|      "00:00" 	|         "00:08:40" 	|    en (English)    |
+|          48923 	|      "00:00" 	|         "13:35:23" 	|    en (English)    | 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 ---
