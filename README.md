@@ -157,7 +157,7 @@ The numeric pattern syntax defines:
 |           0.67 	|    "0.000##" 	|            "0.670" 	|  en (English)     |
 |        3162.63 	| "0.0#######" 	|          "3162.63" 	|  en (English)     |
 |           0.23 	|     "000.##" 	|           "000.23" 	|  en (English)     |
-|       1234.567    |     "0,0.00"  |        "١‎٬٢‎٣‎٤‎٫٥‎٧‎"    |  arEG (Arabic-Egipt)    |
+|       1234.567    |     "0,0.00"  |        "١‎٬٢‎٣‎٤‎٫٥‎٧‎"    |  arEG (Arabic)    |
 |      undefined 	|     "0,0.00" 	|                 "" 	|  en (English)     |
 |           null 	|       "0.00" 	|                 "" 	|  en (English)     |
 |            NaN 	|        "0.0" 	|                 "" 	|  en (English)     |
