@@ -153,8 +153,8 @@ In order to handle internationalization, **numerable** provides you two ways of 
 
 \- The locale option has the following interface
 - **locale**: 
-  - type: ***[NumerableLocale](locale)*** | ***string***
-  - default: ***en [NumerableLocale](locale)***
+  - type: ***NumerableLocale*** | ***string***
+  - default: ***en NumerableLocale***
 
 ```javascript
 import { format, parse } from 'numerable';
@@ -239,6 +239,7 @@ format(1234.56, '0.000', { locale: fr }); // Returns "1 234,560"
 format(2500000, '0,0.0 a', { locale: es }); //=> '2,5 M'
 format(2500000, '0,0.0 a', { locale: enIN }); //=> '25.0 L'
 format(2500000, '0,0.0', { locale: zh }); //=> '250,0000.0'
+format(2544609, '0,0.0', { locale: arEG }); //=> '٢‎٬٥‎٤‎٤‎٬٦‎٠‎٩‎٫٠‎'
 ```
 ---
 
