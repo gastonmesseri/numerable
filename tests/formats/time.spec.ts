@@ -1,5 +1,5 @@
-import { format } from '../../src';
-import parse from '../../src/formatter/parse/parse';
+import parse from '../../src/api/parse';
+import format from '../../src/api/format';
 
 describe('format: time', () => {
     describe('format', () => {
@@ -8,25 +8,40 @@ describe('format: time', () => {
                 [0, '00:00:00', '0:00:00'],
                 [null, '00:00:00', ''],
                 [25, '00:00:00', '0:00:25'],
+                [-25, '00:00:00', '-0:00:25'],
                 [238, '00:00:00', '0:03:58'],
+                [-238, '00:00:00', '-0:03:58'],
                 [63846, '00:00:00', '17:44:06'],
+                [-63846, '00:00:00', '-17:44:06'],
+                [37, '00:00:00', '0:00:37'],
+                [-37, '00:00:00', '-0:00:37'],
+                [520, '00:00', '0:08:40'],
+                [-520, '00:00', '-0:08:40'],
+                [48923, '00:00', '13:35:23'],
+                [-48923, '00:00', '-13:35:23'],
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = format(value, pattern);
-                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+                expect([value, pattern, format(value, pattern)]).toEqual([value, pattern, expectedResult]);
             });
         });
 
         it('should unformat to time', function() {
             const tests = [
                 ['00:25', 25],
+                ['-00:25', -25],
                 ['01:25', 85],
+                ['-01:25', -85],
                 ['10:25', 625],
+                ['-10:25', -625],
                 ['0:00:00', 0],
+                ['-0:00:00', 0],
                 ['0:00:25', 25],
+                ['-0:00:25', -25],
                 ['0:03:58', 238],
+                ['-0:03:58', -238],
                 ['17:44:06', 63846],
+                ['-17:44:06', -63846],
             ];
 
             tests.forEach(([formattedString, expectedResult]) => {

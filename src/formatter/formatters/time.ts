@@ -8,24 +8,24 @@ const timeFormatter: NumerableFormatter = {
     },
     format: (number) => {
         const resolvedValue = number || 0;
-        const hours = Math.floor(resolvedValue / 60 / 60);
-        const minutes = Math.floor((resolvedValue - (hours * 60 * 60)) / 60);
-        const seconds = Math.round(resolvedValue - (hours * 60 * 60) - (minutes * 60));
-        return hours + ':' + (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds);
+        const absoluteValue = Math.abs(resolvedValue);
+        const sign = resolvedValue < 0 ? '-' : '';
+        const hours = Math.floor(absoluteValue / 3600);
+        const minutes = Math.floor((absoluteValue - (hours * 3600)) / 60);
+        const seconds = Math.round(absoluteValue - (hours * 3600) - (minutes * 60));
+        return `${sign}${hours}:${(minutes < 10 ? '0' : '') + minutes}:${(seconds < 10 ? '0' : '') + seconds}`;
     },
     unformat: (string: string) => {
-        const timeArray = string.split(':');
-        let seconds = 0;
+        const isNegative = /^ *-/.test(string);
+        const stringWithoutSign = string.replace(/^ *-/, '');
+        const timeArray = stringWithoutSign.split(':').reverse();
 
-        if (timeArray.length === 3) {
-            seconds += +timeArray[0] * 3600;
-            seconds += +timeArray[1] * 60;
-            seconds += +timeArray[2];
-        } else if (timeArray.length === 2) {
-            seconds += +timeArray[0] * 60;
-            seconds += +timeArray[1];
-        }
-        return +seconds;
+        let seconds = 0;
+        seconds += +timeArray[0];
+        seconds += +timeArray[1] * 60;
+        seconds += (+timeArray[2] || 0) * 3600;
+
+        return isNegative && seconds !== 0 ? -seconds : seconds;
     },
 };
 

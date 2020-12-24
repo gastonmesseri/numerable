@@ -120,10 +120,11 @@ Given an amount of seconds, it will display hours, minutes, and seconds.
 
 |          Number 	|      Pattern 	|             Result 	|  Locale            |
 |---------------:	|-------------:	|-------------------:	|:------------------:|
-|              0 	|   "00:00:00" 	|         "00:00:00" 	|    en (English)    |
-|             37 	|   "00:00:00" 	|         "00:00:37" 	|    en (English)    |
-|            520 	|      "00:00" 	|         "00:08:40" 	|    en (English)    |
+|              0 	|   "00:00:00" 	|          "0:00:00" 	|    en (English)    |
+|             37 	|   "00:00:00" 	|          "0:00:37" 	|    en (English)    |
+|            520 	|      "00:00" 	|          "0:08:40" 	|    en (English)    |
 |          48923 	|      "00:00" 	|         "13:35:23" 	|    en (English)    | 
+|         -48923 	|      "00:00" 	|        "-13:35:23" 	|    en (English)    | 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 ---

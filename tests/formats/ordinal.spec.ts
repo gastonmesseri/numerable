@@ -1,6 +1,6 @@
-import { format } from '../../src';
 import { en } from '../../src/locale';
-import parse from '../../src/formatter/parse/parse';
+import parse from '../../src/api/parse';
+import format from '../../src/api/format';
 
 describe('format: ordinal', () => {
     describe('format', () => {

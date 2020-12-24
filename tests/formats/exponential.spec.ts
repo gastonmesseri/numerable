@@ -1,5 +1,5 @@
-import { format } from '../../src';
-import parse from '../../src/formatter/parse/parse';
+import parse from '../../src/api/parse';
+import format from '../../src/api/format';
 
 describe('format: exponential', () => {
     describe('format', () => {
