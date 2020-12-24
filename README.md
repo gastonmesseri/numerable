@@ -12,9 +12,9 @@
 
 # [numerable](https://github.com/gastonmesseri/numerable)
 
-**numerable** is a Javascript library with a set of formatting and manipulation tools for dealing with numbers.
+**numerable** is a number formatting library for Javascript and Typescript apps.
 
-:warning: **numerable** is still under development. So I cannot yet provide an stable version of it, but you can still try it. Be aware that the current api can potentially change.  
+> :warning: **numerable** is still under development. So I cannot yet provide an stable version of it, but you can still try it. Be aware that the current api can potentially change.  
 
 
 ## Installation
