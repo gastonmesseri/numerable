@@ -107,9 +107,9 @@ Examples
 |      3162.6338 	|    "0.0####" 	|        "3162.6338" 	|  en (English)     |
 |           0.23 	|     "000.##" 	|           "000.23" 	|  en (English)     |
 |       1234.567    |     "0,0.00"  |        "١‎٬٢‎٣‎٤‎٫٥‎٧‎"    |  arEG (Arabic)    |
-|      undefined 	|     "0,0.00" 	|                 "" 	|  en (English)     |
-|           null 	|       "0.00" 	|                 "" 	|  en (English)     |
-|            NaN 	|        "0.0" 	|                 "" 	|  en (English)     |
+|     *undefined* 	|     "0,0.00" 	|                 "" 	|  en (English)     |
+|          *null* 	|       "0.00" 	|                 "" 	|  en (English)     |
+|           *NaN* 	|        "0.0" 	|                 "" 	|  en (English)     |
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 #### Percentages
