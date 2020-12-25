@@ -1,13 +1,34 @@
 <p align="center">
-  <img alt="numerable" src="resources/numerable-logo-with-text-384-320.png">
+    <img alt="numerable" src="resources/numerable-logo-with-text-384-320.png">
 </p>
 
 <p align="center">
-  <img alt="numerable-format-demo" width="400" src="resources/numerable-format-demo.gif">
+    <img alt="numerable-format-demo" width="400" src="resources/numerable-format-demo.gif">
 </p>
 
-
-![Build](https://travis-ci.com/gastonmesseri/numerable.svg?branch=master) ![Coveralls](https://coveralls.io/repos/github/gastonmesseri/numerable/badge.svg?branch=master) ![License](https://img.shields.io/badge/license-MIT-blue.svg)
+<p align="center">
+    <a href="https://travis-ci.com/gastonmesseri/numerable.svg?branch=master" alt="Build status">
+        <img src="https://travis-ci.com/gastonmesseri/numerable.svg?branch=master" />
+    </a>
+    <a href="https://coveralls.io/repos/github/gastonmesseri/numerable/badge.svg?branch=master" alt="Build status">
+        <img src="https://coveralls.io/repos/github/gastonmesseri/numerable/badge.svg?branch=master" />
+    </a>
+    <a href="https://img.shields.io/badge/license-MIT-blue.svg" alt="Build status">
+        <img src="https://img.shields.io/badge/license-MIT-blue.svg" />
+    </a>
+    <a href="https://img.shields.io/npm/dw/numerable?label=downloads" alt="Build status">
+        <img src="https://img.shields.io/npm/dw/numerable?label=downloads" />
+    </a>
+    <a href="https://img.shields.io/npm/types/numerable" alt="Build status">
+        <img src="https://img.shields.io/npm/types/numerable" />
+    </a>
+    <a href="https://img.shields.io/github/issues-raw/gastonmesseri/numerable" alt="Build status">
+        <img src="https://img.shields.io/github/issues-raw/gastonmesseri/numerable" />
+    </a>
+    <a href="https://img.shields.io/npm/v/numerable?label=version" alt="Build status">
+        <img src="https://img.shields.io/npm/v/numerable?label=version" />
+    </a>
+</p>
 
 
 # [numerable](https://github.com/gastonmesseri/numerable)
