@@ -34,7 +34,7 @@
     "dependencies": {},
     "devDependencies": {
         "@types/chance": "^1.1.0",
-        "@types/jest": "^26.0.14",
+        "@types/jest": "^26.0.19",
         "@typescript-eslint/eslint-plugin": "^4.9.0",
         "@typescript-eslint/parser": "^4.9.0",
         "chance": "^1.1.7",
