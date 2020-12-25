@@ -2,6 +2,7 @@ import bpsFormatter from './bps';
 import timeFormatter from './time';
 import bytesFormatter from './bytes';
 import ordinalFormatter from './ordinal';
+import currencyFormatter from './currency';
 import percentageFormatter from './percentage';
 import exponentialFormatter from './exponential';
 
@@ -10,6 +11,7 @@ const BUILT_IN_FORMATTERS = [
     timeFormatter,
     bytesFormatter,
     ordinalFormatter,
+    currencyFormatter,
     percentageFormatter,
     exponentialFormatter,
 ];
