@@ -5,14 +5,14 @@ import numberToFormattedNumber from '../../formatter/format/number-to-formatted-
 const ordinalFormatter: NumerableFormatter = {
     name: 'ordinal',
     regexps: {
-        format: /(o)/,
+        format: /o/,
     },
     format: (number, pattern, options) => {
         const resolvedValue = number || 0;
         const localizedOrdinal = options.locale.ordinal?.(resolvedValue) || '';
-        const patternWithEscapedOrdinal = patternReplace(pattern, /o/, `'#o#'`);
+        const patternWithEscapedOrdinal = patternReplace(pattern, /o/, `'#ord#'`);
         const formatResult = numberToFormattedNumber(resolvedValue, patternWithEscapedOrdinal, options);
-        return formatResult.replace('#o#', localizedOrdinal);
+        return formatResult.replace('#ord#', localizedOrdinal);
     }
 };
 
