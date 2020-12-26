@@ -1,13 +1,4 @@
-import escapeRegexString from '../../../dist/core/utils/escape-regex-string';
-
-/**
- * Built-in placeholders are:
- *     - '$s' for sign
- *     - '$n' for number
- *     - '$nps' for negative parenthesis start
- *     - '$npe' for negative parenthesis end
- *     - '$a' for abbreviation
- */
+import escapeRegexString from '../../core/utils/escape-regex-string';
 
 /**
  * This regex will match everything that is surrounded by single quotes
