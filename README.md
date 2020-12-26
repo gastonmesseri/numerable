@@ -140,6 +140,21 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
+#### Currency
+
+**numerable** will format the currency symbol if the currency ISO code ([ISO 4217](https://www.iso.org/iso-4217-currency-codes.html)) is passed as a format option (e.g. `format(155, '$ 0.00', { currency: 'EUR' })`) and the dollar symbol (**$**) is found in the pattern.  
+
+|          Number 	|      Pattern 	|             Result 	|  Currency                 |
+|---------------:	|-------------:	|-------------------:	|:------------------:       |
+|      1500.143 	|    "$0,0.00" 	|          "$1,500.14" 	|   USD (US Dollar)         |
+|      1500.143 	|    "$0,0.00" 	|          "€1,500.14" 	|   EUR (Euro)              |
+|     -1500.143 	|   "0,0.00 $" 	|        "-1,500.14 £" 	|   GBP (Pound Sterling)    |
+|      1500.143 	|   "0,0.00 $" 	|         "1,500.14 ¥" 	|   JPY (Yen)               |
+|      1500.143 	| "(0,0.00 $)" 	|       "1,500.14 CN¥" 	|   CNY (Yuan Renminbi)     |
+|     -1500.143 	| "(0,0.00 $)" 	|      "(1,500.14 A$)" 	|   AUD (Australian dollar) |
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
+
+
 #### Time durations
 
 Given an amount of seconds, it will display hours, minutes, and seconds.
