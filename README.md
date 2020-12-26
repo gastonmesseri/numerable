@@ -174,6 +174,23 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
+#### Ordinal numbers
+
+**numerable** allows you to format ordinal numbers based on the locale. The character '**o**' in the mask will enable the ordinal numbers formatting.
+
+
+|          Number 	|      Pattern 	|             Result 	|  Locale           |
+|---------------:	|-------------:	|-------------------:	|:-----------------:| 
+|              1 	|         "0o" 	|               "1st" 	|  en (English)     | 
+|              2 	|         "0o" 	|               "2nd" 	|  en (English)     | 
+|              3 	|         "0o" 	|               "3rd" 	|  en (English)     | 
+|              4 	|         "0o" 	|               "4th" 	|  en (English)     | 
+|              1 	|         "0o" 	|               "1er" 	|  fr (French)     | 
+|             12 	|         "0o" 	|               "12º" 	|  es (Spanish)     | 
+|              8 	|         "0o" 	|                "8." 	|  de (German)     | 
+| <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
+
+
 #### Time durations
 
 Given an amount of seconds, it will display hours, minutes, and seconds.
