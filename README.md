@@ -70,7 +70,7 @@ parse('80.5%');
 
 
 
-### Formatting numbers
+### :1234: Formatting numbers
 
 Numbers formatting in **numerable** is done through a pattern-based syntax. With these patterns you can easily define common number formats, similar to date formatting. 
 
@@ -113,7 +113,7 @@ Examples
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
-#### Percentages
+#### :small_orange_diamond: Percentages
 
 By adding the % symbol to any of the previous patterns, the value is multiplied by 100 and the % symbol is added in the place indicated.
 
@@ -127,7 +127,7 @@ By adding the % symbol to any of the previous patterns, the value is multiplied 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
-#### Abbreviated numbers
+#### :small_orange_diamond: Abbreviated numbers
 
 If an abbreviation is specified in the pattern (**a**), **numerable** will look for the shortest abbreviation for your number, and it will display the number with a locale-specific abbreviation. 
 
@@ -142,7 +142,7 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
-#### Currency
+#### :small_orange_diamond: Currency
 
 **numerable** will format the currency symbol if the currency ISO code ([ISO 4217](https://www.iso.org/iso-4217-currency-codes.html)) is passed as a format option (e.g. `format(155, '$ 0.00', { currency: 'EUR' })`) and the dollar symbol (**$**) is found in the pattern.  
 
@@ -157,7 +157,7 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
-#### Bytes
+#### :small_orange_diamond: Bytes
 
 **numerable** allows you to format bytes by adding the '**bd**' or '**bb**' characters to the pattern.
 - '**bd**' format bytes in a decimal scale (1000)
@@ -174,7 +174,7 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
-#### Ordinal numbers
+#### :small_orange_diamond: Ordinal numbers
 
 **numerable** allows you to format ordinal numbers based on the locale. The character '**o**' in the mask will enable the ordinal numbers formatting.
 
@@ -191,7 +191,7 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
-#### Time durations
+#### :small_orange_diamond: Time durations
 
 Given an amount of seconds, it will display hours, minutes, and seconds.
 
