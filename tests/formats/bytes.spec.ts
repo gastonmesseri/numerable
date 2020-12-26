@@ -7,9 +7,9 @@ describe('format: bytes', () => {
             const decimal = 1000;
             const binary = 1024;
             const tests: [number | null, string, string][] = [
-                [0, '0b', '0B'],
-                [null, '0 b', ''],
-                [100, '0b', '100B'],
+                [0, '0bd', '0B'],
+                [null, '0 bd', ''],
+                [100, '0bd', '100B'],
                 [1048, '0 bb', '1 KiB'],
                 [-1048, '0 bb', '-1 KiB'],
                 [-1048, '-0 bb', '-1 KiB'],
@@ -26,11 +26,11 @@ describe('format: bytes', () => {
                 [Math.pow(binary, 3) * 7.343, '0.# bb', '7.3 GiB'],
                 [Math.pow(binary, 4) * 3.1536544, '0.000bb', '3.154TiB'],
                 [Math.pow(binary, 5) * 2.953454534534, '0bb', '3PiB'],
-                [decimal * 2, '0 b', '2 KB'],
-                [Math.pow(decimal, 2) * 5, '0b', '5MB'],
-                [Math.pow(decimal, 3) * 7.343, '0.# b', '7.3 GB'],
-                [Math.pow(decimal, 4) * 3.1536544, '0.000b', '3.154TB'],
-                [Math.pow(decimal, 5) * 2.953454534534, '0b', '3PB'],
+                [decimal * 2, '0 bd', '2 KB'],
+                [Math.pow(decimal, 2) * 5, '0bd', '5MB'],
+                [Math.pow(decimal, 3) * 7.343, '0.# bd', '7.3 GB'],
+                [Math.pow(decimal, 4) * 3.1536544, '0.000bd', '3.154TB'],
+                [Math.pow(decimal, 5) * 2.953454534534, '0bd', '3PB'],
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {

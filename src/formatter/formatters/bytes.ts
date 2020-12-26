@@ -18,14 +18,14 @@ const bytesBinaryScale = unitScale({ base: 'B', scale: toObject(binarySuffixes, 
 const bytesFormatter: NumerableFormatter = {
     name: 'bytes',
     regexps: {
-        format: /([0\s]bb?)|(bb?[0\s])/,
+        format: /([0\s]b[bd])|(b[bd][0\s])/,
         unformat: (string, options) => options.type === 'bytes' ? new RegExp(unformatRegex).test(string) : false,
     },
     format: (number, pattern, options) => {
         const resolvedValue = number || 0;
         const scale = patternIncludes(pattern, 'bb') ? bytesBinaryScale : bytesDecimalScale;
         const [scaledValue, scaledValueUnit] = scale.toBest(resolvedValue, 'B');
-        const patternWithEscapedBytes = patternReplace(pattern, /bb?/, `'#bytes#'`);
+        const patternWithEscapedBytes = patternReplace(pattern, /b[bd]/, `'#bytes#'`);
         const formatResult = numberToFormattedNumber(scaledValue, patternWithEscapedBytes, options);
         return formatResult.replace('#bytes#', scaledValueUnit || '');
     },

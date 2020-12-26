@@ -159,17 +159,17 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 
 #### Bytes
 
-**numerable** allows you to format bytes by adding the '**b**' or '**bb**' characters to the pattern.
-- '**b**' format bytes in a decimal scale (1000)
+**numerable** allows you to format bytes by adding the '**bd**' or '**bb**' characters to the pattern.
+- '**bd**' format bytes in a decimal scale (1000)
 - '**bb**' format bytes in a binary scale (1024)
 
 
 |          Number 	|      Pattern 	|             Result 	|  Locale           |
 |---------------:	|-------------:	|-------------------:	|:-----------------:| 
-|           3500 	|      "0.00b" 	|            "2.50KB" 	|  en (English)     | 
+|           3500 	|     "0.00bd" 	|            "2.50KB" 	|  en (English)     | 
 |           3500 	|     "0.00bb" 	|           "2.44KiB" 	|  en (English)     | 
 |       -3500000 	|     "0.00bb" 	|          "-3.34MiB" 	|  en (English)     | 
-|  2444222000000 	|      "0.00b" 	|            "2.44TB" 	|  en (English)     | 
+|  2444222000000 	|     "0.00bd" 	|            "2.44TB" 	|  en (English)     | 
 |  2444222000000 	|     "0.00bb" 	|           "2.22TiB" 	|  en (English)     | 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
