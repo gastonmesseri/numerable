@@ -88,9 +88,9 @@ describe('numerable', () => {
                 [100000000000000000, '0.0a', '100000.0T'],
                 [1000000000000000000, '0.0a', '1000000.0T'],
                 // No trailing space should be in the formatted string, if abbreviation is not applied.
-                [999, '0 a', '999 '],
-                [10.23, '0.00 a', '10.23 '],
-                [123.456, '0,0.000 a', '123.456 '],
+                [999, '0 a', '999'],
+                [10.23, '0.00 a', '10.23'],
+                [123.456, '0,0.000 a', '123.456'],
                 // Negative sign at the right and abbreviation
                 [-1230, '0,0.000- a', '1.230- K'],
                 [-2000, '0.0- a', '2.0- K'],
@@ -899,7 +899,7 @@ describe('numerable', () => {
                 ['|||K|||M|||B|||T', 1000000000, '0 a', '1 B'],
                 ['|||K|||M|||B|||T', -1000000000000, '0 a', '-1 T'],
                 ['|||K|||M|||B|||T', 1000000000000000, '0 a', '1000 T'],
-                ['|s|-', 1, '0 a', '1 '],
+                ['|s|-', 1, '0 a', '1'],
                 ['|s|-', 10, '0 a', '1 s'],
                 ['|s|-', -100, '0 a', '-1 -'],
                 ['|s|-', 1000, '0 a', '10 -'],
@@ -908,7 +908,7 @@ describe('numerable', () => {
                 [null, -1234, '0 a', '-1 K'],
                 ['', 1234, '0 a', '1 K'],
                 // No abbreviations defined
-                ['|||||||||||', 1234, '0 a', '1234 '],
+                ['|||||||||||', 1234, '0 a', '1234'],
             ];
             tests.forEach(([abbreviations, value, pattern, expectedResult]) => {
                 const result = format(value, pattern, { locale: { ...en, abbreviations } });

@@ -11,6 +11,7 @@ import addSignInfoToFullFormattedNumber from './utils/add-sign-info-to-full-form
 import splitNumberIntegerAndDecimalParts from './utils/split-number-integer-and-decimal-parts';
 import addThousandsSeparatorToValueIntegerPart from './utils/add-thousands-separator-to-value-integer-part';
 import { ResolvedNumerableFormatNumberOptions } from '../../../formatter/types/resolved-format-number-options';
+import applyAbbreviationLocalizedUnitToPatternMask from './utils/apply-abbreviation-localized-unit-to-pattern-mask';
 
 const numberToFormattedNumber = (number: number, pattern: string, options: ResolvedNumerableFormatNumberOptions): string => {
     const patternRules = parsePattern(pattern);
@@ -43,20 +44,20 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     );
 
     // 3. Assembling
-    const numberWithReplacedSingleQuotes = fullNumberWithNumeralSystem.replace(/'/g, 'ɵ');
-    const fullFormattedValueWithNumeralSystem = patternRules.patternMask.replace(`'$n'`, numberWithReplacedSingleQuotes);
-    const fullFormattedValueWithAbbreviation = fullFormattedValueWithNumeralSystem.replace(`'$a'`, abbreviationLocalizedUnit);
-    const fullFormattedValueWithSignInfo = addSignInfoToFullFormattedNumber(fullFormattedValueWithAbbreviation, isValueNegative, patternRules);
-    const fullFormattedValueWithSingleQuotes = fullFormattedValueWithSignInfo.replace(/ɵ/g, `'`);
-    const fullFormattedValueWithStrippedPlaceholders = patternStripPlaceholders(fullFormattedValueWithSingleQuotes);
+    const patternMaskWithAbbreviation = applyAbbreviationLocalizedUnitToPatternMask(patternRules.patternMask, abbreviationLocalizedUnit, patternRules.compact);
+    const fullNumberWithReplacedSingleQuotes = fullNumberWithNumeralSystem.replace(/'/g, '$ɵ');
+    const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'$n'`, fullNumberWithReplacedSingleQuotes);
+    const patternMaskWithSignInfo = addSignInfoToFullFormattedNumber(patternMaskWithNumber, isValueNegative, patternRules);
+    const fullFormattedValueWithStrippedPlaceholders = patternStripPlaceholders(patternMaskWithSignInfo);
+    const patternMaskWithUnescapedSingleQuotes = fullFormattedValueWithStrippedPlaceholders.replace(/\$ɵ/g, `'`);
 
     // <!> This should be moved after the scaling and rounding
     // Prevents potentially wrong formatting coming from this function
-    if (fullFormattedValueWithSignInfo === 'NaN') {
+    if (patternMaskWithUnescapedSingleQuotes === 'NaN') {
         return '';
     }
 
-    return fullFormattedValueWithStrippedPlaceholders;
+    return patternMaskWithUnescapedSingleQuotes;
 };
 
 export default numberToFormattedNumber;
