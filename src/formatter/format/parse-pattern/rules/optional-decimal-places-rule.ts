@@ -1,4 +1,4 @@
-import stringIncludes from '../../../../core/utils/string-includes';
+import { patternIncludes, patternReplace } from '../../../utils/pattern-regexp-utils';
 
 /**
  * Check for optional decimals.
@@ -12,15 +12,15 @@ import stringIncludes from '../../../../core/utils/string-includes';
  *     - If it has 1 decimal, displays 2 decimals:       23.4 => '23.40'
  *     - If it has 3 decimals, displays 3 decimals:      23.456 => '23.456'
  */
-export const optionalDecimalPlacesRule = (pattern: string) => {
-    let outputPattern = pattern;
+export const optionalDecimalPlacesRule = (patternMask: string) => {
     let optionalFractionDigits = false;
 
-    if (stringIncludes(pattern, '[.]')) {
+    let outputPatternMask = patternMask;
+    if (patternIncludes(patternMask, '[.]')) {
         optionalFractionDigits = true;
-        outputPattern = pattern.replace('[.]', '.');
+        outputPatternMask = patternReplace(outputPatternMask, '[.]', '.');
     }
 
-    return [outputPattern, { optionalFractionDigits }] as const;
+    return [outputPatternMask, { optionalFractionDigits }] as const;
 };
 

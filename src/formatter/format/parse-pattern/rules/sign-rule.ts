@@ -1,4 +1,5 @@
 import stringIncludes from '../../../../core/utils/string-includes';
+import { patternReplace } from '../../../utils/pattern-regexp-utils';
 
 /**
  * What does it look for in the pattern?
@@ -40,26 +41,19 @@ import stringIncludes from '../../../../core/utils/string-includes';
  *     Exact position of parentheses
  */
 export const signRule = (pattern: string) => {
-    let outputPattern = pattern;
     let negativeParentheses = false;
     let forceSign = false;
-    let signPosition: 'start' | 'end' = 'start';
 
     if (stringIncludes(pattern, '(')) {
         negativeParentheses = true;
-        outputPattern = pattern.replace(/[(|)]/g, '');
     } else if (stringIncludes(pattern, '+') || stringIncludes(pattern, '-')) {
         forceSign = pattern.includes('+');
-
-        if (
-            (stringIncludes(pattern, '+') && pattern.indexOf('+') !== 0)
-            || (stringIncludes(pattern, '-') && pattern.indexOf('-') !== 0)
-        ) {
-            signPosition = 'end';
-        }
-
-        outputPattern = pattern.replace(/[+|-]/g, '');
     }
 
-    return [outputPattern, { negativeParentheses, forceSign, signPosition }] as const;
+    let outputPatternMask = pattern;
+    outputPatternMask = patternReplace(outputPatternMask, '(', `'$nps'`);
+    outputPatternMask = patternReplace(outputPatternMask, ')', `'$npe'`);
+    outputPatternMask = patternReplace(outputPatternMask, /(-|\+)/, `'$s'`);
+
+    return [outputPatternMask, { negativeParentheses, forceSign }] as const;
 };

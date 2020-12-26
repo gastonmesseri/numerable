@@ -9,11 +9,9 @@ export interface NumberFormatRules {
     /** Determines whether the negative numbers should be wrapped between parentheses */
     negativeParentheses: boolean;
     forceSign: boolean;
-    signPosition: 'start' | 'end';
 
     // abbreviation
     compact: boolean;
-    compactSpace: boolean;
     compactUnit: AbbreviationScale | null;
     /** Defines whether the abbreviation unit ('a') is automatic and not forced */
     compactAuto: boolean;
@@ -25,4 +23,7 @@ export interface NumberFormatRules {
     minimumFractionDigits: number;
     maximumFractionDigits: number;
     optionalFractionDigits: boolean;
+
+    // pattern mask
+    patternMask: string;
 }

@@ -1,5 +1,6 @@
 import stringIncludes from '../../../../core/utils/string-includes';
 import splitStringInTwoParts from '../../../../core/utils/split-string-in-two-parts';
+import { patternRemovePlaceholders } from '../../../utils/pattern-regexp-utils';
 
 const countChars = (string: string, char: string) => {
     return !string ? 0 : string.split('').filter(stringChar => stringChar === char).length;
@@ -10,8 +11,10 @@ const countChars = (string: string, char: string) => {
  * 
  * <i> Optional fraction digits would go always after the forced ones
  */
-export const decimalPlacesRule = (pattern: string) => {
-    const patternPrecisionPart = splitStringInTwoParts(pattern, '.')[1];
+export const decimalPlacesRule = (patternMask: string) => {
+    const patternWithoutPlaceholders = patternRemovePlaceholders(patternMask);
+    const patternPrecisionPart = splitStringInTwoParts(patternWithoutPlaceholders, '.')[1];
+
     let minimumFractionDigits: number = 0;
     let maximumFractionDigits: number = 0;
 
