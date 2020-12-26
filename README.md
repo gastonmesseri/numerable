@@ -121,8 +121,8 @@ By adding the % symbol to any of the previous patterns, the value is multiplied 
 |---------------:	|-------------:	|-------------------:	|:-----------------:| 
 |           0.52 	|      "0.##%" 	|              "52%" 	|  en (English)     | 
 |              1 	|      "0.##%" 	|             "100%" 	|  en (English)     | 
-|              1 	|   "0,0.00 %" 	|         "100.00 %" 	|  en (English)     | 
-|          -0.88 	|        "0 %" 	|            "-88 %" 	|  en (English)     | 
+|              1 	|   "0,0.00&nbsp;%" 	|         "100.00&nbsp;%" 	|  en (English)     | 
+|          -0.88 	|        "0&nbsp;%" 	|            "-88&nbsp;%" 	|  en (English)     | 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 #### Abbreviated numbers
@@ -133,10 +133,10 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 |---------------:	|-------------:	|-------------------:	|:------------------:|
 |     2000000000 	|       "0.0a" 	|             "2.0B" 	|    en (English)    |
 |        1230974 	|       "0.0a" 	|             "1.2M" 	|    en (English)    |
-|           2460 	|        "0 a" 	|            "2 mil" 	|    es (Spanish)    | 
-|        -104000 	|        "0 a" 	|           "-104 K" 	|    en (English)    | 
+|           2460 	|        "0&nbsp;a" 	|            "2&nbsp;mil" 	|    es (Spanish)    | 
+|        -104000 	|        "0&nbsp;a" 	|           "-104&nbsp;K" 	|    en (English)    | 
 |         999950 	|       "0.0a" 	|          "1.0тыс." 	|    ru (Russian)    | 
-|      999999999 	|        "0 a" 	|           "1 Mio." 	|    de (German)     | 
+|      999999999 	|        "0&nbsp;a" 	|           "1&nbsp;Mio." 	|    de (German)     | 
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
@@ -148,10 +148,10 @@ If an abbreviation is specified in the pattern (**a**), **numerable** will look 
 |---------------:	|-------------:	|-------------------:	|:------------------:       |
 |      1500.143 	|    "$0,0.00" 	|          "$1,500.14" 	|   USD (US Dollar)         |
 |      1500.143 	|    "$0,0.00" 	|          "€1,500.14" 	|   EUR (Euro)              |
-|     -1500.143 	|   "0,0.00 $" 	|        "-1,500.14 £" 	|   GBP (Pound Sterling)    |
-|      1500.143 	|   "0,0.00 $" 	|         "1,500.14 ¥" 	|   JPY (Yen)               |
-|      1500.143 	| "(0,0.00 $)" 	|       "1,500.14 CN¥" 	|   CNY (Yuan Renminbi)     |
-|     -1500.143 	| "(0,0.00 $)" 	|      "(1,500.14 A$)" 	|   AUD (Australian dollar) |
+|     -1500.143 	|   "0,0.00&nbsp;$" 	|        "-1,500.14&nbsp;£" 	|   GBP (Pound Sterling)    |
+|      1500.143 	|   "0,0.00&nbsp;$" 	|         "1,500.14&nbsp;¥" 	|   JPY (Yen)               |
+|      1500.143 	| "(0,0.00&nbsp;$)" 	|       "1,500.14&nbsp;CN¥" 	|   CNY (Yuan Renminbi)     |
+|     -1500.143 	| "(0,0.00&nbsp;$)" 	|      "(1,500.14&nbsp;A$)" 	|   AUD (Australian dollar) |
 | <img width="200" height="1"> | <img width="200" height="1"> | <img width="200" height="1"> | <img width="150" height="1"> |
 
 
