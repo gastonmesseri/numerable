@@ -237,7 +237,7 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
 
 ---
 
-## :flags: Internationalization (i18n)
+## :crossed_flags: Internationalization (i18n)
 
 **numerable** includes two functions that support i18n:
 - ***format***
