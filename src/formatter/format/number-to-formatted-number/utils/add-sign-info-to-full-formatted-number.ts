@@ -1,5 +1,4 @@
 import { NumberFormatRules } from '../../../../core/types/rules';
-import { patternReplace } from '../../../utils/pattern-regexp-utils';
 
 const addSignInfoToFullFormattedNumber = (
     fullFormattedValueWithoutSign: string,
@@ -11,21 +10,14 @@ const addSignInfoToFullFormattedNumber = (
     let output = fullFormattedValueWithoutSign;
 
     if (negativeParentheses && isValueNegative) {
-        let outputWithParentheses = output;
-        outputWithParentheses = patternReplace(outputWithParentheses, `'$nps'`, '(');
-        outputWithParentheses = patternReplace(outputWithParentheses, `'$npe'`, ')');
-        output = outputWithParentheses;
+        output = output.replace(/'(\$nps|\$npe)'/g, match => match === `'$nps'` ? '(' : ')');
     } else if (forceSign) {
-        const sign = isValueNegative ? '-' : '+';
-        output = patternReplace(output, `'$s'`, sign);
+        output = output.replace(`'$s'`, isValueNegative ? '-' : '+');
     } else if (isValueNegative) {
-        output = patternReplace(output, `'$s'`, '-');
+        output = output.replace(`'$s'`, '-');
     }
 
-    let cleanOutput = output;
-    cleanOutput = patternReplace(cleanOutput, `'$nps'`, '', 'g');
-    cleanOutput = patternReplace(cleanOutput, `'$npe'`, '', 'g');
-    cleanOutput = patternReplace(cleanOutput, `'$s'`, '', 'g');
+    const cleanOutput = output.replace(/'(\$nps|\$npe|\$s)'/g, '');
 
     return cleanOutput;
 };

@@ -2,8 +2,8 @@ import parsePattern from '../parse-pattern/parse-pattern';
 import removeSignIfExists from './utils/remove-sign-if-exists';
 import rescaleRoundedValue from './utils/rescale-rounded-value';
 import isFiniteNumber from '../../../core/utils/is-finite-number';
-import { patternReplace } from '../../utils/pattern-regexp-utils';
 import addLeadingZerosToValue from './utils/add-leading-zeros-to-value';
+import { patternStripPlaceholders } from '../../utils/pattern-regexp-utils';
 import scaleValueWithAbbreviation from './utils/scale-value-with-abbreviation';
 import roundValueAndAddTrailingZeros from './utils/round-value-and-add-trailing-zeros';
 import replaceDigitsWithNumeralSystem from './utils/replace-digits-with-numeral-system';
@@ -44,10 +44,11 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
 
     // 3. Assembling
     const numberWithReplacedSingleQuotes = fullNumberWithNumeralSystem.replace(/'/g, 'ɵ');
-    const fullFormattedValueWithNumeralSystem = patternReplace(patternRules.patternMask, `'$n'`, numberWithReplacedSingleQuotes);
-    const fullFormattedValueWithAbbreviation = patternReplace(fullFormattedValueWithNumeralSystem, `'$a'`, abbreviationLocalizedUnit);
+    const fullFormattedValueWithNumeralSystem = patternRules.patternMask.replace(`'$n'`, numberWithReplacedSingleQuotes);
+    const fullFormattedValueWithAbbreviation = fullFormattedValueWithNumeralSystem.replace(`'$a'`, abbreviationLocalizedUnit);
     const fullFormattedValueWithSignInfo = addSignInfoToFullFormattedNumber(fullFormattedValueWithAbbreviation, isValueNegative, patternRules);
     const fullFormattedValueWithSingleQuotes = fullFormattedValueWithSignInfo.replace(/ɵ/g, `'`);
+    const fullFormattedValueWithStrippedPlaceholders = patternStripPlaceholders(fullFormattedValueWithSingleQuotes);
 
     // <!> This should be moved after the scaling and rounding
     // Prevents potentially wrong formatting coming from this function
@@ -55,7 +56,7 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
         return '';
     }
 
-    return fullFormattedValueWithSingleQuotes;
+    return fullFormattedValueWithStrippedPlaceholders;
 };
 
 export default numberToFormattedNumber;
