@@ -1,3 +1,4 @@
+import isString from '../../core/utils/is-string';
 import escapeRegexString from '../../core/utils/escape-regex-string';
 
 /**
@@ -6,15 +7,15 @@ import escapeRegexString from '../../core/utils/escape-regex-string';
  */
 const singleQuotesRegExpString = "'(.*?)'";
 
-export const patternIncludes = (patternMask: string, searchValue: string) => {
-    const regexp = new RegExp(`${escapeRegexString(searchValue)}(?=([^']*'[^']*')*[^']*$)`);
+export const patternIncludes = (patternMask: string, searchValue: string | RegExp) => {
+    const [searchPartOfRegExp, flags] = isString(searchValue) ? [escapeRegexString(searchValue), undefined] : [searchValue.source, searchValue.flags];
+    const regexp = new RegExp(`${searchPartOfRegExp}(?=([^']*'[^']*')*[^']*$)`, flags);
     return regexp.test(patternMask);
 };
 
-export const patternReplace = (patternMask: string, searchValue: string | RegExp, replaceValue: string, flags?: string) => {
-    const searchPartOfRegExp = typeof searchValue === 'string'
-        ? escapeRegexString(searchValue)
-        : searchValue.source;
+
+export const patternReplace = (patternMask: string, searchValue: string | RegExp, replaceValue: string) => {
+    const [searchPartOfRegExp, flags] = isString(searchValue) ? [escapeRegexString(searchValue), undefined] : [searchValue.source, searchValue.flags];
     const regexp = new RegExp(`${searchPartOfRegExp}(?=([^']*'[^']*')*[^']*$)`, flags);
     return patternMask.replace(regexp, replaceValue);
 };

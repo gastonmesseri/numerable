@@ -1,7 +1,7 @@
 import toObject from '../../core/utils/to-object';
 import { unitScale } from '../../core/utils/unit-scale';
-import stringIncludes from '../../core/utils/string-includes';
 import { NumerableFormatter } from '../../core/types/numerable-formatter';
+import { patternIncludes, patternReplace } from '../utils/pattern-regexp-utils';
 import formattedStringToNumber from '../../formatter/parse/utils/formatted-string-to-number';
 import numberToFormattedNumber from '../../formatter/format/number-to-formatted-number/number-to-formatted-number';
 
@@ -18,17 +18,16 @@ const bytesBinaryScale = unitScale({ base: 'B', scale: toObject(binarySuffixes, 
 const bytesFormatter: NumerableFormatter = {
     name: 'bytes',
     regexps: {
-        format: /([0\s]i?b)/,
+        format: /([0\s]i?b)|(i?b[0\s])/,
         unformat: (string, options) => options.type === 'bytes' ? new RegExp(unformatRegex).test(string) : false,
     },
     format: (number, pattern, options) => {
         const resolvedValue = number || 0;
-        const patternWithoutBytes = pattern.replace(/\s?i?b/, '');
-        const bytesSpace = stringIncludes(pattern, ' b') || stringIncludes(pattern, ' ib') ? ' ' : '';
-        const scale = stringIncludes(pattern, 'ib') ? bytesBinaryScale : bytesDecimalScale;
+        const scale = patternIncludes(pattern, 'ib') ? bytesBinaryScale : bytesDecimalScale;
         const [scaledValue, scaledValueUnit] = scale.toBest(resolvedValue, 'B');
-        const formatResult = numberToFormattedNumber(scaledValue, patternWithoutBytes, options);
-        return `${formatResult}${bytesSpace}${scaledValueUnit}`;
+        const patternWithEscapedBytes = patternReplace(pattern, /i?b/, `'#bytes#'`);
+        const formatResult = numberToFormattedNumber(scaledValue, patternWithEscapedBytes, options);
+        return formatResult.replace('#bytes#', scaledValueUnit || '');
     },
     unformat: (string, options) => {
         const number = formattedStringToNumber(string.replace(new RegExp(unformatRegex), ''), options);

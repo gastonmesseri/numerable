@@ -10,14 +10,14 @@ const addSignInfoToFullFormattedNumber = (
     let output = fullFormattedValueWithoutSign;
 
     if (negativeParentheses && isValueNegative) {
-        output = output.replace(/'(\$nps|\$npe)'/g, match => match === `'$nps'` ? '(' : ')');
+        output = output.replace(/'#(nps|npe)'/g, match => match === `'#nps'` ? '(' : ')');
     } else if (forceSign) {
-        output = output.replace(`'$s'`, isValueNegative ? '-' : '+');
+        output = output.replace(`'#s'`, isValueNegative ? '-' : '+');
     } else if (isValueNegative) {
-        output = output.replace(`'$s'`, '-');
+        output = output.replace(`'#s'`, '-');
     }
 
-    const cleanOutput = output.replace(/'(\$nps|\$npe|\$s)'/g, '');
+    const cleanOutput = output.replace(/'#(nps|npe|s)'/g, '');
 
     return cleanOutput;
 };

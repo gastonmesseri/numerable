@@ -27,11 +27,11 @@ export interface NumberFormatRules {
     /**
      * Pattern mask:
      * <i> Built-in placeholders are:
-     *    - '$s' for sign
-     *    - '$n' for number
-     *    - '$nps' for negative parenthesis start
-     *    - '$npe' for negative parenthesis end
-     *    - '$a' for abbreviation
+     *    - '#s' for sign
+     *    - '#n' for number
+     *    - '#nps' for negative parenthesis start
+     *    - '#npe' for negative parenthesis end
+     *    - '#a' for abbreviation
      */
     patternMask: string;
 }

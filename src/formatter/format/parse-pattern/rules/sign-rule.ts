@@ -51,9 +51,9 @@ export const signRule = (pattern: string) => {
     }
 
     let outputPatternMask = pattern;
-    outputPatternMask = patternReplace(outputPatternMask, '(', `'$nps'`);
-    outputPatternMask = patternReplace(outputPatternMask, ')', `'$npe'`);
-    outputPatternMask = patternReplace(outputPatternMask, /(-|\+)/, `'$s'`);
+    outputPatternMask = patternReplace(outputPatternMask, '(', `'#nps'`);
+    outputPatternMask = patternReplace(outputPatternMask, ')', `'#npe'`);
+    outputPatternMask = patternReplace(outputPatternMask, /(-|\+)/, `'#s'`);
 
     return [outputPatternMask, { negativeParentheses, forceSign }] as const;
 };

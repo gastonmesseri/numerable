@@ -10,15 +10,15 @@ const applyAbbreviationLocalizedUnitToPatternMask = (
 ) => {
     if (!hasAbbreviationInPatternMask) return patternMask;
 
-    const safeAbbreviationLocalizedUnit = abbreviationLocalizedUnit.replace(/'/g, '$ɵ');
+    const safeAbbreviationLocalizedUnit = abbreviationLocalizedUnit.replace(/'/g, '#ɵ');
     return !!safeAbbreviationLocalizedUnit
-        ? patternMask.replace(`'$a'`, safeAbbreviationLocalizedUnit)
+        ? patternMask.replace(`'#a'`, safeAbbreviationLocalizedUnit)
         // If has abbreviation but it is empty
-        : patternMask.match(/'\$n'\s*'\$a'/)
+        : patternMask.match(/'#n'\s*'#a'/)
             // If abbreviation is before
-            ? patternMask.replace(/\s*'\$a'/, safeAbbreviationLocalizedUnit)
+            ? patternMask.replace(/\s*'#a'/, safeAbbreviationLocalizedUnit)
             // If abbreviation is after
-            : patternMask.replace(/'\$a'\s*/, safeAbbreviationLocalizedUnit);
+            : patternMask.replace(/'#a'\s*/, safeAbbreviationLocalizedUnit);
 };
 
 export default applyAbbreviationLocalizedUnitToPatternMask;

@@ -1,5 +1,6 @@
 import isNaNNumber from '../../core/utils/is-nan-number';
 import isFiniteNumber from '../../core/utils/is-finite-number';
+import { patternReplace } from '../utils/pattern-regexp-utils';
 import multiplyByPowerOfTen from '../../core/utils/multiply-by-power-of-ten';
 import { NumerableFormatter } from '../../core/types/numerable-formatter';
 import splitStringInTwoParts from '../../core/utils/split-string-in-two-parts';
@@ -9,14 +10,14 @@ import numberToFormattedNumber from '../../formatter/format/number-to-formatted-
 const exponentialFormatter: NumerableFormatter = {
     name: 'exponential',
     regexps: {
-        format: /(e\+|e-)[0-9]+/i,
-        unformat: /(e\+|e-)[0-9]+/i,
+        format: /[eE][+-][0-9]+/,
+        unformat: /[eE][+-][0-9]+/,
     },
     format: (number, pattern, options) => {
         const exponential = typeof number === 'number' && !isNaNNumber(number) ? number.toExponential() : '0e+0';
         const parts = splitStringInTwoParts(exponential, 'e');
-        const patternWithoutExponential = pattern.replace(/e[+|-]{1}0/i, '');
-        const formatResult = numberToFormattedNumber(Number(parts[0]), patternWithoutExponential, options);
+        const patternWithoutExponential = patternReplace(pattern, /e[+|-]{1}0/i, '');
+        const formatResult = numberToFormattedNumber(+parts[0], patternWithoutExponential, options);
         return formatResult + 'e' + parts[1];
     },
     unformat: (string, options) => {

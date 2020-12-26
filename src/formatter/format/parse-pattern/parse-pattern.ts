@@ -11,13 +11,13 @@ import { patternRemovePlaceholders, patternReplace } from '../../utils/pattern-r
 
 const numberPositionRule = (patternMask: string) => {
     const numberPartRegExp = /(((0+,)?0+(\.([0#X]|\[0+\])+)?){1}|\.([0#X]|\[0+\])+)/;
-    return patternReplace(patternMask, numberPartRegExp, `'$n'`);
+    return patternReplace(patternMask, numberPartRegExp, `'#n'`);
 };
 
 // If sign is not included, put sign at the left
 const addSignPositionIfItDoesNotExists = (patternMask: string) => {
-    if (stringIncludes(patternMask, `'$s'`) || stringIncludes(patternMask, `'$nps'`)) return patternMask;
-    return patternReplace(patternMask, `'$n'`, `'$s''$n'`);
+    if (stringIncludes(patternMask, `'#s'`) || stringIncludes(patternMask, `'#nps'`)) return patternMask;
+    return patternReplace(patternMask, `'#n'`, `'#s''#n'`);
 };
 
 const parsePattern = (inputPattern: string | Nil): NumberFormatRules => {

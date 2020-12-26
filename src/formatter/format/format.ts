@@ -2,6 +2,7 @@ import isNil from '../../core/utils/is-nil';
 import isString from '../../core/utils/is-string';
 import isFunction from '../../core/utils/is-function';
 import isNaNNumber from '../../core/utils/is-nan-number';
+import { patternIncludes } from '../utils/pattern-regexp-utils';
 import resolveFormatOptions from '../../formatter/utils/resolve-format-options';
 import { NumerableFormatNumberOptions } from '../../formatter/types/format-number-options';
 import numberToFormattedNumber from './number-to-formatted-number/number-to-formatted-number';
@@ -11,7 +12,8 @@ const getFormatFunctionIfMatch = (pattern: string, resolvedOptions: ResolvedNume
     for (const formatter of resolvedOptions.formatters) {
         const matcher = formatter.regexps.format;
         if (!matcher) continue;
-        const matcherResult = isFunction(matcher) ? matcher(pattern, resolvedOptions) : pattern.match(matcher);
+        // const matcherResult = isFunction(matcher) ? matcher(pattern, resolvedOptions) : pattern.match(matcher);
+        const matcherResult = isFunction(matcher) ? matcher(pattern, resolvedOptions) : patternIncludes(pattern, matcher);
         if (matcherResult) return formatter.format;
     }
 };

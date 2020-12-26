@@ -45,11 +45,11 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
 
     // 3. Assembling
     const patternMaskWithAbbreviation = applyAbbreviationLocalizedUnitToPatternMask(patternRules.patternMask, abbreviationLocalizedUnit, patternRules.compact);
-    const fullNumberWithReplacedSingleQuotes = fullNumberWithNumeralSystem.replace(/'/g, '$ɵ');
-    const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'$n'`, fullNumberWithReplacedSingleQuotes);
+    const fullNumberWithReplacedSingleQuotes = fullNumberWithNumeralSystem.replace(/'/g, '#ɵ');
+    const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'#n'`, fullNumberWithReplacedSingleQuotes);
     const patternMaskWithSignInfo = addSignInfoToFullFormattedNumber(patternMaskWithNumber, isValueNegative, patternRules);
     const fullFormattedValueWithStrippedPlaceholders = patternStripPlaceholders(patternMaskWithSignInfo);
-    const patternMaskWithUnescapedSingleQuotes = fullFormattedValueWithStrippedPlaceholders.replace(/\$ɵ/g, `'`);
+    const patternMaskWithUnescapedSingleQuotes = fullFormattedValueWithStrippedPlaceholders.replace(/#ɵ/g, `'`);
 
     // <!> This should be moved after the scaling and rounding
     // Prevents potentially wrong formatting coming from this function

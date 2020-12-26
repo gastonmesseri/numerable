@@ -20,7 +20,7 @@ export const abbreviationRule = (patternMask: string) => {
     }
 
     let outputPatternMask = patternMask;
-    outputPatternMask = patternReplace(outputPatternMask, /a(k|m|b|t)?/, `'$a'`);
+    outputPatternMask = patternReplace(outputPatternMask, /a(k|m|b|t)?/, `'#a'`);
 
     return [outputPatternMask, { compact, compactUnit, compactAuto: compact && !compactUnit }] as const;
 };
