@@ -8,10 +8,9 @@ const ordinalFormatter: NumerableFormatter = {
         format: /o/,
     },
     format: (number, pattern, options) => {
-        const resolvedValue = number || 0;
-        const localizedOrdinal = options.locale.ordinal?.(resolvedValue) || '';
+        const localizedOrdinal = options.locale.ordinal?.(number) || '';
         const patternWithEscapedOrdinal = patternReplace(pattern, /o/, `'#ord#'`);
-        const formatResult = numberToFormattedNumber(resolvedValue, patternWithEscapedOrdinal, options);
+        const formatResult = numberToFormattedNumber(number, patternWithEscapedOrdinal, options);
         return formatResult.replace('#ord#', localizedOrdinal);
     }
 };

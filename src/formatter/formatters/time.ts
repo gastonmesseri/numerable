@@ -7,9 +7,8 @@ const timeFormatter: NumerableFormatter = {
         unformat: /([0-9]{1,2}:[0-9]{2}) *$/,
     },
     format: (number) => {
-        const resolvedValue = number || 0;
-        const absoluteValue = Math.abs(resolvedValue);
-        const sign = resolvedValue < 0 ? '-' : '';
+        const absoluteValue = Math.abs(number);
+        const sign = number < 0 ? '-' : '';
         const hours = Math.floor(absoluteValue / 3600);
         const minutes = Math.floor((absoluteValue - (hours * 3600)) / 60);
         const seconds = Math.round(absoluteValue - (hours * 3600) - (minutes * 60));

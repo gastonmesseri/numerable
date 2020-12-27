@@ -35,8 +35,8 @@ const currencyFormatter: NumerableFormatter = {
         const currencyFromOptions = options.currency?.toUpperCase();
         const localizedCurrencySymbol = currencySymbolsMap[currencyFromOptions!] || currencyFromOptions || '';
         const patternWithEscapedCurrencySymbol = patternReplace(pattern, /\$/, `'#currency#'`);
-        const formatResult = numberToFormattedNumber(number || 0, patternWithEscapedCurrencySymbol, options);
-        return formatResult.replace('#currency#', localizedCurrencySymbol);
+        const formatResult = numberToFormattedNumber(number, patternWithEscapedCurrencySymbol, options);
+        return formatResult.replace('#currency#', _ => localizedCurrencySymbol);
     },
 };
 

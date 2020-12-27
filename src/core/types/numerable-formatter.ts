@@ -6,6 +6,6 @@ export interface NumerableFormatter {
         format: RegExp | ((pattern: string, options: ResolvedNumerableFormatNumberOptions) => boolean);
         unformat?: RegExp | ((pattern: string, options: ResolvedNumerableFormatNumberOptions) => boolean);
     };
-    format: (value: number | null | undefined, pattern: string, formatOptions: ResolvedNumerableFormatNumberOptions) => string;
+    format: (value: number, pattern: string, formatOptions: ResolvedNumerableFormatNumberOptions) => string;
     unformat?: (numberAsString: string, formatOptions: ResolvedNumerableFormatNumberOptions) => number | null;
 }
