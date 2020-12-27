@@ -10,7 +10,7 @@ const getUnformatFunctionIfMatch = (input: string, resolvedOptions: ResolvedNume
     for (const formatter of resolvedOptions.formatters) {
         const matcher = formatter.regexps.unformat;
         if (!matcher) continue;
-        const matcherResult = isFunction(matcher) ? matcher(input, resolvedOptions) : input.match(matcher);
+        const matcherResult: boolean = isFunction(matcher) ? matcher(input, resolvedOptions) : !!input.match(matcher);
         if (matcherResult) return formatter.unformat;
     }
 };
