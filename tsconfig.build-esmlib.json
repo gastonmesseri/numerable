@@ -1,0 +1,15 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "module": "ES6",
+        "rootDir": "src/",
+        "declarationDir": "./dist/esm",
+        "outDir": "./dist/esm",
+    },
+    "include": [
+        "src/**/*.ts",
+    ],
+    "exclude": [
+        "src/locale/*.ts",
+    ]
+}

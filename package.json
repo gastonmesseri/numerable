@@ -7,7 +7,6 @@
         "name": "Gaston Meseri"
     },
     "license": "MIT",
-    "main": "dist/index.js",
     "repository": "github:gastonmesseri/numerable",
     "bugs": "https://github.com/gastonmesseri/numerable/issues",
     "keywords": [
@@ -18,14 +17,18 @@
         "formatting",
         "functional"
     ],
+    "main": "dist/index.js",
+    "module": "dist/esm/index.js",
+    "sideEffects": false,
     "scripts": {
         "clean": "rimraf dist locale",
         "test": "jest --config jest.config.js",
         "test:watch": "jest --watchAll",
         "test:coverage": "jest --coverage",
         "lint": "eslint . --ext .ts",
-        "build": "npm run clean && npm run build:main && npm run build:locale",
-        "build:main": "tsc --project tsconfig.build-lib.json",
+        "build": "npm run clean && npm run build:lib && npm run build:esmlib && npm run build:locale",
+        "build:lib": "tsc --project tsconfig.build-lib.json",
+        "build:esmlib": "tsc --project tsconfig.build-esmlib.json",
         "build:locale": "tsc --project tsconfig.build-locale.json",
         "prepare": "npm run build",
         "prepublishOnly": "npm test && npm run lint",
