@@ -2,6 +2,7 @@ import en from '../../locale/en';
 import unique from '../../core/utils/unique';
 import memoize from '../../core/utils/memoize';
 import stringRepeat from '../../core/utils/string-repeat';
+import escapeRegexString from '../../core/utils/escape-regex-string';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 
 /**
@@ -24,10 +25,12 @@ const getNumeralSystemDigits = (languageTag: string) => {
         const localizedNumber = (1234567890).toLocaleString(languageTag, { useGrouping: false });
         const lookupObject: Record<string, true> = {};
         const repeatedChar = localizedNumber.split('').find((char) => {
-            if (lookupObject[char]) return char;
+            if (lookupObject[char]) return true;
             lookupObject[char] = true;
         });
-        const digitsWithoutGroupingDelimiters = localizedNumber.replace(new RegExp(repeatedChar || '', 'g'), '');
+        const digitsWithoutGroupingDelimiters = repeatedChar
+            ? localizedNumber.replace(new RegExp(escapeRegexString(repeatedChar || ''), 'g'), '')
+            : localizedNumber;
         const digitsAsArray = digitsWithoutGroupingDelimiters.split('');
         const sortedDigits = [digitsAsArray[digitsAsArray.length - 1], ...digitsAsArray.slice(0, -1)];
         return sortedDigits.join('');
@@ -39,8 +42,8 @@ const getNumeralSystemDigits = (languageTag: string) => {
 const getGroupingAndFractionDelimiters = (languageTag: string, digits: string) => {
     try {
         const localizedNumber = (12345678.123).toLocaleString(languageTag);
-        const localizedNumberWithoutDigits = localizedNumber.replace(new RegExp(`[${digits}]`, 'g'), '');
-        const [groupingDelimiter = '', fractionDelimiter = ''] = unique(localizedNumberWithoutDigits.split(''));
+        const localizedNumberWithoutDigits = localizedNumber.replace(new RegExp(`[${escapeRegexString(digits)}]`, 'g'), '');
+        const [groupingDelimiter = ',', fractionDelimiter = '.'] = unique(localizedNumberWithoutDigits.split(''));
         return [groupingDelimiter, fractionDelimiter];
     } catch (_err) {
         return null;
@@ -48,13 +51,14 @@ const getGroupingAndFractionDelimiters = (languageTag: string, digits: string) =
 };
 
 const getGroupingStyle = (languageTag: string, groupingDelimiter: string) => {
+    // <i> Handle '4 digits' grouping style for some asian countries (not CLDR)
     if (languagesWith4DigitsGroupingStyle.some(language => languageTag.indexOf(language) === 0)) return [4];
 
     try {
         const result: number[] = [];
         let subIterationIndex = 0;
-        (100000000000).toLocaleString(languageTag).split('').reverse().forEach((e) => {
-            if (e === groupingDelimiter) {
+        (100000000000).toLocaleString(languageTag).split('').reverse().forEach((digitOrGroupingDelimiter) => {
+            if (digitOrGroupingDelimiter === groupingDelimiter) {
                 result.push(subIterationIndex);
                 subIterationIndex = 0;
             } else {
@@ -128,10 +132,10 @@ const getNumerableLocaleFromIntl = (languageTag: string): ResolvedNumerableLocal
         _abbreviationsLong: longAbbreviations || en.abbreviations,
         code: resolvedLanguageTag,
         delimiters: { thousands: groupingDelimiter, decimal: fractionDelimiter },
-        abbreviations: shortAbbreviations || en.abbreviations!,
+        abbreviations: shortAbbreviations || en.abbreviations as ResolvedNumerableLocale['abbreviations'],
         digitGroupingStyle: !!groupingStyle?.length ? groupingStyle : undefined,
         numeralSystem: digits !== '0123456789' ? digits?.split('').map(appendLeftToRightMarkIfIsRTL) : undefined,
-        ordinal: en.ordinal!,
+        ordinal: en.ordinal as ResolvedNumerableLocale['ordinal'],
     };
 };
 
