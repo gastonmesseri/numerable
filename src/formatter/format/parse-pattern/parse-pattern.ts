@@ -1,5 +1,4 @@
 import { signRule } from './rules/sign-rule';
-import { Nil } from '../../../core/types/nil';
 import memoize from '../../../core/utils/memoize';
 import isString from '../../../core/utils/is-string';
 import { abbreviationRule } from './rules/abbreviation-rule';
@@ -20,7 +19,7 @@ const addSignPositionIfItDoesNotExists = (patternMask: string) => {
     return patternReplace(patternMask, `'#n'`, `'#s''#n'`);
 };
 
-const baseParsePattern = (inputPattern: string | Nil): NumberFormatRules => {
+const baseParsePattern = (inputPattern: string | null | undefined): NumberFormatRules => {
     const resolvedInputPattern = isString(inputPattern) && inputPattern || '0,0.##########';
 
     const [patternMaskAfterSignRule, signRules] = signRule(resolvedInputPattern);
