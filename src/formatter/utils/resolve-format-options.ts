@@ -4,10 +4,10 @@ import isObject from '../../core/utils/is-object';
 import isString from '../../core/utils/is-string';
 import isFunction from '../../core/utils/is-function';
 import truncateNumber from '../../core/utils/truncate-number';
+import getLocaleFromPlatform from './get-locale-from-platform';
 import { NumerableLocale } from '../../locale/types/numerable-locale';
 import DEFAULT_FORMAT_OPTIONS from '../constants/default-format-options';
 import { NumerableFormatNumberOptions } from '../types/format-number-options';
-import getNumerableLocaleFromBrowser from './get-numerable-locale-from-browser';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 import { ResolvedNumerableFormatNumberOptions } from '../types/resolved-format-number-options';
 
@@ -21,7 +21,7 @@ const resolveOptionsLocale = (optionsLocale: NumerableLocale | string | undefine
     const defaultLocale = DEFAULT_FORMAT_OPTIONS.locale as ResolvedNumerableLocale;
 
     if (isString(optionsLocale)) {
-        return getNumerableLocaleFromBrowser(optionsLocale);
+        return getLocaleFromPlatform(optionsLocale);
     } else if (!isObject(optionsLocale)) {
         return defaultLocale;
     }

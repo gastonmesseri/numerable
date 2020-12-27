@@ -1,6 +1,6 @@
-import getNumerableLocaleFromBrowser from '../../src/formatter/utils/get-numerable-locale-from-browser';
+import getLocaleFromPlatform from '../../src/formatter/utils/get-locale-from-platform';
 
-describe('getNumerableLocaleFromBrowser()', () => {
+describe('getLocaleFromPlatform()', () => {
     const originalToLocaleString = global.Number.prototype.toLocaleString;
     const originalIntl = global.Intl;
 
@@ -24,7 +24,7 @@ describe('getNumerableLocaleFromBrowser()', () => {
             return this.toString();
         } as any;
 
-        const result = getNumerableLocaleFromBrowser('es1-is-memoized');
+        const result = getLocaleFromPlatform('es1-is-memoized');
         expect(result.abbreviations).toBe('|||thousands||hundred thousands|millions|ten millions||billions');
     });
 
@@ -33,28 +33,28 @@ describe('getNumerableLocaleFromBrowser()', () => {
         global.Number.prototype.toLocaleString = function () {
             return 'abcdefghio';
         } as any;
-        const result1 = getNumerableLocaleFromBrowser('es-digits-no-grouping-is-memoized');
+        const result1 = getLocaleFromPlatform('es-digits-no-grouping-is-memoized');
         expect(result1.numeralSystem).toEqual(['o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
 
         // Grouping (dot)
         global.Number.prototype.toLocaleString = function () {
             return 'a.bcd.efg.hio';
         } as any;
-        const result2 = getNumerableLocaleFromBrowser('es-digits-grouping-dot-is-memoized');
+        const result2 = getLocaleFromPlatform('es-digits-grouping-dot-is-memoized');
         expect(result2.numeralSystem).toEqual(['o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
 
         // Grouping (single quote)
         global.Number.prototype.toLocaleString = function () {
             return 'a\'bcd\'efg\'hio';
         } as any;
-        const result3 = getNumerableLocaleFromBrowser('es-digits-grouping-squote-is-memoized');
+        const result3 = getLocaleFromPlatform('es-digits-grouping-squote-is-memoized');
         expect(result3.numeralSystem).toEqual(['o', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']);
 
         // Latin
         global.Number.prototype.toLocaleString = function () {
             return '1234567890';
         } as any;
-        const result4 = getNumerableLocaleFromBrowser('es-digits-latin-is-memoized');
+        const result4 = getLocaleFromPlatform('es-digits-latin-is-memoized');
         expect(result4.numeralSystem).toEqual(undefined);
     });
 
@@ -66,7 +66,7 @@ describe('getNumerableLocaleFromBrowser()', () => {
 
             return '12_345_678*123';
         } as any;
-        const result1 = getNumerableLocaleFromBrowser('es-delimiters(_*)-is-memoized');
+        const result1 = getLocaleFromPlatform('es-delimiters(_*)-is-memoized');
         expect(result1.delimiters).toEqual({ thousands: '_', decimal: '*' });
 
         // thousands: . | decimal: , delimiters
@@ -76,7 +76,7 @@ describe('getNumerableLocaleFromBrowser()', () => {
 
             return '12.345.678,123';
         } as any;
-        const result2 = getNumerableLocaleFromBrowser('es-delimiters(.,)-is-memoized');
+        const result2 = getLocaleFromPlatform('es-delimiters(.,)-is-memoized');
         expect(result2.delimiters).toEqual({ thousands: '.', decimal: ',' });
 
         // thousands: ' | decimal: . delimiters
@@ -86,7 +86,7 @@ describe('getNumerableLocaleFromBrowser()', () => {
 
             return '12\'345\'678.123';
         } as any;
-        const result3 = getNumerableLocaleFromBrowser('es-delimiters(\'.)-is-memoized');
+        const result3 = getLocaleFromPlatform('es-delimiters(\'.)-is-memoized');
         expect(result3.delimiters).toEqual({ thousands: '\'', decimal: '.' });
     });
 
@@ -96,15 +96,15 @@ describe('getNumerableLocaleFromBrowser()', () => {
             if (this === 100000000000) return '100,000,000,000';
             return originalToLocaleString.apply(this, args as any);
         } as any;
-        const result1 = getNumerableLocaleFromBrowser('es-digit-grouping-style(1)-is-memoized');
+        const result1 = getLocaleFromPlatform('es-digit-grouping-style(1)-is-memoized');
         expect(result1.digitGroupingStyle).toEqual([3]);
 
-        // [4]
+        // [3,2,2,3]
         global.Number.prototype.toLocaleString = function (this: number, ...args: any[]) {
             if (this === 100000000000) return '10,000,00,00,000';
             return originalToLocaleString.apply(this, args as any);
         } as any;
-        const result2 = getNumerableLocaleFromBrowser('es-digit-grouping-style(2)-is-memoized');
+        const result2 = getLocaleFromPlatform('es-digit-grouping-style(2)-is-memoized');
         expect(result2.digitGroupingStyle).toEqual([3,2,2,3]);
     });
 });

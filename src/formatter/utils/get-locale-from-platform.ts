@@ -8,7 +8,7 @@ import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-loc
 // <i> Extracted from https://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
 const leftToRightMark = '\u200e';
 const rtlCharsRanges = '\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC';
-const rtlDirCheck = new RegExp('^[^'+rtlCharsRanges+']*?['+rtlCharsRanges+']');
+const rtlDirCheck = new RegExp('^[^' + rtlCharsRanges + ']*?[' + rtlCharsRanges + ']');
 const isRTL = (string: string) => rtlDirCheck.test(string);
 const appendLeftToRightMarkIfIsRTL = (string: string) => isRTL(string) ? string + leftToRightMark : string;
 
@@ -114,7 +114,7 @@ const getAbbreviations = (languageTag: string, digits: string, type: 'short' | '
     }
 };
 
-const getNumerableLocaleFromIntl = (languageTag: string): ResolvedNumerableLocale => {
+const baseGetLocaleFromPlatform = (languageTag: string): ResolvedNumerableLocale => {
     const resolvedLanguageTag = languageTag || 'en';
     const digits = getNumeralSystemDigits(resolvedLanguageTag);
     const resolvedDigits = digits || '0123456789';
@@ -134,4 +134,6 @@ const getNumerableLocaleFromIntl = (languageTag: string): ResolvedNumerableLocal
     };
 };
 
-export default memoize(getNumerableLocaleFromIntl);
+const getLocaleFromPlatform = memoize(baseGetLocaleFromPlatform);
+
+export default getLocaleFromPlatform;
