@@ -283,7 +283,26 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
             - default: ***true***
             - If **true** (default), it will multiply the number by 100 when a percentage format is detected. If **false**,  the number won't be scaled when a percentage format is detected.  
 
+---
 
+
+
+### parse()
+
+
+\- Syntax
+```
+parse(numberString, [options=DEFAULT_OPTIONS])
+```
+
+-  *numberString*
+    - type: ***string***
+    - The numeric string to parse
+
+- *options*
+    - type: ***FormatOptions*** | ***null*** | ***undefined***
+    - The options to apply in the parse process.
+    - Same options as in format() function.
 
 ---
 
