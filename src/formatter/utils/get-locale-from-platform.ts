@@ -3,7 +3,7 @@ import unique from '../../core/utils/unique';
 import memoize from '../../core/utils/memoize';
 import stringRepeat from '../../core/utils/string-repeat';
 import escapeRegexString from '../../core/utils/escape-regex-string';
-import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
+import { NumerableLocale } from '../../locale/types/numerable-locale';
 
 // <i> Extracted from https://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
 const leftToRightMark = '\u200e';
@@ -114,7 +114,7 @@ const getAbbreviations = (languageTag: string, digits: string, type: 'short' | '
     }
 };
 
-const baseGetLocaleFromPlatform = (languageTag: string): ResolvedNumerableLocale => {
+const baseGetLocaleFromPlatform = (languageTag: string): NumerableLocale => {
     const resolvedLanguageTag = languageTag || 'en';
     const digits = getNumeralSystemDigits(resolvedLanguageTag);
     const resolvedDigits = digits || '0123456789';
@@ -127,10 +127,10 @@ const baseGetLocaleFromPlatform = (languageTag: string): ResolvedNumerableLocale
         _abbreviationsLong: longAbbreviations || en.abbreviations,
         code: resolvedLanguageTag,
         delimiters: { thousands: groupingDelimiter, decimal: fractionDelimiter },
-        abbreviations: shortAbbreviations || en.abbreviations as ResolvedNumerableLocale['abbreviations'],
+        abbreviations: shortAbbreviations || en.abbreviations as NumerableLocale['abbreviations'],
         digitGroupingStyle: !!groupingStyle?.length ? groupingStyle : undefined,
         numeralSystem: digits !== '0123456789' ? digits?.split('').map(appendLeftToRightMarkIfIsRTL) : undefined,
-        ordinal: en.ordinal as ResolvedNumerableLocale['ordinal'],
+        ordinal: en.ordinal as NumerableLocale['ordinal'],
     };
 };
 
