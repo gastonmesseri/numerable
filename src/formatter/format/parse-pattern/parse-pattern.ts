@@ -20,7 +20,7 @@ const addSignPositionIfItDoesNotExists = (patternMask: string) => {
     return patternReplace(patternMask, `'#n'`, `'#s''#n'`);
 };
 
-const parsePattern = (inputPattern: string | Nil): NumberFormatRules => {
+const baseParsePattern = (inputPattern: string | Nil): NumberFormatRules => {
     const resolvedInputPattern = isString(inputPattern) && inputPattern || '0,0.##########';
 
     const [patternMaskAfterSignRule, signRules] = signRule(resolvedInputPattern);
@@ -62,4 +62,6 @@ const parsePattern = (inputPattern: string | Nil): NumberFormatRules => {
     };
 };
 
-export default memoize(parsePattern);
+const parsePattern = memoize(baseParsePattern);
+
+export default parsePattern;

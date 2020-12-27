@@ -2,7 +2,7 @@ import memoize from '../../core/utils/memoize';
 import { unitScale } from '../../core/utils/unit-scale';
 import stringRepeat from '../../core/utils/string-repeat';
 
-const createUnitScaleFromLocaleAbbreviations = (str: string | undefined) => {
+const baseCreateUnitScaleFromLocaleAbbreviations = (str: string | undefined) => {
     if (!str) {
         return unitScale({ base: '', scale: {} });
     }
@@ -18,4 +18,6 @@ const createUnitScaleFromLocaleAbbreviations = (str: string | undefined) => {
     return unitScale({ base: '', scale: scaleDefinition });
 };
 
-export default memoize(createUnitScaleFromLocaleAbbreviations);
+const createUnitScaleFromLocaleAbbreviations = memoize(baseCreateUnitScaleFromLocaleAbbreviations);
+
+export default createUnitScaleFromLocaleAbbreviations;
