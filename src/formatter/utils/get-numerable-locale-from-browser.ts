@@ -7,8 +7,8 @@ import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-loc
 
 // <i> Extracted from https://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
 const leftToRightMark = '\u200e';
-const rtlChars = '\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC';
-const rtlDirCheck = new RegExp('^[^'+rtlChars+']*?['+rtlChars+']');
+const rtlCharsRanges = '\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC';
+const rtlDirCheck = new RegExp('^[^'+rtlCharsRanges+']*?['+rtlCharsRanges+']');
 const isRTL = (string: string) => rtlDirCheck.test(string);
 const appendLeftToRightMarkIfIsRTL = (string: string) => isRTL(string) ? string + leftToRightMark : string;
 
