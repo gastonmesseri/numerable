@@ -274,10 +274,9 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
             - If defined, it will be the returned string when the value is ***0***.
 
         - **locale**: 
-            - type: ***NumerableLocale*** | ***string***
-            - default: ***en NumerableLocale***
-            - If a **NumerableLocale** is passed, it will format the number with the specified locale.
-            - If a **string** with a valid **language tag** is passed (e.g. "en-IN"), it will format the number based on the platform **[Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)**.
+            - type: ***NumerableLocale***
+            - default: ***en*** *(english NumerableLocale)*
+            - If a **NumerableLocale** is provided, it will format the number with the specified locale configuration.
 
         - **scalePercentage**: 
             - type: ***boolean***
@@ -300,59 +299,30 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
 
 ### Usage (i18n)
 
-In order to handle internationalization, **numerable** provides you two ways of dealing with it:
-1. **Import a numerable locale** and pass it to the locale option.  
+In order to handle internationalization:
+
+- **Import a numerable locale** and pass it to the locale option.  
     ```javascript
-    import { es, enIN } from 'numerable/locale';
+    import { format, parse } from 'numerable';
+    import { es, enIN, fr, de } from 'numerable/locale';
+
     format(2500000, '0,0.0 a', { locale: es }); //=> '2,5 M'
     format(2500000, '0,0.0 a', { locale: enIN }); //=> '25.0 L'
+    format(2500000.25, '0,0.00', { locale: fr }); //=> '2 500 000,25'
+
+    format(1.5, '0.00', { locale: de }); //=> '1,5'
+    parse('1,5', { locale: de }); //=> 1.5
     ```
 
-    > - Pros: 
-    >   - Full cross browser compatibility and consistency
-    >   - Additional formatting features
-    > - Cons:
-    >   - Potential increase in the build size (depending on how many different locales your app is using)    
-
-
-2. **Pass a valid [language tag](https://en.wikipedia.org/wiki/IETF_language_tag)** string to the locale option.  
-    ```javascript
-    format(2500, '0,0.0 a', { locale: 'fr' }); //=> '2,5 k'
-    format(2500, '0,0.0 a', { locale: 'cs' }); //=> '2,5 tis.'
-    ```
-    > - Pros: 
-    >   - Smaller bundle size (depending on how many different locales your app is using)
-    > - Cons:
-    >   - Some features won't work on old browsers like IE11 (they will fallback to *en* language), resulting in potential inconsistency across browsers.
-    >   - No extra formatting features
-
-
-> Take into account that the locale formatting options can differ between numerable locales and the ones extracted from the platform. Based in user feedback from other popular libraries, *numerable* locales return a better result than Intl.NumberFormat.
-
-\- The locale option has the following interface
-- **locale**: 
-  - type: ***NumerableLocale*** | ***string***
-  - default: ***en NumerableLocale***
-
-```javascript
-import { format, parse } from 'numerable';
-import { de } from 'numerable/locale';
-
-// Passing a NumerableLocale
-format(1.5, '0.00', { locale: de });
-parse('1,5', { locale: de });
-
-// Passing a language tag string
-format(1.5, '0.00', { locale: 'de-CH' });
-parse('1.5', { locale: 'de-CH' });
-```
 ---
 
-### Wrapping localization handling (i18n)
+
+
+### App localization handling (i18n)
 
 #### - Using custom wrappers
 
-Feel free to create your own tiny wrappers to make the internationalization API simple and use those instead of the original functions:  
+To make your app internationalization handling easy, you can **create your own function wrappers** and use those instead of the original functions. With this approach, you can make your app localized number formatting API simple.
 
 ```javascript
 // my-app/utils/format.js
@@ -377,6 +347,7 @@ export default function (value, pattern = '0,0.000', options) {
 ```javascript
 // Later...
 
+// Importing my custom localized format wrapper
 import format from 'my-app/utils/format';
 ​
 window.__myLocaleId__ = 'es';
@@ -400,19 +371,21 @@ format(1234.56, '0,0.00');
 
 ---
 
-### Using numerable locales (i18n)
+### Numerable locales (i18n)
 
-If a **NumerableLocale** is passed, it will format the number with the specified locale.  
+If a **NumerableLocale** is provided in any format function, it will format the number with the specified locale.  
 
-The locales provided by **numerable** allow full support for formatting options.
-- Thousands and decimal delimiters
-- Abbreviations (e.g. "1.5 K")
-- Ordinal numbers (e.g. "3rd")
-- Digit grouping style (e.g. "10,00,000.00" or "100,0000.00")
-- Different numeral systems (e.g. "٢‎٬٥‎٩‎٩‎٬٦‎٥‎٤‎٫٠‎")
+The locales provided by **numerable** allow localized support for the following formatting options:  
+- **Thousands and decimal delimiters**
+- **Abbreviations** (e.g. "1.5 K")
+- **Digit grouping style** (e.g. "10,00,000.00" or "100,0000.00")
+- **Different numeral systems** (e.g. "٢‎٬٥‎٩‎٩‎٬٦‎٥‎٤‎٫٠‎")
+- **Ordinal numbers** (e.g. "3rd")
 
 ```javascript
+import { format } from 'numerable';
 import { fr, es, enIN, zh } from 'numerable/locale';
+
 format(1234.56, '0.000', { locale: fr }); // Returns "1 234,560"
 format(2500000, '0,0.0 a', { locale: es }); //=> '2,5 M'
 format(2500000, '0,0.0 a', { locale: enIN }); //=> '25.0 L'
@@ -424,29 +397,26 @@ format(2544609, '0,0.0', { locale: arEG }); //=> '٢‎٬٥‎٤‎٤‎٬٦‎�
 
 ### Using platform locales (i18n)
 
-If a **string** with a valid **language tag** is passed to the locale option (e.g. "en-IN"), **numerable** will format the number based on the platform **[Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)**.  
-> Take into account that support for Intl.NumberFormat is still limited on some browsers. And some of the features, like abbreviation won't work in old browsers like IE11.  
->
-> If a feature is not found in the browser, numerable will still work, and it will fallback to the **en** locale for that specific feature.
+If you app is simple and you are not supporting legacy browsers or Node. You can create a **NumerableLocale** based on the platform. 
+
+> :warning: Take into account that the support for platform locales is limited. And some of the features, like "*ordinal numbers formatting*" won't be available if you obtain the locale from the platform.
+
+**numerable** provides the function **getLocaleFromPlatform**. This function will dynamically generate a **NumerableLocale** using the platform **[Intl.NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/NumberFormat)** configuration.
+
 
 ```javascript
-format(2500, '0.0 a', { locale: 'fr' }); //=> '2,5 k'
-format(2500, '0.0 a', { locale: 'cs' }); //=> '2,5 tis.'
-format(2500, '0.0 a', { locale: 'es' }); //=> '2,5 mil'
+import { format, getLocaleFromPlatform } from 'numerable';
+
+format(2500, '0,0.0 a', { locale: getLocaleFromPlatform('fr') }); //=> '2,5 k'
+format(2500, '0,0.0 a', { locale: getLocaleFromPlatform('cs') }); //=> '2,5 tis.'
+format(2500, '0.0 a', { locale: getLocaleFromPlatform('es') }); //=> '2,5 mil'
 ```
+
+> Cons:
+> - Some features won't work on legacy browsers like IE11 or Node (they will fallback to *en* language), resulting in potential inconsistency across browsers.
+> - No full support for formatting features like "*ordinal number formatting*"
+
 ---
-
-
-
-<!-- ## Contributing with new Languages
-
-Use this quick guide:  
-First of all, create an issue so you won't overlap with others.
-A detailed explanation of how to add a new locale.
-Use English locale as the basis and then incrementally adjust the tests and the code.
-Directions on adding a locale with the same language as another locale.
-If you have questions or need guidance, leave a comment in the issue.
-Thank you for your support! -->
 
 
 
