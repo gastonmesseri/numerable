@@ -1,5 +1,5 @@
-import parse from './../../src/api/parse';
-import format from './../../src/api/format';
+import parse from '../../src/api/parse';
+import format from '../../src/api/format';
 
 describe('format: currency', () => {
     describe('format', () => {

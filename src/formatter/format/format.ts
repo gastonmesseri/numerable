@@ -12,7 +12,6 @@ const getFormatFunctionIfMatch = (pattern: string, resolvedOptions: ResolvedNume
     for (const formatter of resolvedOptions.formatters) {
         const matcher = formatter.regexps.format;
         if (!matcher) continue;
-        // const matcherResult = isFunction(matcher) ? matcher(pattern, resolvedOptions) : pattern.match(matcher);
         const matcherResult = isFunction(matcher) ? matcher(pattern, resolvedOptions) : patternIncludes(pattern, matcher);
         if (matcherResult) return formatter.format;
     }
