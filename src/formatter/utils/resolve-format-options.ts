@@ -1,9 +1,9 @@
 import merge from '../../core/utils/merge';
-import BUILT_IN_FORMATTERS from '../formatters';
 import isObject from '../../core/utils/is-object';
 import isString from '../../core/utils/is-string';
 import isFunction from '../../core/utils/is-function';
 import truncateNumber from '../../core/utils/truncate-number';
+import BUILT_IN_FORMATTERS from '../constants/built-in-formatters';
 import { NumerableLocale } from '../../locale/types/numerable-locale';
 import DEFAULT_FORMAT_OPTIONS from '../constants/default-format-options';
 import { NumerableFormatNumberOptions } from '../types/format-number-options';
