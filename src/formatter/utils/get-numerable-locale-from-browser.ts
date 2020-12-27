@@ -5,9 +5,7 @@ import stringRepeat from '../../core/utils/string-repeat';
 import escapeRegexString from '../../core/utils/escape-regex-string';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 
-/**
- * <i> Extracted from https://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
- */
+// <i> Extracted from https://stackoverflow.com/questions/12006095/javascript-how-to-check-if-character-is-rtl
 const leftToRightMark = '\u200e';
 const rtlChars = '\u0591-\u07FF\u200F\u202B\u202E\uFB1D-\uFDFD\uFE70-\uFEFC';
 const rtlDirCheck = new RegExp('^[^'+rtlChars+']*?['+rtlChars+']');
@@ -77,9 +75,6 @@ const getGroupingStyle = (languageTag: string, groupingDelimiter: string) => {
     }
 };
 
-/**
- * Abbreviations can be extracted with the { notation: 'compact' } option in Intl.NumberFormat
- */
 const getAbbreviations = (languageTag: string, digits: string, type: 'short' | 'long'): string | null => {
     try {
         if (!toLocaleStringSupportsOptions()) return null;
