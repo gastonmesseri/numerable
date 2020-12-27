@@ -9,10 +9,7 @@ const replaceNumeralSystemWithLatinNumbers = (numericStringWithExtraInfo: string
     if (!numeralSystemMap || numeralSystemMap.length !== 10) return numericStringWithExtraInfo;
 
     const numericStringLength = numericStringWithExtraInfo.length;
-    const numeralSystemToLatinSystemMap = toObject(numeralSystemMap, (digit, digitIndex) => [
-        digit.replace(/\u200e/g, ''),
-        '' + digitIndex,
-    ]);
+    const numeralSystemToLatinSystemMap = toObject(numeralSystemMap, (digit, digitIndex) => [digit.replace(/\u200e/g, ''), '' + digitIndex]);
     let output = '';
     for (let numericStringIndex = 0; numericStringIndex < numericStringLength; numericStringIndex++) {
         const char = numericStringWithExtraInfo[numericStringIndex];
@@ -31,7 +28,7 @@ const getScalingFactorFromAbbreviations = (stringOriginal: string, options: Reso
         const regexp = new RegExp(
             '[^a-zA-Z]'
             + `(${scapedAbbreviationForRegex})|(${scapedAbbreviationForRegex.replace(/\u200e/g, '')})`
-            + '(?:\\)|(\\' + 'CURRENCY' + ')?(?:\\))?)?$'
+            + '(?:\\)(?:\\))?)?$'
         );
 
         if (stringOriginal.match(regexp)) {

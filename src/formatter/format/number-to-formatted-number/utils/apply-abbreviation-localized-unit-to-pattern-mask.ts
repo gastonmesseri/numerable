@@ -10,7 +10,7 @@ const applyAbbreviationLocalizedUnitToPatternMask = (
 ) => {
     if (!hasAbbreviationInPatternMask) return patternMask;
 
-    const safeAbbreviationLocalizedUnit = abbreviationLocalizedUnit.replace(/'/g, '#ɵ');
+    const safeAbbreviationLocalizedUnit = abbreviationLocalizedUnit.replace(/'/g, _ => '#ɵ#');
     return !!safeAbbreviationLocalizedUnit
         ? patternMask.replace(`'#a'`, safeAbbreviationLocalizedUnit)
         // If has abbreviation but it is empty

@@ -17,7 +17,7 @@ export const patternIncludes = (patternMask: string, searchValue: string | RegEx
 export const patternReplace = (patternMask: string, searchValue: string | RegExp, replaceValue: string) => {
     const [searchPartOfRegExp, flags] = isString(searchValue) ? [escapeRegexString(searchValue), undefined] : [searchValue.source, searchValue.flags];
     const regexp = new RegExp(`${searchPartOfRegExp}(?=([^']*'[^']*')*[^']*$)`, flags);
-    return patternMask.replace(regexp, replaceValue);
+    return patternMask.replace(regexp, _ => replaceValue);
 };
 
 export const patternRemovePlaceholders = (patternMask: string) => {
