@@ -1,12 +1,27 @@
 module.exports = {
-    someSidebar: {
-        Installation: [
-            'getting-started'
-        ],
-        Functions: [
-            'function_format',
-            'function_parse',
-        ],
+    someSidebar: [
+        {
+            type: 'category',
+            label: 'Installation',
+            items: [
+                'getting-started',
+            ],
+        },
+        {
+            type: 'category',
+            label: 'Functions',
+            items: [
+                'function_format',
+                'function_parse',
+            ],
+            collapsed: false,
+        },
+
+        // Functions: [
+        //     'function_format',
+        //     'function_parse',
+        // ],
+
         // Features: [
         //     'value-types',
         //     'format-number-interface',
@@ -46,5 +61,5 @@ module.exports = {
         //         items: ['value-types', 'format-number-interface', 'debug-page'],
         //     },
         // ],
-    },
+    ],
 };
