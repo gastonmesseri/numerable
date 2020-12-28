@@ -30,9 +30,11 @@
         "build:lib": "tsc --project tsconfig.build-lib.json",
         "build:esmlib": "tsc --project tsconfig.build-esmlib.json",
         "build:locale": "tsc --project tsconfig.build-locale.json",
+        "build:docs": "cd docs && npm run build",
         "prepare": "npm run build",
         "prepublishOnly": "npm test && npm run lint",
-        "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
+        "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
+        "deploy-docs": "git push origin --delete gh-pages && git subtree push --prefix docs/build origin gh-pages"
     },
     "dependencies": {},
     "devDependencies": {
