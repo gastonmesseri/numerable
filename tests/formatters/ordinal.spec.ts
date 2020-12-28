@@ -29,8 +29,8 @@ describe('format: ordinal', () => {
         it('should use empty string if ordinal function returns nil', () => {
             expect(format(12, '0o', { locale: { ...en, ordinal: () => undefined as any }})).toBe('12');
             expect(format(1, '0o', { locale: { ...en, ordinal: () => null as any }})).toBe('1');
-            expect(format(2, '0 o', { locale: { ...en, ordinal: () => undefined as any }})).toBe('2 ');
-            expect(format(3, '0 o', { locale: { ...en, ordinal: () => null as any }})).toBe('3 ');
+            expect(format(2, '0 o', { locale: { ...en, ordinal: () => undefined as any }})).toBe('2');
+            expect(format(3, '0 o', { locale: { ...en, ordinal: () => null as any }})).toBe('3');
         });
     });
 

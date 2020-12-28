@@ -18,4 +18,5 @@ export interface NumerableFormatNumberOptions {
     scalePercentage?: boolean;
     formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
     currency?: string;
+    trim?: boolean;
 }

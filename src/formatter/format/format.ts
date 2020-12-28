@@ -46,7 +46,9 @@ const format = (value: number | string | null | undefined, pattern: string | nul
         }
 
         // Ensures that it always returns an string
-        return isString(output) ? output : '';
+        output = isString(output) ? output : '';
+
+        return resolvedOptions.trim ? output.trim() : output;
     } catch (_error) {
         return (options as any)?._errorFormat || '';
     }

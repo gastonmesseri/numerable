@@ -12,4 +12,5 @@ export interface ResolvedNumerableFormatNumberOptions {
     scalePercentage: boolean;
     formatters: NumerableFormatter[];
     currency?: string;
+    trim: boolean;
 }

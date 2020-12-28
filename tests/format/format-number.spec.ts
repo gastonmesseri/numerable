@@ -317,7 +317,41 @@ describe('numerable', () => {
         });
     });
 
-    describe('formatNumber::nanFormat-option', () => {
+    describe('format::trim-option', () => {
+        it('should apply trim on the output string if specified in the options', () => {
+            const tests: [number, string, string][] = [
+                [NaN, '   0,0.00', ''],
+                [0.15, '   0,0.00   ', '0.15'],
+                [-0.15, '   0.00   ', '-0.15'],
+                [123456789, '   0.00   ', '123456789.00'],
+                [-123456789, '   0.00   ', '-123456789.00'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { trim: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+                expect(typeof result).toBe('string');
+            });
+        });
+
+        it('should NOT apply trim on the output string if specified in the options', () => {
+            const tests: [number, string, string][] = [
+                [NaN, '   0,0.00', ''],
+                [0.15, '   0,0.00   ', '   0.15   '],
+                [-0.15, '   0.00   ', '   -0.15   '],
+                [123456789, '   0.00   ', '   123456789.00   '],
+                [-123456789, '   0.00   ', '   -123456789.00   '],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { trim: false });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+                expect(typeof result).toBe('string');
+            });
+        });
+    });
+
+    describe('format::nanFormat-option', () => {
         it('should return the specified nanFormat if value is NaN', () => {
             const tests: any[] = [
                 ['', NaN, '0,0.00', ''],
@@ -458,12 +492,12 @@ describe('numerable', () => {
                 [0, '#.00', '.00'],
                 [0.1, '#.00', '.10'],
                 [-0.1, '#.00', '-.10'],
-                [0, ' #.00', ' .00'],
-                [0, '  #.00', '  .00'],
-                [0.99, '  #.00', '  .99'],
-                [-0.99, '  #.00', '  -.99'],
-                [0.99, '  #.###', '  .99'],
-                [-0.99, '  #.###', '  -.99'],
+                [0, ' #.00', '.00'],
+                [0, '  #.00', '.00'],
+                [0.99, '  #.00', '.99'],
+                [-0.99, '  #.00', '-.99'],
+                [0.99, '  #.###', '.99'],
+                [-0.99, '  #.###', '-.99'],
                 [-0.23, '#.00', '-.23'],
                 [-0.23, '(#.00)', '(.23)'],
                 [-0.23, '( #.00)', '( .23)'],

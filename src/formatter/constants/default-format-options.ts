@@ -9,6 +9,7 @@ const DEFAULT_FORMAT_OPTIONS = {
     rounding: Math.round,
     type: null,
     scalePercentage: true,
+    trim: true,
 };
 
 export default DEFAULT_FORMAT_OPTIONS;
