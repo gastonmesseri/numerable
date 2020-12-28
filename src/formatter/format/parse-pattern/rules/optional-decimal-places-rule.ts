@@ -12,7 +12,7 @@ import { patternIncludes, patternReplace } from '../../../utils/pattern-regexp-u
  *     - If it has 1 decimal, displays 2 decimals:       23.4 => '23.40'
  *     - If it has 3 decimals, displays 3 decimals:      23.456 => '23.456'
  */
-export const optionalDecimalPlacesRule = (patternMask: string) => {
+const optionalDecimalPlacesRule = (patternMask: string) => {
     let optionalFractionDigits = false;
 
     let outputPatternMask = patternMask;
@@ -24,3 +24,4 @@ export const optionalDecimalPlacesRule = (patternMask: string) => {
     return [outputPatternMask, { optionalFractionDigits }] as const;
 };
 
+export default optionalDecimalPlacesRule;

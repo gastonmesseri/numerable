@@ -25,7 +25,7 @@ import { patternRemoveEscapedText, patternReplace } from '../../../utils/pattern
  * <i> Checks if we should use parentheses for negative number or if we should prefix with a sign.
  *     If both are present we default to parentheses.
  */
-export const signRule = (pattern: string) => {
+const signRule = (pattern: string) => {
     const patternWithoutEscapedText = patternRemoveEscapedText(pattern);
 
     const negativeParentheses = stringIncludes(patternWithoutEscapedText, '(') && stringIncludes(patternWithoutEscapedText, ')');
@@ -38,3 +38,5 @@ export const signRule = (pattern: string) => {
 
     return [outputPatternMask, { negativeParentheses, forceSign }] as const;
 };
+
+export default signRule;

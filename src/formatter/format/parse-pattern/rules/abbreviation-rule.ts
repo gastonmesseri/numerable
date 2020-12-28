@@ -7,7 +7,7 @@ import { patternIncludes, patternRemoveEscapedText, patternReplace } from '../..
  * <i> If 'a' is followed by 'k' | 'm' | 'b' | 't', then, it will force the abbreviation to be the specified
  *     unit. (e.g. (123456.78, '0,0.00am')  =>  '0.12M')
  */
-export const abbreviationRule = (patternMask: string) => {
+const abbreviationRule = (patternMask: string) => {
     let compactUnit: AbbreviationScale | null = null; // force abbreviation
     let compact = false;
 
@@ -24,3 +24,5 @@ export const abbreviationRule = (patternMask: string) => {
 
     return [outputPatternMask, { compact, compactUnit, compactAuto: compact && !compactUnit }] as const;
 };
+
+export default abbreviationRule;
