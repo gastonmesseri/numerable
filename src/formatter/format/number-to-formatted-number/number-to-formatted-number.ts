@@ -20,9 +20,9 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     const resolvedValue = isFiniteNumber(number) ? number : 0;
 
     // 1. Scaling and rounding
-    const [scaledValue, scaledValueUnit] = scaleValueWithAbbreviation(resolvedValue, patternRules, options);
+    const [scaledValue, scaledValueLocalizedUnit] = scaleValueWithAbbreviation(resolvedValue, patternRules, options);
     const roundedScaledValue = +roundValueAndAddTrailingZeros(scaledValue, patternRules, options);
-    const [rescaledValue, rescaledValueUnit] = rescaleRoundedValue(+roundedScaledValue, scaledValueUnit, patternRules, options);
+    const [rescaledValue, rescaledValueLocalizedUnit] = rescaleRoundedValue(+roundedScaledValue, scaledValueLocalizedUnit, patternRules, options);
     const roundedRescaledValueAsStringWithTrailingZeros = roundValueAndAddTrailingZeros(rescaledValue, patternRules, options);
 
     // 2. Apply locale
@@ -33,7 +33,7 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     const valueIntegerPartWithLeadingZeros = addLeadingZerosToValue(integerPart, patternRules);
     const valueIntegerPartWithThousandsSeparator = addThousandsSeparatorToValueIntegerPart(valueIntegerPartWithLeadingZeros, patternRules, options);
     const valueIntegerPartAfterHandlingOmitInteger = patternRules.omitInteger ? '' : valueIntegerPartWithThousandsSeparator;
-    const abbreviationLocalizedUnit = rescaledValueUnit || '';
+    const abbreviationLocalizedUnit = rescaledValueLocalizedUnit || '';
 
     const numeralSystemFromLocale = options.locale.numeralSystem;
     const integerPartWithNumeralSystem = replaceDigitsWithNumeralSystem(valueIntegerPartAfterHandlingOmitInteger, numeralSystemFromLocale);
