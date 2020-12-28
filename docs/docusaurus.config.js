@@ -5,8 +5,7 @@ module.exports = {
     baseUrl: '/numerable/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
-    // favicon: 'img/favicon.ico',
-    favicon: 'img/logo-60-60.png',
+    favicon: 'img/favicon.ico',
     organizationName: 'gastonmesseri', // Usually your GitHub org/user name.
     projectName: 'numerable', // Usually your repo name.
     themeConfig: {
