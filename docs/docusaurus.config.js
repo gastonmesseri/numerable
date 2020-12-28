@@ -2,7 +2,7 @@ module.exports = {
     title: 'numerable',
     tagline: 'A number formatting library for Javascript and Node.js apps',
     url: 'https://github.com/gastonmesseri/numerable',
-    baseUrl: '/',
+    baseUrl: '/numerable/',
     onBrokenLinks: 'throw',
     onBrokenMarkdownLinks: 'warn',
     // favicon: 'img/favicon.ico',
