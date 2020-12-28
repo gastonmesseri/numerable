@@ -1,7 +1,4 @@
 /node_modules
-/docs/node_modules
-/docs/debug.log
-# /docs/build
 /dist
 /coverage
 /locale
