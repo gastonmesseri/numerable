@@ -6,7 +6,7 @@ import { NumberFormatRules } from '../../../core/types/rules';
 import { decimalPlacesRule } from './rules/decimal-places-rule';
 import stringIncludes from '../../../core/utils/string-includes';
 import { optionalDecimalPlacesRule } from './rules/optional-decimal-places-rule';
-import { patternRemovePlaceholders, patternReplace } from '../../utils/pattern-regexp-utils';
+import { patternRemoveEscapedText, patternReplace } from '../../utils/pattern-regexp-utils';
 
 const numberPositionRule = (patternMask: string) => {
     const numberPartRegExp = /(((0+,)?0+(\.([0#X]|\[0+\])+)?){1}|\.([0#X]|\[0+\])+)/;
@@ -25,7 +25,7 @@ const baseParsePattern = (inputPattern: string | null | undefined): NumberFormat
     const [patternMaskAfterSignRule, signRules] = signRule(resolvedInputPattern);
     const [patternMaskAfterAbbreviationRule, abbreviationRules] = abbreviationRule(patternMaskAfterSignRule);
     const [patternMaskAfterDecimalPlacesRule, optionalDecimalPlacesRules] = optionalDecimalPlacesRule(patternMaskAfterAbbreviationRule);
-    const outputPatternMaskWithoutPlaceholders = patternRemovePlaceholders(patternMaskAfterDecimalPlacesRule);
+    const outputPatternMaskWithoutPlaceholders = patternRemoveEscapedText(patternMaskAfterDecimalPlacesRule);
     const decimalPlacesRules = decimalPlacesRule(outputPatternMaskWithoutPlaceholders);
 
     const grouping = outputPatternMaskWithoutPlaceholders.indexOf(',') > -1;

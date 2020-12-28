@@ -1,5 +1,5 @@
 import { AbbreviationScale } from '../../../../core/types/abbreviation-scale';
-import { patternIncludes, patternRemovePlaceholders, patternReplace } from '../../../utils/pattern-regexp-utils';
+import { patternIncludes, patternRemoveEscapedText, patternReplace } from '../../../utils/pattern-regexp-utils';
 
 /**
  * Checks if abbreviation is wanted
@@ -14,8 +14,8 @@ export const abbreviationRule = (patternMask: string) => {
     // If it includes 'a' means it should be abbreviated (only if at least includes 'a')
     if (patternIncludes(patternMask, 'a')) {
         compact = true;
-        const patternWithoutPlaceholders = patternRemovePlaceholders(patternMask);
-        const abbreviationRegExpResult = patternWithoutPlaceholders.match(/a(k|m|b|t)?/);
+        const patternWithoutEscapedText = patternRemoveEscapedText(patternMask);
+        const abbreviationRegExpResult = patternWithoutEscapedText.match(/a(k|m|b|t)?/);
         compactUnit = !!abbreviationRegExpResult ? abbreviationRegExpResult[1] as AbbreviationScale : null;
     }
 

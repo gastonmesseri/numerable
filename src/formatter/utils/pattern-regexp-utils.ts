@@ -20,7 +20,7 @@ export const patternReplace = (patternMask: string, searchValue: string | RegExp
     return patternMask.replace(regexp, _ => replaceValue);
 };
 
-export const patternRemovePlaceholders = (patternMask: string) => {
+export const patternRemoveEscapedText = (patternMask: string) => {
     return patternMask.replace(new RegExp(singleQuotesRegExpString, 'g'), '');
 };
 

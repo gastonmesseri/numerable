@@ -2,14 +2,14 @@ import isNil from '../../core/utils/is-nil';
 import isString from '../../core/utils/is-string';
 import isFunction from '../../core/utils/is-function';
 import isNaNNumber from '../../core/utils/is-nan-number';
-import { patternRemovePlaceholders } from '../utils/pattern-regexp-utils';
+import { patternRemoveEscapedText } from '../utils/pattern-regexp-utils';
 import resolveFormatOptions from '../../formatter/utils/resolve-format-options';
 import { NumerableFormatNumberOptions } from '../../formatter/types/format-number-options';
 import numberToFormattedNumber from './number-to-formatted-number/number-to-formatted-number';
 import { ResolvedNumerableFormatNumberOptions } from '../../formatter/types/resolved-format-number-options';
 
 const getFormatFunctionIfMatch = (pattern: string, resolvedOptions: ResolvedNumerableFormatNumberOptions) => {
-    const patternWithoutEscapedText = patternRemovePlaceholders(pattern);
+    const patternWithoutEscapedText = patternRemoveEscapedText(pattern);
     for (const formatter of resolvedOptions.formatters) {
         const matcher = formatter.regexps.format;
         if (!matcher) continue;
