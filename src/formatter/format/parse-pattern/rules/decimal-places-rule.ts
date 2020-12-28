@@ -12,8 +12,8 @@ const countChars = (string: string, char: string) => {
  * <i> Optional fraction digits would go always after the forced ones
  */
 export const decimalPlacesRule = (patternMask: string) => {
-    const patternWithoutPlaceholders = patternRemoveEscapedText(patternMask);
-    const patternPrecisionPart = splitStringInTwoParts(patternWithoutPlaceholders, '.')[1];
+    const patternWithoutEscapedText = patternRemoveEscapedText(patternMask);
+    const patternPrecisionPart = splitStringInTwoParts(patternWithoutEscapedText, '.')[1];
 
     let minimumFractionDigits: number = 0;
     let maximumFractionDigits: number = 0;

@@ -5,7 +5,7 @@ import { patternIncludes, patternRemoveEscapedText, patternReplace } from '../..
  * Checks if abbreviation is wanted
  * <i> Applied only when 'a' is present.
  * <i> If 'a' is followed by 'k' | 'm' | 'b' | 't', then, it will force the abbreviation to be the specified
- *     measure. (e.g. 123456.78 & '0,0.00am  =>  '0.12m')
+ *     unit. (e.g. (123456.78, '0,0.00am')  =>  '0.12M')
  */
 export const abbreviationRule = (patternMask: string) => {
     let compactUnit: AbbreviationScale | null = null; // force abbreviation

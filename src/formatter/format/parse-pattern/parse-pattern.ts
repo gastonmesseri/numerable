@@ -13,10 +13,10 @@ const numberPositionRule = (patternMask: string) => {
     return patternReplace(patternMask, numberPartRegExp, `'#n'`);
 };
 
-// If sign is not included, put sign at the left
+// If sign is not included, put sign at the left of the number
 const addSignPositionIfItDoesNotExists = (patternMask: string) => {
     if (stringIncludes(patternMask, `'#s'`) || stringIncludes(patternMask, `'#nps'`)) return patternMask;
-    return patternReplace(patternMask, `'#n'`, `'#s''#n'`);
+    return patternMask.replace(`'#n'`, _ => `'#s''#n'`);
 };
 
 const baseParsePattern = (inputPattern: string | null | undefined): NumberFormatRules => {
@@ -24,12 +24,13 @@ const baseParsePattern = (inputPattern: string | null | undefined): NumberFormat
 
     const [patternMaskAfterSignRule, signRules] = signRule(resolvedInputPattern);
     const [patternMaskAfterAbbreviationRule, abbreviationRules] = abbreviationRule(patternMaskAfterSignRule);
-    const [patternMaskAfterDecimalPlacesRule, optionalDecimalPlacesRules] = optionalDecimalPlacesRule(patternMaskAfterAbbreviationRule);
-    const outputPatternMaskWithoutPlaceholders = patternRemoveEscapedText(patternMaskAfterDecimalPlacesRule);
-    const decimalPlacesRules = decimalPlacesRule(outputPatternMaskWithoutPlaceholders);
+    const [patternMaskAfterOptionalDecimalPlacesRule, optionalDecimalPlacesRules] = optionalDecimalPlacesRule(patternMaskAfterAbbreviationRule);
+    const decimalPlacesRules = decimalPlacesRule(patternMaskAfterOptionalDecimalPlacesRule);
 
-    const grouping = outputPatternMaskWithoutPlaceholders.indexOf(',') > -1;
-    const omitInteger = outputPatternMaskWithoutPlaceholders.indexOf('.') === 0;
+    const outputPatternMask = patternMaskAfterOptionalDecimalPlacesRule;
+    const outputPatternMaskWithoutEscapedText = patternRemoveEscapedText(outputPatternMask);
+    const grouping = outputPatternMaskWithoutEscapedText.indexOf(',') > -1;
+    const omitInteger = outputPatternMaskWithoutEscapedText.indexOf('.') === 0;
 
     /**
      * Leading integer digits rule
@@ -43,9 +44,9 @@ const baseParsePattern = (inputPattern: string | null | undefined): NumberFormat
      * 
      * <i> This could be a rule
      */
-    const minimumIntegerDigits = (outputPatternMaskWithoutPlaceholders.split('.')[0].split(',')[0].match(/0/g) || []).length;
+    const minimumIntegerDigits = (outputPatternMaskWithoutEscapedText.split('.')[0].split(',')[0].match(/0/g) || []).length;
 
-    const patternMaskAfterHandlingNumberPosition = numberPositionRule(patternMaskAfterDecimalPlacesRule);
+    const patternMaskAfterHandlingNumberPosition = numberPositionRule(outputPatternMask);
     const patternMaskWithEnsuredSignPosition = addSignPositionIfItDoesNotExists(patternMaskAfterHandlingNumberPosition);
     const patternMask = patternMaskWithEnsuredSignPosition;
 
