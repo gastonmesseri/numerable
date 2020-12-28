@@ -286,7 +286,7 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
         - **trim**: 
             - type: ***boolean***
             - default: ***true***
-            - If **true** (default), it will trim the output formatted string. If **false**, the sorrounding spaces will be preserved.  
+            - If **true** (default), it will trim the output formatted string. If **false**, the surrounding spaces will be preserved.  
 
 ---
 
