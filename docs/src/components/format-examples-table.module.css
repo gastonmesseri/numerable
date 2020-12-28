@@ -1,0 +1,102 @@
+.testsTable {
+    display: unset;
+    /* border: 2px solid #f0f0f0; */
+    /* border: 2px solid #e0e0e0; */
+    /* border: 2px solid #d0d0d0; */
+    display: table;
+    max-width: 806px;
+    margin: auto;
+    /* font-size: 15px; */
+}
+
+.row {
+    transition: background-color 0.2s ease;
+}
+
+.row:nth-child(2n) {
+    /* background-color: var(--ifm-table-stripe-background); */
+    background-color: transparent;
+}
+
+
+
+.row:hover {
+    /* background: rgba(120, 71, 110, 0.2); */
+    /* background: rgba(55, 55, 55, 0.08); */
+}
+
+.testsTable tr {
+    /* border-color: transparent; */
+}
+
+.testsTable td {
+    border-color: transparent;
+    padding: 2px 12px;
+    text-align: right;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.12) !important;
+    /* height: 40px; */
+    height: 48px;
+}
+
+.testsTable th {
+    background: rgba(55,55,55, 0.06);
+    text-align: right;
+    border-color: transparent;
+    /* color: rgb(242, 91, 160); */
+    font-size: 15px;
+    padding: 6px 12px;
+    height: 48px;
+}
+
+.patternText {
+    /* color: #08b06a; */
+    color: #049177;
+}
+
+.numberCell {
+    color: #9b547f;
+}
+
+.resultCell {
+    color: rgb(242, 91, 160);
+    color: #047157;
+    /* font-weight: 600; */
+}
+
+.nilValue {
+    color: orange;
+    color: #e59400;
+    /* font-style: italic; */
+}
+
+.numeralText {
+    color: #73889e;
+}
+
+.tryMePlaygroundInputsContainer {
+    display: inline-block;
+    min-width: 440px;
+}
+
+
+
+
+
+
+/* React tooltip */
+
+.examplesTooltip {
+    color: #333 !important;
+    background-color: white !important;
+    opacity: 1 !important;
+    box-shadow: 3px 3px 12px rgba(0,0,0,0.2);
+    text-align: left;
+}
+
+/* .examplesTooltip.place-right:after { */
+.examplesTooltip::after {
+    display: none;
+    /* border-top-color: orange !important; */
+    /* border-top-style: solid !important; */
+    /* border-top-width: 6px !important; */
+}

@@ -1,0 +1,56 @@
+.playgroundInput {
+    border: 1px solid rgba(255,255,255,0.04);
+    background: rgba(255,255,255,0.08);
+    color: rgb(191, 199, 213);
+    /* width: 88px; */
+    border-radius: 3px;
+    font-family: var(--ifm-font-family-monospace);
+    font-size: 16px;
+    text-align: right;
+    height: 22px;
+    padding-left: 1px;
+    padding-right: 2px;
+}
+
+.playgroundInput:focus {
+    /* border-color: rgba(250, 200, 200, 0.3); */
+    background: rgba(255,255,255,0.14);
+    outline: none;
+}
+
+.playgroundInput:disabled {
+    /* border-color: rgba(250, 200, 200, 0.3); */
+    background: rgba(0,0,0,0);
+    border-color: rgba(0,0,0,0);
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.functionNameColor     { color: #4cacff; }
+.numberColor           { color: #e3a83d; }
+.stringColor           { color: #7dd98c; }
+.commentColor          { color: #888888; font-style: italic; }
+
+.neutralCodeColor {
+    color: #f0f0f0;
+    color: rgb(191, 199, 213);
+}
+
+.playgroundCodeContainer {
+    background: rgb(41, 45, 62);
+    border-radius: 6px;
+    min-height: 40px;
+    font-family: var(--ifm-font-family-monospace);
+    font-size: 16px;
+
+    display: inline-flex;
+    flex-flow: column nowrap;
+    padding: 20px;
+    text-align: left;
+    width: 100%;
+    /* min-width: 440px; */
+}
+
+.resultLine {
+    white-space: pre;
+}
