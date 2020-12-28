@@ -2,11 +2,11 @@ import parsePattern from '../parse-pattern/parse-pattern';
 import removeSignIfExists from './utils/remove-sign-if-exists';
 import rescaleRoundedValue from './utils/rescale-rounded-value';
 import isFiniteNumber from '../../../core/utils/is-finite-number';
-import addLeadingZerosToValue from './utils/add-leading-zeros-to-value';
 import { patternStripPlaceholders } from '../../utils/pattern-regexp-utils';
 import scaleValueWithAbbreviation from './utils/scale-value-with-abbreviation';
 import roundValueAndAddTrailingZeros from './utils/round-value-and-add-trailing-zeros';
 import replaceDigitsWithNumeralSystem from './utils/replace-digits-with-numeral-system';
+import addOrRemoveLeadingZerosToValue from './utils/add-or-remove-leading-zeros-to-value';
 import addSignInfoToFullFormattedNumber from './utils/add-sign-info-to-full-formatted-number';
 import splitNumberIntegerAndDecimalParts from './utils/split-number-integer-and-decimal-parts';
 import addThousandsSeparatorToValueIntegerPart from './utils/add-thousands-separator-to-value-integer-part';
@@ -30,13 +30,12 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     const isValueNegative = +valueAsString < 0;
     const valueAsStringWithoutSign = removeSignIfExists(valueAsString);
     const [integerPart, decimalPart] = splitNumberIntegerAndDecimalParts(valueAsStringWithoutSign, patternRules);
-    const valueIntegerPartWithLeadingZeros = addLeadingZerosToValue(integerPart, patternRules);
+    const valueIntegerPartWithLeadingZeros = addOrRemoveLeadingZerosToValue(integerPart, patternRules);
     const valueIntegerPartWithThousandsSeparator = addThousandsSeparatorToValueIntegerPart(valueIntegerPartWithLeadingZeros, patternRules, options);
-    const valueIntegerPartAfterHandlingOmitInteger = patternRules.omitInteger ? '' : valueIntegerPartWithThousandsSeparator;
     const abbreviationLocalizedUnit = rescaledValueLocalizedUnit || '';
 
     const numeralSystemFromLocale = options.locale.numeralSystem;
-    const integerPartWithNumeralSystem = replaceDigitsWithNumeralSystem(valueIntegerPartAfterHandlingOmitInteger, numeralSystemFromLocale);
+    const integerPartWithNumeralSystem = replaceDigitsWithNumeralSystem(valueIntegerPartWithThousandsSeparator, numeralSystemFromLocale);
     const decimalPartWithNumeralSystem = replaceDigitsWithNumeralSystem(decimalPart, numeralSystemFromLocale);
     const fullNumberWithNumeralSystem = (
         integerPartWithNumeralSystem

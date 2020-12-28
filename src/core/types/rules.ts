@@ -3,7 +3,6 @@ import { AbbreviationScale } from './abbreviation-scale';
 export interface NumberFormatRules {
     /** Defines whether it should use or not thousands separator */
     grouping: boolean;
-    omitInteger: boolean;
 
     // sign
     /** Determines whether the negative numbers should be wrapped between parentheses */
