@@ -283,6 +283,11 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
             - default: ***true***
             - If **true** (default), it will multiply the number by 100 when a percentage format is detected. If **false**,  the number won't be scaled when a percentage format is detected.  
 
+        - **trim**: 
+            - type: ***boolean***
+            - default: ***true***
+            - If **true** (default), it will trim the output formatted string. If **false**, the sorrounding spaces will be preserved.  
+
 ---
 
 
