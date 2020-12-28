@@ -926,6 +926,7 @@ describe('numerable', () => {
                 [enAbbreviations, 1234, '0.00 ak', '1.23 K'],
                 [enAbbreviations, 1, '0.00 ak', '0.00 K'],
                 [enAbbreviations, -1200300, '0.00 ak', '-1200.30 K'],
+                ['|||T1|||T2', -1200300, '0.00 ak', '-1200.30 T1'],
                 // Million
                 [enAbbreviations, 1200300, '0.00 am', '1.20 M'],
                 [enAbbreviations, -987, '0.00 am', '0.00 M'],
@@ -938,10 +939,15 @@ describe('numerable', () => {
                 [enAbbreviations, 1500300400000, '0.00 at', '1.50 T'],
                 [enAbbreviations, 1500900300400000, '0.00 at', '1500.90 T'],
                 [enAbbreviations, -10500300000, '0.00 at', '-0.01 T'],
-                // Fallback into locale closest (looking first up, then down) UP
-                [zhAbbreviations, 1500, '0.00 ak', '0.15 万'],
-                [zhAbbreviations, 15000, '0.00 ak', '1.50 万'],
-                // Fallback into locale closest (looking first up, then down) DOWN
+                // Fallback into locale closest abbreviation (looking down) Not applying because it doesn't have abbreviation below 1K
+                [zhAbbreviations, 1500, '0.00 ak', '1500.00'],
+                [zhAbbreviations, 15000, '0.00 ak', '15000.00'],
+                [zhAbbreviations, 150000, '0.00 ak', '150000.00'],
+                // Fallback into locale closest abbreviation (looking down) Applying abbreviation at 10000 because is the closest one to 1M
+                [zhAbbreviations, 1500, '0.00 am', '0.15 万'],
+                [zhAbbreviations, 15000, '0.00 am', '1.50 万'],
+                [zhAbbreviations, 150000, '0.00 am', '15.00 万'],
+                // Fallback into locale closest abbreviation (looking down)
                 ['|||||T1|||T2', 1400300, '0.00 am', '14.00 T1'],
                 // Match even while having different abbreviation patterns
                 [zhAbbreviations, 1500400300200, '0.00 at', '1.50 万亿'],

@@ -19,30 +19,22 @@ const resolveForcedAbbreviationUnit = (
     // Record<AbbreviationSymbol, PowerOfTenExponent>
     const forcedScaleMap = { k: 3, m: 6, b: 9, t: 12 };
     const targetPowerOfTenExponent = forcedScaleMap[forcedAbbreviationUnit];
-
     const scaleDefinitionFromLocale = abbreviationsFromLocale?.split('|') || [];
 
-    let times = scaleDefinitionFromLocale.length || 0;
-    let searchIndexFactor = 0;
-    let closestIndexWithAvailableAbbreviation = null;
-    while (times--) {
-        if (!!scaleDefinitionFromLocale[targetPowerOfTenExponent + searchIndexFactor]) {
-            closestIndexWithAvailableAbbreviation = targetPowerOfTenExponent + searchIndexFactor;
-            break;
-        } else if (!!scaleDefinitionFromLocale[targetPowerOfTenExponent - searchIndexFactor]) {
-            closestIndexWithAvailableAbbreviation = targetPowerOfTenExponent - searchIndexFactor;
-            break;
-        }
-        searchIndexFactor += 1;
+    let closestPowerOfTenWithAvailableAbbreviation = null;
+    for (let distanceFromTarget = 0; distanceFromTarget < scaleDefinitionFromLocale.length; distanceFromTarget++) {
+        if (!scaleDefinitionFromLocale[targetPowerOfTenExponent - distanceFromTarget]) continue;
+        closestPowerOfTenWithAvailableAbbreviation = targetPowerOfTenExponent - distanceFromTarget;
+        break;
     }
 
-    if (closestIndexWithAvailableAbbreviation === null) {
+    if (closestPowerOfTenWithAvailableAbbreviation === null) {
         return [value, null];
     }
 
     return [
-        multiplyByPowerOfTen(value, -closestIndexWithAvailableAbbreviation),
-        scaleDefinitionFromLocale[closestIndexWithAvailableAbbreviation],
+        multiplyByPowerOfTen(value, -closestPowerOfTenWithAvailableAbbreviation),
+        scaleDefinitionFromLocale[closestPowerOfTenWithAvailableAbbreviation],
     ];
 };
 
@@ -64,9 +56,9 @@ const scaleValueWithAbbreviation = (
      * If abbreviation is automatic, resolves the abbreviation to the best (where the value has 
      * the fewest numbers before the decimal point, but is still higher than 1).
      */
-    const newScale = createUnitScaleFromLocaleAbbreviations(abbreviations);
-    const [scaledValue, unit] = newScale.toBest(value, '');
-    return [scaledValue, unit || null];
+    const scale = createUnitScaleFromLocaleAbbreviations(abbreviations);
+    const [scaledValue, localizedUnit] = scale.toBest(value, '');
+    return [scaledValue, localizedUnit || null];
 };
 
 export default scaleValueWithAbbreviation;
