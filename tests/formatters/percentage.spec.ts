@@ -105,6 +105,9 @@ describe('format: percentage', () => {
                 ['+43.00 %', 0.43],
                 ['-43.00 %', -0.43],
                 ['-43.00%', -0.43],
+                // Potential floating point errors if (/ 100)
+                ['0.07%', 0.0007],
+                ['-0.07%', -0.0007],
             ];
 
             tests.forEach(([formattedString, expectedResult]) => {
