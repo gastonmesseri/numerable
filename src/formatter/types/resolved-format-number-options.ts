@@ -8,7 +8,7 @@ export interface ResolvedNumerableFormatNumberOptions {
     defaultPattern: string;
     rounding: (scaledValueForRounding: number) => number;
     locale: ResolvedNumerableLocale;
-    type: string | null;
+    type: string | undefined;
     scalePercentage: boolean;
     formatters: NumerableFormatter[];
     currency: string | undefined;

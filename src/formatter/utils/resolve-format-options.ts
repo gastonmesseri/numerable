@@ -57,7 +57,7 @@ const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined)
         zeroFormat: options?.zeroFormat,
         locale: resolvedLocale,
         rounding: resolvedRoundingFunction,
-        type: options?.type || null,
+        type: options?.type,
         scalePercentage: options?.scalePercentage ?? true,
         trim: options?.trim ?? true,
         formatters: resolvedFormatters,
