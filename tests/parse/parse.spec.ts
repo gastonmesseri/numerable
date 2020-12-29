@@ -260,10 +260,10 @@ describe('parse', () => {
             expect(parse('10 %', { formatters: () => [] })).toBe(10);
         });
 
-        it('should apply first the built-in formatters', () => {
-            // Using percentage sign (it should be by default catched by built-in percentage formatter)
+        it('should apply first the passed formatters (before the built-in ones)', () => {
+            // Using percentage sign (it should be by default catched by the passed formatter)
             const formatter = getTestFormatter(/%/, () => 2000);
-            expect(parse('100 %', { formatters: [formatter] })).toBe(1);
+            expect(parse('100 %', { formatters: [formatter] })).toBe(2000);
         });
     });
 });

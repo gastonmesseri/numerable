@@ -42,7 +42,7 @@ const resolveOptionsFormatters = (optionsFormatters: NumerableFormatNumberOption
     if (!optionsFormatters) return BUILT_IN_FORMATTERS;
     return isFunction(optionsFormatters)
         ? optionsFormatters(BUILT_IN_FORMATTERS)
-        : [...BUILT_IN_FORMATTERS, ...optionsFormatters];
+        : [...optionsFormatters, ...BUILT_IN_FORMATTERS];
 };
 
 const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
