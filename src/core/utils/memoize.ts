@@ -4,7 +4,7 @@
 export default <T extends ((...args: any[]) => any)>(fn: T): T => {
     const cache: Record<string, any> = {};
     return function (this: any, ...args: any[]) {
-        const cacheKey = args.join('-(:-:)-');
+        const cacheKey = args.length > 1 ? args.join('-(:-:)-') : args[0];
         if (cacheKey in cache) {
             return cache[cacheKey];
         }
