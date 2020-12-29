@@ -5,7 +5,6 @@ import { en, fr } from '../../src/locale';
 import truncateNumber from '../../src/core/utils/truncate-number';
 import { NumerableLocale } from '../../src/locale/types/numerable-locale';
 import { NumerableFormatter } from '../../src/core/types/numerable-formatter';
-import DEFAULT_FORMAT_OPTIONS from '../../src/formatter/constants/default-format-options';
 
 describe('numerable', () => {
     const getOptionsWithDelimiters = (thousands: string, decimal: string) => {
@@ -683,7 +682,7 @@ describe('numerable', () => {
 
     describe('formatNumber::overload', () => {
         it('should handle 1 argument (value) and apply default pattern', () => {
-            expect(format(1234.56)).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
+            expect(format(1234.56)).toBe(format(1234.56, '0,0.##########'));
         });
 
         it('should handle 2 arguments (value, pattern) and apply given pattern', () => {
@@ -696,7 +695,7 @@ describe('numerable', () => {
 
         it('should handle 2 arguments (value, options) and apply default pattern with given options', () => {
             const result = format(1234.56, getOptionsWithDelimiters('*', '_'));
-            const expectedResult = format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern, getOptionsWithDelimiters('*', '_'));
+            const expectedResult = format(1234.56, '0,0.##########', getOptionsWithDelimiters('*', '_'));
             expect(result).toBe(expectedResult);
         });
 
@@ -747,22 +746,12 @@ describe('numerable', () => {
     });
 
     describe('pattern type resolver', () => {
+        const DEFAULT_PATTERN = '0,0.##########';
         // no valid pattern means '', null or undefined
         it('should format with DEFAULT_OPTIONS defaultPattern if no valid pattern is provided', () => {
-            expect(format(1234.56, '')).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
-            expect(format(1234.56, undefined as any)).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
-            expect(format(1234.56, null as any)).toBe(format(1234.56, DEFAULT_FORMAT_OPTIONS.defaultPattern));
-        });
-
-        it('should format with "0,0.##########" if no valid pattern is provided, and no defaultPattern exists in global', () => {
-            const previousDefaultPattern = DEFAULT_FORMAT_OPTIONS.defaultPattern;
-            DEFAULT_FORMAT_OPTIONS.defaultPattern = undefined as any;
-
-            expect(format(1234.56443322114, '')).toBe('1,234.5644332211');
-            expect(format(1234.56443322114, undefined as any)).toBe('1,234.5644332211');
-            expect(format(1234.56443322114, null as any)).toBe('1,234.5644332211');
-
-            DEFAULT_FORMAT_OPTIONS.defaultPattern = previousDefaultPattern;
+            expect(format(1234.56, '')).toBe(format(1234.56, DEFAULT_PATTERN));
+            expect(format(1234.56, undefined as any)).toBe(format(1234.56, DEFAULT_PATTERN));
+            expect(format(1234.56, null as any)).toBe(format(1234.56, DEFAULT_PATTERN));
         });
 
         it('should format with the provided defaultPattern in options if no valid pattern is provided in the arguments', () => {

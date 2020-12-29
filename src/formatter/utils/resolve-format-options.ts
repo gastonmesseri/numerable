@@ -1,3 +1,4 @@
+import en from '../../locale/en';
 import merge from '../../core/utils/merge';
 import isObject from '../../core/utils/is-object';
 import isString from '../../core/utils/is-string';
@@ -5,7 +6,6 @@ import isFunction from '../../core/utils/is-function';
 import truncateNumber from '../../core/utils/truncate-number';
 import BUILT_IN_FORMATTERS from '../constants/built-in-formatters';
 import { NumerableLocale } from '../../locale/types/numerable-locale';
-import DEFAULT_FORMAT_OPTIONS from '../constants/default-format-options';
 import { NumerableFormatNumberOptions } from '../types/format-number-options';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 import { ResolvedNumerableFormatNumberOptions } from '../types/resolved-format-number-options';
@@ -17,7 +17,7 @@ const areDelimitersValid = (delimiters: NumerableLocale['delimiters']): delimite
 };
 
 const resolveOptionsLocale = (optionsLocale: NumerableLocale | undefined): ResolvedNumerableLocale => {
-    const defaultLocale = DEFAULT_FORMAT_OPTIONS.locale as ResolvedNumerableLocale;
+    const defaultLocale = en as ResolvedNumerableLocale;
 
     if (!isObject(optionsLocale)) return defaultLocale;
 
@@ -34,7 +34,7 @@ const resolveRoundingOption = (roundingOption: NumerableFormatNumberOptions['rou
         case 'floor': return Math.floor;
         case 'truncate': return truncateNumber;
         case 'round': return Math.round;
-        default: return isFunction(roundingOption) ? roundingOption : DEFAULT_FORMAT_OPTIONS.rounding;
+        default: return isFunction(roundingOption) ? roundingOption : Math.round;
     }
 };
 
@@ -46,18 +46,24 @@ const resolveOptionsFormatters = (optionsFormatters: NumerableFormatNumberOption
 };
 
 const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
-    const optionsWithDefaults = merge(DEFAULT_FORMAT_OPTIONS, options) as ResolvedNumerableFormatNumberOptions;
-    const resolvedPattern = optionsWithDefaults.defaultPattern || '0,0.##########';
-    const resolvedRoundingFunction = resolveRoundingOption(optionsWithDefaults.rounding);
-    const resolvedLocale = resolveOptionsLocale(optionsWithDefaults.locale);
+    const resolvedRoundingFunction = resolveRoundingOption(options?.rounding);
+    const resolvedLocale = resolveOptionsLocale(options?.locale);
     const resolvedFormatters = resolveOptionsFormatters(options?.formatters);
 
-    return merge(optionsWithDefaults, {
-        defaultPattern: resolvedPattern,
-        rounding: resolvedRoundingFunction,
+    return {
+        defaultPattern: options?.defaultPattern || '0,0.##########',
+        nullFormat: options?.nullFormat || '',
+        nanFormat: options?.nanFormat,
+        zeroFormat: options?.zeroFormat,
         locale: resolvedLocale,
+        rounding: resolvedRoundingFunction,
+        type: options?.type || null,
+        scalePercentage: options?.scalePercentage ?? true,
+        trim: options?.trim ?? true,
         formatters: resolvedFormatters,
-    });
+        currency: options?.currency,
+    };
 };
+
 
 export default resolveFormatOptions;

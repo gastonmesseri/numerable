@@ -3,14 +3,14 @@ import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-loc
 
 export interface ResolvedNumerableFormatNumberOptions {
     nullFormat: string;
-    nanFormat?: string;
-    zeroFormat?: string;
+    nanFormat: string | undefined;
+    zeroFormat: string | undefined;
     defaultPattern: string;
     rounding: (scaledValueForRounding: number) => number;
     locale: ResolvedNumerableLocale;
     type: string | null;
     scalePercentage: boolean;
     formatters: NumerableFormatter[];
-    currency?: string;
+    currency: string | undefined;
     trim: boolean;
 }
