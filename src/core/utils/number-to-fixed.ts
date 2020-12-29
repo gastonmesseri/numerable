@@ -19,7 +19,7 @@ const addTrailingZerosInFractionalPart = (valueAsString: string, minimumFraction
  * <i> This function should return always a JS string representation of a number, but without exponent.
  * <i> optionalFractionDigits means: from the fractionDigits amount, the ones that are optional.
  */
-export default (
+const numberToFixed = (
     finiteNumber: number,
     fractionDigits: number,
     roundingFunction: (num: number) => number,
@@ -48,3 +48,5 @@ export default (
 
     return output;
 };
+
+export default numberToFixed;
