@@ -5,12 +5,14 @@
  */
 const applyAbbreviationLocalizedUnitToPatternMask = (
     patternMask: string,
-    abbreviationLocalizedUnit: string,
+    abbreviationLocalizedUnit: string | null,
     hasAbbreviationInPatternMask: boolean,
 ) => {
     if (!hasAbbreviationInPatternMask) return patternMask;
 
-    const safeAbbreviationLocalizedUnit = abbreviationLocalizedUnit.replace(/'/g, _ => '#ɵ#');
+    // Prevents potentially finding a single quote in the localized abbreviation unit
+    const safeAbbreviationLocalizedUnit = (abbreviationLocalizedUnit || '').replace(/'/g, _ => '#ɵ#');
+
     return !!safeAbbreviationLocalizedUnit
         ? patternMask.replace(`'#a'`, safeAbbreviationLocalizedUnit)
         // If has abbreviation but it is empty

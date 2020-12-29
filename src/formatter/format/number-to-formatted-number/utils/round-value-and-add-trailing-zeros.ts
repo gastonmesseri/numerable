@@ -6,7 +6,6 @@ const roundValueAndAddTrailingZeros = (value: number, patternRules: NumberFormat
     const { rounding } = options;
     const { minimumFractionDigits, maximumFractionDigits } = patternRules;
     const resolvedRoundingFunction = rounding || Math.round;
-
     const shouldIncludeDecimalPlaces = minimumFractionDigits > 0 || maximumFractionDigits > 0;
 
     if (shouldIncludeDecimalPlaces) {
