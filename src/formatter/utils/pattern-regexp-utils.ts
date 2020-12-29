@@ -5,7 +5,7 @@ import escapeRegexString from '../../core/utils/escape-regex-string';
  * This regex will match everything that is surrounded by single quotes
  * E.g. "test1 'test2' test3 'test4'".replace(singleQuotesRegExp, '') === "test1  test3 "
  */
-const singleQuotesRegExpString = "'(.*?)'";
+const singleQuotesRegExpGlobal = /'(.*?)'/g;
 
 export const patternIncludes = (patternMask: string, searchValue: string | RegExp) => {
     const [searchPartOfRegExp, flags] = isString(searchValue) ? [escapeRegexString(searchValue), undefined] : [searchValue.source, searchValue.flags];
@@ -21,9 +21,9 @@ export const patternReplace = (patternMask: string, searchValue: string | RegExp
 };
 
 export const patternRemoveEscapedText = (patternMask: string) => {
-    return patternMask.replace(new RegExp(singleQuotesRegExpString, 'g'), '');
+    return patternMask.replace(singleQuotesRegExpGlobal, '');
 };
 
 export const patternStripPlaceholders = (patternMask: string) => {
-    return patternMask.replace(new RegExp(singleQuotesRegExpString, 'g'), (_, placeholderWithoutQuotes) => placeholderWithoutQuotes);
+    return patternMask.replace(singleQuotesRegExpGlobal, (_, placeholderWithoutQuotes) => placeholderWithoutQuotes);
 };
