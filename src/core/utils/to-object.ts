@@ -1,4 +1,4 @@
-export default <T, U>(arr: T[], entriesResolver: (item: T, itemIndex: number) => [key: string, value: U]): Record<string, U> => {
+const toObject = <T, U>(arr: T[], entriesResolver: (item: T, itemIndex: number) => [key: string, value: U]): Record<string, U> => {
     const object: Record<string, U> = {};
     for (let i = 0; i < arr.length; ++i) {
         if (i in arr) {
@@ -8,3 +8,5 @@ export default <T, U>(arr: T[], entriesResolver: (item: T, itemIndex: number) =>
     }
     return object;
 };
+
+export default toObject;

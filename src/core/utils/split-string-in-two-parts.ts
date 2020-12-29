@@ -1,7 +1,7 @@
 /**
  * Faster version of String.prototype.split that only handles splitting in two parts
  */
-export default (str: string, separator: string) => {
+const splitStringInTwoParts = (str: string, separator: string) => {
     if (!str) return ['', ''];
 
     const indexOfSearchChar = str.indexOf(separator);
@@ -11,3 +11,5 @@ export default (str: string, separator: string) => {
         return [str.slice(0, indexOfSearchChar), str.slice(indexOfSearchChar + 1)];
     }
 };
+
+export default splitStringInTwoParts;

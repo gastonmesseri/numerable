@@ -2,6 +2,21 @@ import stringRepeat from './string-repeat';
 import splitStringInTwoParts from './split-string-in-two-parts';
 
 /**
+ * The result from toFixed can contain an exponent for big numbers (e.g. 1.12345671234567e+50).
+ * So far, only for positive exponents.
+ * <!> Only handles positive exponents.
+ */
+const formatPositiveExponentResult = (valueAsString: string) => {
+    const [significand, exponent] = splitStringInTwoParts(valueAsString, 'e');
+    const exponentAsNumber = +exponent;
+    if (exponentAsNumber < 0) return valueAsString;
+
+    const [integerPartOfSignificand, fractionalPartOfSignificand] = splitStringInTwoParts(significand, '.');
+    const numberOfZerosToAdd = exponentAsNumber - fractionalPartOfSignificand.length;
+    return `${integerPartOfSignificand}${fractionalPartOfSignificand}${stringRepeat('0', numberOfZerosToAdd)}`;
+};
+
+/**
  * Like Number.prototype.toString() but excluding the exponential info for small and big numbers.
  * e.g. 
  *     Small numbers:
@@ -13,7 +28,7 @@ import splitStringInTwoParts from './split-string-in-two-parts';
  *         toString() => "1.234123412341234e+21"
  *         numberToStringWithoutExponent() => "1234123412341230000000"
  */
-export default (value: number) => {
+const numberToNonExponentialString = (value: number) => {
     const valueAsString = (value || 0).toString();
 
     // Do it here all the process
@@ -48,17 +63,4 @@ export default (value: number) => {
     return output;
 };
 
-/**
- * The result from toFixed can contain an exponent for big numbers (e.g. 1.12345671234567e+50).
- * So far, only for positive exponents.
- * <!> Only handles positive exponents.
- */
-const formatPositiveExponentResult = (valueAsString: string) => {
-    const [significand, exponent] = splitStringInTwoParts(valueAsString, 'e');
-    const exponentAsNumber = +exponent;
-    if (exponentAsNumber < 0) return valueAsString;
-
-    const [integerPartOfSignificand, fractionalPartOfSignificand] = splitStringInTwoParts(significand, '.');
-    const numberOfZerosToAdd = exponentAsNumber - fractionalPartOfSignificand.length;
-    return `${integerPartOfSignificand}${fractionalPartOfSignificand}${stringRepeat('0', numberOfZerosToAdd)}`;
-};
+export default numberToNonExponentialString;

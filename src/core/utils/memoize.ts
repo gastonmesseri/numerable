@@ -1,7 +1,7 @@
 /**
  * This function doesn't work with non-primitive arguments
  */
-export default <T extends ((...args: any[]) => any)>(fn: T): T => {
+const memoize = <T extends ((...args: any[]) => any)>(fn: T): T => {
     const cache: Record<string, any> = {};
     return function (this: any, ...args: any[]) {
         const cacheKey = args.length > 1 ? args.join('-(:-:)-') : args[0];
@@ -13,3 +13,5 @@ export default <T extends ((...args: any[]) => any)>(fn: T): T => {
         return result;
     } as any;
 };
+
+export default memoize;
