@@ -1,4 +1,3 @@
-import isNil from './is-nil';
 import roundNumber from './round-number';
 import stringRepeat from './string-repeat';
 import splitStringInTwoParts from './split-string-in-two-parts';
@@ -39,11 +38,6 @@ const numberToFixed = (
     // Add trailing zeros if needed
     if (!!minimumFractionDigits) {
         output = addTrailingZerosInFractionalPart(output, minimumFractionDigits);
-    }
-
-    if (!isNil(optionalFractionDigits) && optionalFractionDigits > fractionDigits - targetFractionDigitsAmount) {
-        const optionalsRegExp = new RegExp('\\.?0{1,' + (optionalFractionDigits - (fractionDigits - targetFractionDigitsAmount)) + '}$');
-        output = output.replace(optionalsRegExp, '');
     }
 
     return output;

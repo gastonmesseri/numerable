@@ -1,14 +1,13 @@
 import stringIncludes from '../../../../core/utils/string-includes';
-import splitStringInTwoParts from '../../../../core/utils/split-string-in-two-parts';
 import { patternRemoveEscapedText } from '../../../utils/pattern-regexp-utils';
+import splitStringInTwoParts from '../../../../core/utils/split-string-in-two-parts';
 
 const countChars = (string: string, char: string) => {
     return !string ? 0 : string.split('').filter(stringChar => stringChar === char).length;
 };
 
 /**
- * Fraction digits (decimals) count rule (optional and forced)
- * 
+ * Fraction digits (decimals) count rule (minimum and maximum fraction digits)
  * <i> Optional fraction digits would go always after the forced ones
  */
 const decimalPlacesRule = (patternMask: string) => {
@@ -38,8 +37,9 @@ const decimalPlacesRule = (patternMask: string) => {
             minimumFractionDigits = countChars(trimmedPatternPrecisionPart.split('X')[0], '0');
             maximumFractionDigits = 500;
         } else {
-            minimumFractionDigits = countChars(trimmedPatternPrecisionPart.split(' ')[0], '0');
-            maximumFractionDigits = countChars(trimmedPatternPrecisionPart.split(' ')[0], '0');
+            const fractionDigits = countChars(trimmedPatternPrecisionPart.split(' ')[0], '0');
+            minimumFractionDigits = fractionDigits;
+            maximumFractionDigits = fractionDigits;
         }
     }
 
