@@ -7,13 +7,13 @@ import percentageFormatter from '../formatters/percentage';
 import exponentialFormatter from '../formatters/exponential';
 
 const BUILT_IN_FORMATTERS = [
-    bpsFormatter,
+    percentageFormatter,
+    currencyFormatter,
+    ordinalFormatter,
     timeFormatter,
     bytesFormatter,
-    ordinalFormatter,
-    currencyFormatter,
-    percentageFormatter,
     exponentialFormatter,
+    bpsFormatter,
 ];
 
 export default BUILT_IN_FORMATTERS;
