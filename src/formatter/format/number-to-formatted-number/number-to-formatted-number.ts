@@ -3,9 +3,9 @@ import { NumberFormatRules } from '../../../core/types/rules';
 import removeSignIfExists from './utils/remove-sign-if-exists';
 import rescaleRoundedValue from './utils/rescale-rounded-value';
 import isFiniteNumber from '../../../core/utils/is-finite-number';
-import { patternStripPlaceholders } from '../../utils/pattern-regexp-utils';
 import scaleValueWithAbbreviation from './utils/scale-value-with-abbreviation';
 import roundValueAndAddTrailingZeros from './utils/round-value-and-add-trailing-zeros';
+import { patternStripAndNormalizeEscapedText } from '../../utils/pattern-regexp-utils';
 import replaceDigitsWithNumeralSystem from './utils/replace-digits-with-numeral-system';
 import addOrRemoveLeadingZerosToValue from './utils/add-or-remove-leading-zeros-to-value';
 import addSignInfoToFullFormattedNumber from './utils/add-sign-info-to-full-formatted-number';
@@ -55,13 +55,11 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
 
     // Assembling
     const patternMaskWithAbbreviation = applyAbbreviationLocalizedUnitToPatternMask(patternRules.patternMask, localizedAbbreviationUnit, patternRules.compact);
-    const fullNumberWithReplacedSingleQuotes = fullNumberWithNumeralSystem.replace(/'/g, _ => '#ɵ#');
-    const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'#n'`, _ => fullNumberWithReplacedSingleQuotes);
+    const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'#n'`, _ => `'${fullNumberWithNumeralSystem.replace(/'/g, "\\'")}'`);
     const patternMaskWithSignInfo = addSignInfoToFullFormattedNumber(patternMaskWithNumber, isValueNegative, patternRules);
-    const fullFormattedValueWithStrippedPlaceholders = patternStripPlaceholders(patternMaskWithSignInfo);
-    const patternMaskWithUnescapedSingleQuotes = fullFormattedValueWithStrippedPlaceholders.replace(/#ɵ#/g, _ => '\'');
+    const fullFormattedValueWithNormalizedText = patternStripAndNormalizeEscapedText(patternMaskWithSignInfo);
 
-    return patternMaskWithUnescapedSingleQuotes;
+    return fullFormattedValueWithNormalizedText;
 };
 
 export default numberToFormattedNumber;

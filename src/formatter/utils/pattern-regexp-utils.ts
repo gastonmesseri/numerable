@@ -1,8 +1,7 @@
 const getPatternParts = (patternMask: string) => {
     let isInEscapedPart = false;
     let currentEscapedWord = '';
-
-    const parts = [];
+    const parts: { escaped: boolean; value: string }[] = [];
     for (let i = 0; i < patternMask.length; i++) {
         const char = patternMask.charAt(i);
 
@@ -11,16 +10,14 @@ const getPatternParts = (patternMask: string) => {
             currentEscapedWord = '';
         } else if (char === "'" && isInEscapedPart && patternMask.charAt(i - 1) !== "\\") {
             isInEscapedPart = false;
-            parts.push({ literal: true, val: currentEscapedWord });
+            parts.push({ escaped: true, value: currentEscapedWord });
         } else if (isInEscapedPart) {
-            if (char !== "\\" || (char === "\\" && patternMask.charAt(i + 1) !== "'")) {
-                currentEscapedWord += char;
-            }
+            currentEscapedWord += char;
         } else {
-            if (parts.length && !parts[parts.length - 1].literal) {
-                parts[parts.length - 1].val += char;
+            if (parts.length && !parts[parts.length - 1].escaped) {
+                parts[parts.length - 1].value += char;
             } else {
-                parts.push({ literal: false, val: char });
+                parts.push({ escaped: false, value: char });
             }
         }
     }
@@ -28,20 +25,31 @@ const getPatternParts = (patternMask: string) => {
     return parts;
 };
 
+/**
+ * Checks only the pattern parts that are not escaped
+ */
 export const patternIncludes = (patternMask: string, search: string) => {
     return patternRemoveEscapedText(patternMask).indexOf(search) !== -1;
 };
 
+/**
+ * Replaces only the pattern parts that are not escaped
+ */
 export const patternReplace = (patternMask: string, searchValue: string | RegExp, replaceValue: string) => {
     return getPatternParts(patternMask)
-        .map(e => e.literal ? `'${e.val.replace(/'/g, "\\'")}'` : e.val.replace(searchValue, () => replaceValue))
+        .map(e => e.escaped ? `'${e.value}'` : e.value.replace(searchValue, _ => replaceValue))
         .join('');
 };
 
 export const patternRemoveEscapedText = (patternMask: string) => {
-    return getPatternParts(patternMask).filter(e => !e.literal).map(e => e.val).join('');
+    return getPatternParts(patternMask)
+        .filter(e => !e.escaped)
+        .map(e => e.value)
+        .join('');
 };
 
-export const patternStripPlaceholders = (patternMask: string) => {
-    return getPatternParts(patternMask).map(e => e.literal ? e.val.replace(/\\'/, "'") : e.val).join('');
+export const patternStripAndNormalizeEscapedText = (patternMask: string) => {
+    return getPatternParts(patternMask)
+        .map(e => e.escaped ? e.value.replace(/\\'/g, "'") : e.value)
+        .join('');
 };

@@ -10,17 +10,21 @@ const applyAbbreviationLocalizedUnitToPatternMask = (
 ) => {
     if (!hasAbbreviationInPatternMask) return patternMask;
 
-    // Prevents potentially finding a single quote in the localized abbreviation unit
-    const safeAbbreviationLocalizedUnit = (abbreviationLocalizedUnit || '').replace(/'/g, _ => '#ɵ#');
 
-    return !!safeAbbreviationLocalizedUnit
-        ? patternMask.replace(`'#a'`, safeAbbreviationLocalizedUnit)
-        // If has abbreviation but it is empty
-        : patternMask.match(/'#n'\s*'#a'/)
+    if (abbreviationLocalizedUnit) {
+        /**
+         * If it has abbreviation in the rules, and has a valid unit (e.g. K | M | B | T, or 
+         * other localized one), escapes the single quotes in the localized abbreviation unit and appends to the mask.
+         */
+        return patternMask.replace(`'#a'`, _ => `'${abbreviationLocalizedUnit.replace(/'/g, _ => "\\'")}'`);
+    } else {
+        // If it has abbreviation in the rules, but it has no unit, removes the space between abbreviation and number
+        return patternMask.match(/'#n'\s*'#a'/)
             // If abbreviation is before
-            ? patternMask.replace(/\s*'#a'/, safeAbbreviationLocalizedUnit)
+            ? patternMask.replace(/\s*'#a'/, '')
             // If abbreviation is after
-            : patternMask.replace(/'#a'\s*/, safeAbbreviationLocalizedUnit);
+            : patternMask.replace(/'#a'\s*/, '');
+    }
 };
 
 export default applyAbbreviationLocalizedUnitToPatternMask;

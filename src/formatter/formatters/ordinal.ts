@@ -11,7 +11,7 @@ const ordinalFormatter: NumerableFormatter = {
         const localizedOrdinal = options.locale.ordinal?.(number) || '';
         const patternWithEscapedOrdinal = patternReplace(pattern, /o/, `'#ord#'`);
         const formatResult = numberToFormattedNumber(number, patternWithEscapedOrdinal, options);
-        return formatResult.replace('#ord#', localizedOrdinal);
+        return formatResult.replace('#ord#', _ => localizedOrdinal);
     }
 };
 

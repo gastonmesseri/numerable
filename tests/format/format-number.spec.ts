@@ -1318,6 +1318,8 @@ describe('numerable', () => {
 
         it('should remove the abbreviation space if there is no abbreviation unit resolved', () => {
             const tests: any[] = [
+                [1, '0.00  a +', '1.00 +'],
+                [1, '+ a 0.00', '+ 1.00'],
                 [1, '0.00  a %', '100.00 %'],
                 [1, '0.00      a %', '100.00 %'],
                 [-1, '0.00      a %', '-100.00 %'],
