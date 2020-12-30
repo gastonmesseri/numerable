@@ -1,29 +1,47 @@
-import isString from '../../core/utils/is-string';
-import escapeRegexString from '../../core/utils/escape-regex-string';
+const getPatternParts = (patternMask: string) => {
+    let isInEscapedPart = false;
+    let currentEscapedWord = '';
 
-/**
- * This regex will match everything that is surrounded by single quotes
- * E.g. "test1 'test2' test3 'test4'".replace(singleQuotesRegExp, '') === "test1  test3 "
- */
-const singleQuotesRegExpGlobal = /'(.*?)'/g;
+    const parts = [];
+    for (let i = 0; i < patternMask.length; i++) {
+        const char = patternMask.charAt(i);
 
-export const patternIncludes = (patternMask: string, searchValue: string | RegExp) => {
-    const [searchPartOfRegExp, flags] = isString(searchValue) ? [escapeRegexString(searchValue), undefined] : [searchValue.source, searchValue.flags];
-    const regexp = new RegExp(`${searchPartOfRegExp}(?=([^']*'[^']*')*[^']*$)`, flags);
-    return regexp.test(patternMask);
+        if (char === "'" && !isInEscapedPart) {
+            isInEscapedPart = true;
+            currentEscapedWord = '';
+        } else if (char === "'" && isInEscapedPart && patternMask.charAt(i - 1) !== "\\") {
+            isInEscapedPart = false;
+            parts.push({ literal: true, val: currentEscapedWord });
+        } else if (isInEscapedPart) {
+            if (char !== "\\" || (char === "\\" && patternMask.charAt(i + 1) !== "'")) {
+                currentEscapedWord += char;
+            }
+        } else {
+            if (parts.length && !parts[parts.length - 1].literal) {
+                parts[parts.length - 1].val += char;
+            } else {
+                parts.push({ literal: false, val: char });
+            }
+        }
+    }
+
+    return parts;
 };
 
+export const patternIncludes = (patternMask: string, search: string) => {
+    return patternRemoveEscapedText(patternMask).indexOf(search) !== -1;
+};
 
 export const patternReplace = (patternMask: string, searchValue: string | RegExp, replaceValue: string) => {
-    const [searchPartOfRegExp, flags] = isString(searchValue) ? [escapeRegexString(searchValue), undefined] : [searchValue.source, searchValue.flags];
-    const regexp = new RegExp(`${searchPartOfRegExp}(?=([^']*'[^']*')*[^']*$)`, flags);
-    return patternMask.replace(regexp, _ => replaceValue);
+    return getPatternParts(patternMask)
+        .map(e => e.literal ? `'${e.val.replace(/'/g, "\\'")}'` : e.val.replace(searchValue, () => replaceValue))
+        .join('');
 };
 
 export const patternRemoveEscapedText = (patternMask: string) => {
-    return patternMask.replace(singleQuotesRegExpGlobal, '');
+    return getPatternParts(patternMask).filter(e => !e.literal).map(e => e.val).join('');
 };
 
 export const patternStripPlaceholders = (patternMask: string) => {
-    return patternMask.replace(singleQuotesRegExpGlobal, (_, placeholderWithoutQuotes) => placeholderWithoutQuotes);
+    return getPatternParts(patternMask).map(e => e.literal ? e.val.replace(/\\'/, "'") : e.val).join('');
 };

@@ -5,6 +5,7 @@ import { en, fr } from '../../src/locale';
 import truncateNumber from '../../src/core/utils/truncate-number';
 import { NumerableLocale } from '../../src/locale/types/numerable-locale';
 import { NumerableFormatter } from '../../src/core/types/numerable-formatter';
+import { NumerableFormatNumberOptions } from '../../dist/formatter/types/format-number-options';
 
 describe('numerable', () => {
     const getOptionsWithDelimiters = (thousands: string, decimal: string) => {
@@ -1160,6 +1161,176 @@ describe('numerable', () => {
             // Using percentage sign (it should be by default catched by the passed formatter)
             const formatter = getTestFormatter(/%/, () => 'TEST_STRING');
             expect(format(0.01, '0,0.000 %', { formatters: [formatter] })).toBe('TEST_STRING');
+        });
+    });
+
+    describe('pattern-mask', () => {
+        it('should properly preserve spaces in pattern (except global trim)', () => {
+            const tests: any[] = [
+                [10000, '0[.]00#  a', '10  K'],
+                [10000, '0.00#   a', '10.00   K'],
+                [10000, '% 0.00   a', '% 1.00   M'],
+                [-10000, '% 0.00   a', '% -1.00   M'],
+                [10000, '%     0.00   a', '%     1.00   M'],
+                [10000, '%  a  0.00', '%  M  1.00'],
+                [-10000, '%  a  0.00', '%  M  -1.00'],
+                [-10000, '%  a      0.00', '%  M      -1.00'],
+                [10000, '%  a            0.00', '%  M            1.00'],
+                [-10000, '( 0,0.00 )', '( 10,000.00 )'],
+                [-10000, '(     0,0.00     )', '(     10,000.00     )'],
+                [10000, '0,0 +', '10,000 +'],
+                [10000, '0,0    +', '10,000    +'],
+                [10000, '+ 0,0', '+ 10,000'],
+                [10000, '+          0,0', '+          10,000'],
+                [10000, '-          0,0', '10,000'], // Global trim
+                [-10000, '-          0,0', '-          10,000'],
+                [-10000, '(          0,0)', '(          10,000)'],
+                [-10000, '(0,0          )', '(10,000          )'],
+                [-0.1, '- #.00', '- .10'],
+                [-0.1, '-    #.00', '-    .10'],
+                [-0.1, '#.00 -', '.10 -'],
+                [-0.1, '#.00    -', '.10    -'],
+                [-0.1, '(  #.00  )', '(  .10  )'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { trim: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+
+        it('should include escaped text in defined position (and unescaped)', () => {
+            const tests: any[] = [
+                [10000, "0.00#  a 'test1'", '10.00  K test1'],
+                [10000, "0,0.00  a 'test1'  'test2'", '10.00  K test1  test2'],
+                [10000, "'test3'   0,0.00  a 'test1'  'test2'", 'test3   10.00  K test1  test2'],
+                [10000, "'test3' %  0,0.00  a 'test1'  'test2'", 'test3 %  1.00  M test1  test2'],
+                [10000, "'TEST1' 0,0.00", 'TEST1 10,000.00'],
+                [10000, "'TEST1'     0,0.00", 'TEST1     10,000.00'],
+                [10000, "'TEST2'     'TEST1'     0,0.00", 'TEST2     TEST1     10,000.00'],
+                [10000, "% 'TEST2'     'TEST1'     0,0.00", '% TEST2     TEST1     1,000,000.00'],
+                [-10000, "('TEST2'     'TEST1'     0,0.00)", '(TEST2     TEST1     10,000.00)'],
+                [10000, "('TEST2'     'TEST1'     0,0.00)", 'TEST2     TEST1     10,000.00'],
+                [10000, "+ 'TEST1'     0,0.00", '+ TEST1     10,000.00'],
+                [10000, "+'TEST1'     0,0.00", '+TEST1     10,000.00'],
+                [10000, "'TEST1'+     0,0.00", 'TEST1+     10,000.00'],
+                [10000, "'TEST1'a     0,0.00", 'TEST1K     10.00'],
+                [10000, "a'TEST1'     0,0.00", 'KTEST1     10.00'],
+                [10000, "'TEST1  TEST2'     0,0.00", 'TEST1  TEST2     10,000.00'],
+                [10000, "0,0.00 'TEST1   TEST2'", '10,000.00 TEST1   TEST2'],
+                // Escaping forbidden tokens (a, o, %, +, ())
+                [10000, "0,0.00 '%'", '10,000.00 %'],
+                [10000, "0,0.00 'a'", '10,000.00 a'],
+                [10000, "0,0.00 'ak'", '10,000.00 ak'],
+                [10000, "0,0.00 'am'", '10,000.00 am'],
+                [10000, "0,0.00 'ab'", '10,000.00 ab'],
+                [10000, "0,0.00 'at'", '10,000.00 at'],
+                [10000, "0,0.00 'o'", '10,000.00 o'],
+                [10000, "'o' 0,0.00 'o'", 'o 10,000.00 o'],
+                [10000, "0,0.00 '+'", '10,000.00 +'],
+                [10000, "0,0.00 '-'", '10,000.00 -'],
+                [-10000, "0,0.00 '-'", '-10,000.00 -'],
+                [10000, "0,0.00 '()'", '10,000.00 ()'],
+                [10000, "0,0.00 '('", '10,000.00 ('],
+                [10000, "0,0.00 ')'", '10,000.00 )'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { trim: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+
+        it('should include escaped text WITH ESCAPED SEMICOLONS in defined position (and unescaped)', () => {
+            const tests: any[] = [
+                [10000, "0.00 'a \\'b\\' c'", "10000.00 a 'b' c"],
+                [-10000, "0.00 'a \\'b\\' c'", "-10000.00 a 'b' c"],
+                [-10000, "0.00 'a \\'\\'\\'\\' c'", "-10000.00 a '''' c"],
+                [-10000, "0.00 '\\'\\'\\'\\''", "-10000.00 ''''"],
+                [-10000, "0.00 '\\''", "-10000.00 '"],
+                [-10000, "0.00 '\\'a\\''", "-10000.00 'a'"],
+                [-10000, "'\\'a\\''0.00", "'a'-10000.00"],
+                [-10000, "'\\'a\\''  0.00", "'a'  -10000.00"],
+                [-10000, "'te \\'a\\' te'0.00", "te 'a' te-10000.00"],
+                [-10000, "'te \\'a\\' te'  0.00", "te 'a' te  -10000.00"],
+                // Escaping forbidden tokens (a, o, %, +, ())
+                [10000, "0.00 'o \\'a\\' o'", "10000.00 o 'a' o"],
+                [10000, "0.00 '() \\'a\\' +'", "10000.00 () 'a' +"],
+                [10000, "0.00 '- \\'a\\' %'", "10000.00 - 'a' %"],
+                [10000, "0.00 '- \\'%\\' %'", "10000.00 - '%' %"],
+                [10000, "0.00 '- \\'o\\' %'", "10000.00 - 'o' %"],
+                [10000, "0.00 '- \\'()\\' %'", "10000.00 - '()' %"],
+                [10000, "0.00 '- \\'+\\' %'", "10000.00 - '+' %"],
+                [10000, "0.00 '- \\'-\\' %'", "10000.00 - '-' %"],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { trim: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+
+        it('should properly handle locale items that can potentially include single quotes', () => {
+            const getOptionsWithDelimiters = (thousands: string, decimal: string) => {
+                return { locale: { ...en, delimiters: { thousands: thousands, decimal: decimal } } } as NumerableFormatNumberOptions;
+            };
+
+            const getOptionsWithNumeralSystem = (numeralSystem: string[]) => {
+                return { locale: { ...en, numeralSystem } } as NumerableFormatNumberOptions;
+            };
+
+            const getOptionsWithAbbreviations = (abbreviations: string) => {
+                return { locale: { ...en, abbreviations } } as NumerableFormatNumberOptions;
+            };
+
+            const getOptionsWithOrdinal = (ordinal: () => string) => {
+                return { locale: { ...en, ordinal } } as NumerableFormatNumberOptions;
+            };
+
+            const tests: any[] = [
+                // Delimiters with single quotes
+                [getOptionsWithDelimiters("'", '.'), 10000, "0,0.00 'a'", "10'000.00 a"],
+                [getOptionsWithDelimiters(",", "'"), 10000, "0,0.00 'a'", "10,000'00 a"],
+                // Numeral system
+                [
+                    getOptionsWithNumeralSystem(["o'", 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i']),
+                    10000,
+                    "0,0.00 'a'",
+                    "ao',o'o'o'.o'o' a",
+                ],
+                // Abbreviations
+                [getOptionsWithAbbreviations("|||k'|||m'|||'b|||'t"), 10000, '0,0 a', "10 k'"],
+                [getOptionsWithAbbreviations("|||k'|||m'|||'b|||'t"), 10000000, '0,0 a', "10 m'"],
+                [getOptionsWithAbbreviations("|||k'|||m'|||'b|||'t"), 10000000000, '0,0 a', "10 'b"],
+                [getOptionsWithAbbreviations("|||k'|||m'|||'b|||'t"), 10000000000000, '0,0 a', "10 't"],
+                // Ordinal
+                [getOptionsWithOrdinal(() => "'"), 10000, '0,0 o', "10,000 '"],
+                [getOptionsWithOrdinal(() => "n'"), 10000, '0,0 o', "10,000 n'"],
+                [getOptionsWithOrdinal(() => "'n"), 10000, '0,0 o', "10,000 'n"],
+                [getOptionsWithOrdinal(() => "'n"), 10000, "0,0o 'a'", "10,000'n a"],
+            ];
+
+            tests.forEach(([options, value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { ...options, trim: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+
+        it('should remove the abbreviation space if there is no abbreviation unit resolved', () => {
+            const tests: any[] = [
+                [1, '0.00  a %', '100.00 %'],
+                [1, '0.00      a %', '100.00 %'],
+                [-1, '0.00      a %', '-100.00 %'],
+                [1, '% a 0.00', '% 100.00'],
+                [1, '% a     0.00', '% 100.00'],
+                [-1, '% a     0.00', '% -100.00'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { trim: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+                expect(typeof result).toBe('string');
+            });
         });
     });
 });

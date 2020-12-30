@@ -16,7 +16,7 @@ import { patternRemoveEscapedText, patternReplace } from '../../utils/pattern-re
  *     - #,#.00##X (without leading zeros)
  */
 const numberPositionRule = (patternMask: string) => {
-    const numberPartRegExp = /((((0|#)+,)?(0|#)+(\.([0#X]|\[0+\])+)?){1}|\.([0#X]|\[0+\])+)/;
+    const numberPartRegExp = /((((0|#)+,)?(0|#)+(\.([0#X]|\[0+\])+)?){1})/;
     return patternReplace(patternMask, numberPartRegExp, `'#n'`);
 };
 
