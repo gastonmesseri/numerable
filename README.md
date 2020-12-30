@@ -253,7 +253,7 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
 
         - **rounding**: 
             - type: 
-                - ***string***: *"half-away-from-zero"* | *"truncate"* | *"ceil"* | *"floor"* | *"round"*  
+                - ***string***: *"truncate"* | *"ceil"* | *"floor"* | *"half-up"* | *"half-away-from-zero"*  
                 *or*
                 - ***function***: *(value: number) => number*
             - default: ***"half-away-from-zero"***

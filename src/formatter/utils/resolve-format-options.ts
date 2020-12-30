@@ -34,7 +34,7 @@ const resolveRoundingOption = (roundingOption: NumerableFormatNumberOptions['rou
         case 'ceil': return Math.ceil;
         case 'floor': return Math.floor;
         case 'truncate': return truncateNumber;
-        case 'round': return Math.round;
+        case 'half-up': return Math.round;
         case 'half-away-from-zero': return roundHalfAwayFromZero;
         default: return isFunction(roundingOption) ? roundingOption : roundHalfAwayFromZero;
     }
