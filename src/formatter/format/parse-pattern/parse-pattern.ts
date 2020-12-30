@@ -17,7 +17,7 @@ import { patternRemoveEscapedText, patternReplace } from '../../utils/pattern-re
  */
 const numberPositionRule = (patternMask: string) => {
     const numberPartRegExp = /((((0|#)+,)?(0|#)+(\.([0#X]|\[0+\])+)?){1})/;
-    return patternReplace(patternMask, numberPartRegExp, `'#n'`);
+    return patternReplace(patternMask, numberPartRegExp, `'ɵn'`);
 };
 
 /**
@@ -48,8 +48,8 @@ const minimumIntegerDigitsRule = (patternMask: string) => {
 
 // If sign is not included, put sign at the left of the number
 const addSignPositionIfItDoesNotExists = (patternMask: string) => {
-    if (stringIncludes(patternMask, `'#s'`) || stringIncludes(patternMask, `'#nps'`)) return patternMask;
-    return patternMask.replace(`'#n'`, _ => `'#s''#n'`);
+    if (stringIncludes(patternMask, `'ɵs'`) || stringIncludes(patternMask, `'ɵnps'`)) return patternMask;
+    return patternMask.replace(`'ɵn'`, _ => `'ɵs''ɵn'`);
 };
 
 const baseParsePattern = (inputPattern: string | null | undefined): NumberFormatRules => {

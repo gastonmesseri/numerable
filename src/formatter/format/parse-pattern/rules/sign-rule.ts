@@ -32,9 +32,9 @@ const signRule = (pattern: string) => {
     const forceSign = !negativeParentheses && stringIncludes(patternWithoutEscapedText, '+');
 
     let outputPatternMask = pattern;
-    outputPatternMask = patternReplace(outputPatternMask, '(', `'#nps'`);
-    outputPatternMask = patternReplace(outputPatternMask, ')', `'#npe'`);
-    outputPatternMask = patternReplace(outputPatternMask, /(-|\+)/, `'#s'`);
+    outputPatternMask = patternReplace(outputPatternMask, '(', `'ɵnps'`);
+    outputPatternMask = patternReplace(outputPatternMask, ')', `'ɵnpe'`);
+    outputPatternMask = patternReplace(outputPatternMask, /(-|\+)/, `'ɵs'`);
 
     return [outputPatternMask, { negativeParentheses, forceSign }] as const;
 };
