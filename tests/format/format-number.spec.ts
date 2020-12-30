@@ -693,6 +693,12 @@ describe('numerable', () => {
                 ['round', 1234.152, '0,0.00', '1,234.15'],
                 ['round', -1234.158, '0,0.00', '-1,234.16'],
                 ['round', -1234.152, '0,0.00', '-1,234.15'],
+                ['half-away-from-zero', 1234.14, '0,0.0', '1,234.1'],
+                ['half-away-from-zero', 1234.15, '0,0.0', '1,234.2'],
+                ['half-away-from-zero', 1234.16, '0,0.0', '1,234.2'],
+                ['half-away-from-zero', -1234.14, '0,0.0', '-1,234.1'],
+                ['half-away-from-zero', -1234.15, '0,0.0', '-1,234.2'],
+                ['half-away-from-zero', -1234.16, '0,0.0', '-1,234.2'],
             ];
 
             tests.forEach(([roundingFunctionAlias, value, pattern, expectedResult]) => {

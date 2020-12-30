@@ -12,7 +12,7 @@ export interface NumerableFormatNumberOptions {
      *     formatNumber(1234.56, null, { defaultPattern: '0.0' }) // Returns "1234.6"
      */
     defaultPattern?: string;
-    rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | ((scaledValueForRounding: number) => number);
+    rounding?: 'truncate' | 'ceil' | 'floor' | 'round' | 'half-away-from-zero' | ((scaledValueForRounding: number) => number);
     locale?: NumerableLocale;
     type?: string;
     scalePercentage?: boolean;

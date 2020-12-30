@@ -7,6 +7,7 @@ import truncateNumber from '../../core/utils/truncate-number';
 import BUILT_IN_FORMATTERS from '../constants/built-in-formatters';
 import { NumerableLocale } from '../../locale/types/numerable-locale';
 import { NumerableFormatNumberOptions } from '../types/format-number-options';
+import roundHalfAwayFromZero from '../../core/utils/round-half-away-from-zero';
 import { ResolvedNumerableLocale } from '../../core/types/resolved-numerable-locale';
 import { ResolvedNumerableFormatNumberOptions } from '../types/resolved-format-number-options';
 
@@ -34,6 +35,7 @@ const resolveRoundingOption = (roundingOption: NumerableFormatNumberOptions['rou
         case 'floor': return Math.floor;
         case 'truncate': return truncateNumber;
         case 'round': return Math.round;
+        case 'half-away-from-zero': return roundHalfAwayFromZero;
         default: return isFunction(roundingOption) ? roundingOption : Math.round;
     }
 };
