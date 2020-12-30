@@ -24,9 +24,9 @@ const bytesFormatter: NumerableFormatter = {
     format: (number, pattern, options) => {
         const scale = patternIncludes(pattern, 'bb') ? bytesBinaryScale : bytesDecimalScale;
         const [scaledValue, scaledValueUnit] = scale.toBest(number, 'B');
-        const patternWithEscapedBytes = patternReplace(pattern, /b[bd]/, `'#bytes#'`);
+        const patternWithEscapedBytes = patternReplace(pattern, /b[bd]/, `'ɵbytesɵ'`);
         const formatResult = numberToFormattedNumber(scaledValue, patternWithEscapedBytes, options);
-        return formatResult.replace('#bytes#', scaledValueUnit || '');
+        return formatResult.replace('ɵbytesɵ', scaledValueUnit || '');
     },
     unformat: (string, options) => {
         const number = formattedStringToNumber(string.replace(new RegExp(unformatRegex), ''), options);

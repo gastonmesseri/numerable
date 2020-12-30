@@ -9,9 +9,9 @@ const ordinalFormatter: NumerableFormatter = {
     },
     format: (number, pattern, options) => {
         const localizedOrdinal = options.locale.ordinal?.(number) || '';
-        const patternWithEscapedOrdinal = patternReplace(pattern, /o/, `'#ord#'`);
+        const patternWithEscapedOrdinal = patternReplace(pattern, /o/, `'ɵordɵ'`);
         const formatResult = numberToFormattedNumber(number, patternWithEscapedOrdinal, options);
-        return formatResult.replace('#ord#', _ => localizedOrdinal);
+        return formatResult.replace('ɵordɵ', _ => localizedOrdinal);
     }
 };
 

@@ -17,9 +17,9 @@ const bpsFormatter: NumerableFormatter = {
     },
     format: (number, pattern, options) => {
         const scaledValue = multiplyByPowerOfTen(number, 4);
-        const patternWithEscapedBPS = patternReplace(pattern, /BPS/, `'#BPS#'`);
+        const patternWithEscapedBPS = patternReplace(pattern, /BPS/, `'ɵBPSɵ'`);
         const formatResult = numberToFormattedNumber(scaledValue, patternWithEscapedBPS, options);
-        return formatResult.replace('#BPS#', 'BPS');
+        return formatResult.replace('ɵBPSɵ', 'BPS');
     },
     unformat: (string, options) => {
         const number = formattedStringToNumber(string.replace(/\s?BPS/, ''), options);

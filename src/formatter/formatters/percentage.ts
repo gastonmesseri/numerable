@@ -13,9 +13,9 @@ const percentageFormatter: NumerableFormatter = {
     format: (number, pattern, options) => {
         const hasNotScalePercentageSymbolInPattern = patternIncludes(pattern, '%!');
         const scaledValue = options.scalePercentage && !hasNotScalePercentageSymbolInPattern ? multiplyByPowerOfTen(number, 2) : number;
-        const patternWithEscapedPercentage = patternReplace(pattern, /%!?/, `'#%#'`);
+        const patternWithEscapedPercentage = patternReplace(pattern, /%!?/, `'ɵ%ɵ'`);
         const formatResult = numberToFormattedNumber(scaledValue, patternWithEscapedPercentage, options);
-        return formatResult.replace('#%#', '%');
+        return formatResult.replace('ɵ%ɵ', '%');
     },
     unformat: (string, options) => {
         const number = formattedStringToNumber(string.replace(/\s?%/, ''), options);
