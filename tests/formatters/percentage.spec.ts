@@ -11,6 +11,8 @@ describe('format: percentage', () => {
                 [0.974878234, '0.000%', '97.488%'],
                 [-0.43, '0 %', '-43 %'],
                 [0.43, '(0.00#%)', '43.00%'],
+                [1, '0   %', '100   %'],
+                [1, '%    0', '%    100'],
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {

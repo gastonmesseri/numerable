@@ -22,6 +22,9 @@ describe('format: BPS', () => {
                 [-43, '(0.00# BPS)', '(430000.00 BPS)'],
                 [8.9, '(0.00BPS)', '89000.00BPS'],
                 [-8.9, '(0.00BPS)', '(89000.00BPS)'],
+                [0.0056, "0 'BPS'", "0 BPS"],
+                [0.0056, '0   BPS', '56   BPS'],
+                [0.0056, 'BPS 0', 'BPS 56'],
             ] as const;
 
             tests.forEach(([value, pattern, expectedResult]) => {

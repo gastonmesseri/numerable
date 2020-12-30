@@ -15,6 +15,8 @@ describe('format: exponential', () => {
                 [-1000830298, '0.0###e+0', '-1.0008e+9'],
                 [1, '0E+0', '1e+0'],
                 [1, '0E-0', '1e+0'],
+                [1, '0 E-0', '1 e+0'],
+                [1, '0   E-0', '1   e+0'],
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {

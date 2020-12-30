@@ -11,6 +11,8 @@ describe('format: ordinal', () => {
                 [23, '0o', '23rd'],
                 [100, '0o', '100th'],
                 [1234, '0,0o', '1,234th'],
+                [1234, '0,0   o', '1,234   th'],
+                [1234, 'o   0,0', 'th   1,234'],
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {

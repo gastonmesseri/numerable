@@ -19,8 +19,7 @@ describe('format: bytes', () => {
                 [1048, '0+ bb', '1+ KiB'],
                 [-1048, '0+ bb', '1- KiB'],
                 [1048, '(0 bb)', '1 KiB'],
-                // TODO: Handle this case
-                // [-1048, '(0 ib)', '(1 KiB)'],
+                [-1048, '(0 bb)', '(1 KiB)'],
                 [binary * 2, '0 bb', '2 KiB'],
                 [Math.pow(binary, 2) * 5, '0bb', '5MiB'],
                 [Math.pow(binary, 3) * 7.343, '0.# bb', '7.3 GiB'],
@@ -31,6 +30,8 @@ describe('format: bytes', () => {
                 [Math.pow(decimal, 3) * 7.343, '0.# bd', '7.3 GB'],
                 [Math.pow(decimal, 4) * 3.1536544, '0.000bd', '3.154TB'],
                 [Math.pow(decimal, 5) * 2.953454534534, '0bd', '3PB'],
+                [1048, '0  bb', '1  KiB'],
+                [1048, 'bb 0', 'KiB 1'],
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
