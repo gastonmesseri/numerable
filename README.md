@@ -253,10 +253,10 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
 
         - **rounding**: 
             - type: 
-                - ***string***: *"truncate"* | *"ceil"* | *"floor"* | *"round"*  
-                or
+                - ***string***: *"half-away-from-zero"* | *"truncate"* | *"ceil"* | *"floor"* | *"round"*  
+                *or*
                 - ***function***: *(value: number) => number*
-            - default: ***Math.round***
+            - default: ***"half-away-from-zero"***
             - It will be the rounding function applied to the number in the resolved maximum amount of decimal places.
 
         - **nullFormat**: 
