@@ -1,8 +1,8 @@
 import parsePattern from '../parse-pattern/parse-pattern';
+import { NumberFormatRules } from '../../../core/types/rules';
 import removeSignIfExists from './utils/remove-sign-if-exists';
 import rescaleRoundedValue from './utils/rescale-rounded-value';
 import isFiniteNumber from '../../../core/utils/is-finite-number';
-import { NumberFormatRules } from '../../../../dist/core/types/rules';
 import { patternStripPlaceholders } from '../../utils/pattern-regexp-utils';
 import scaleValueWithAbbreviation from './utils/scale-value-with-abbreviation';
 import roundValueAndAddTrailingZeros from './utils/round-value-and-add-trailing-zeros';
