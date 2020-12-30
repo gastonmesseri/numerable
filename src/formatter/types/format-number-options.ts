@@ -19,4 +19,5 @@ export interface NumerableFormatNumberOptions {
     formatters?: NumerableFormatter[] | ((builtInFormatters: NumerableFormatter[]) => NumerableFormatter[]);
     currency?: string;
     trim?: boolean;
+    negativeZero?: boolean;
 }

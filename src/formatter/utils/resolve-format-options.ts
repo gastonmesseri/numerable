@@ -45,23 +45,25 @@ const resolveOptionsFormatters = (optionsFormatters: NumerableFormatNumberOption
         : [...optionsFormatters, ...BUILT_IN_FORMATTERS];
 };
 
-const resolveFormatOptions = (options: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
-    const resolvedRoundingFunction = resolveRoundingOption(options?.rounding);
-    const resolvedLocale = resolveOptionsLocale(options?.locale);
-    const resolvedFormatters = resolveOptionsFormatters(options?.formatters);
+const resolveFormatOptions = (formatOptions: NumerableFormatNumberOptions | undefined): ResolvedNumerableFormatNumberOptions => {
+    const options = formatOptions || {};
+    const resolvedRoundingFunction = resolveRoundingOption(options.rounding);
+    const resolvedLocale = resolveOptionsLocale(options.locale);
+    const resolvedFormatters = resolveOptionsFormatters(options.formatters);
 
     return {
-        defaultPattern: options?.defaultPattern || '0,0.##########',
-        nullFormat: options?.nullFormat || '',
-        nanFormat: options?.nanFormat,
-        zeroFormat: options?.zeroFormat,
+        defaultPattern: options.defaultPattern || '0,0.##########',
+        nullFormat: options.nullFormat || '',
+        nanFormat: options.nanFormat,
+        zeroFormat: options.zeroFormat,
         locale: resolvedLocale,
         rounding: resolvedRoundingFunction,
-        type: options?.type,
-        scalePercentage: options?.scalePercentage ?? true,
-        trim: options?.trim ?? true,
+        type: options.type,
+        scalePercentage: options.scalePercentage ?? true,
+        trim: options.trim ?? true,
         formatters: resolvedFormatters,
-        currency: options?.currency,
+        currency: options.currency,
+        negativeZero: !!options.negativeZero,
     };
 };
 

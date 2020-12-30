@@ -13,4 +13,5 @@ export interface ResolvedNumerableFormatNumberOptions {
     formatters: NumerableFormatter[];
     currency: string | undefined;
     trim: boolean;
+    negativeZero: boolean;
 }

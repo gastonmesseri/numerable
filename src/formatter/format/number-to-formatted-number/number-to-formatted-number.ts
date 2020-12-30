@@ -40,7 +40,7 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     // Prevents potentially wrong formatting coming from this function
     if (valueAsString === 'NaN') return '';
 
-    const isValueNegative = +valueAsString < 0;
+    const isValueNegative = options.negativeZero ? number < 0 : +valueAsString < 0;
     const valueAsStringWithoutSign = removeSignIfExists(valueAsString);
     const [integerPart, decimalPart] = splitNumberIntegerAndDecimalParts(valueAsStringWithoutSign, patternRules);
     const valueIntegerPartWithLeadingZeros = addOrRemoveLeadingZerosToValue(integerPart, patternRules);

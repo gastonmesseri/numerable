@@ -288,6 +288,11 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
             - default: ***true***
             - If **true** (default), it will trim the output formatted string. If **false**, the surrounding spaces will be preserved.  
 
+        - **negativeZero**: 
+            - type: ***boolean***
+            - default: ***false***
+            - If **true**, it will display a negative sign for numbers that before the rounding where negative, but after rounding became zero. If **false** (default), the output ***0*** will never be displayed with a negative sign.  
+
 ---
 
 

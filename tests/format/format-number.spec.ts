@@ -317,6 +317,60 @@ describe('numerable', () => {
         });
     });
 
+    describe('format::negativeZero-option', () => {
+        it('should append sign to 0 output if not specified in the options', () => {
+            const tests: [number, string, string][] = [
+                [0.0023, '0.00', '0.00'],
+                [-0.0023, '0.00', '-0.00'],
+                [-0.00023, '0.00', '-0.00'],
+                [-0.0000000000023, '0.00', '-0.00'],
+                [-0.0000000000023, '0.00##', '-0.00'],
+                [-0.0000000000023, '0', '-0'],
+                [-0.0000000000023, '0.0', '-0.0'],
+                [-0.0000000000023, '0.00000', '-0.00000'],
+                [-0.0000000000023, '0,0.00000', '-0.00000'],
+                [-0.0000000000023, '0,0.00000+', '0.00000-'],
+                [-0.0000000000023, '+0,0.00000', '-0.00000'],
+                [-0.0000000000023, '(0,0.00000)', '(0.00000)'],
+                [-100000, '0 am', '-0 M'],
+                [-10000, '0.0 am', '-0.0 M'],
+                [-100, '0 ak', '-0 K'],
+                [-10, '0.0 ak', '-0.0 K'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { negativeZero: true });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+
+        it('should NOT append sign to 0 output if not specified in the options', () => {
+            const tests: [number, string, string][] = [
+                [0.0023, '0.00', '0.00'],
+                [-0.0023, '0.00', '0.00'],
+                [-0.00023, '0.00', '0.00'],
+                [-0.0000000000023, '0.00', '0.00'],
+                [-0.0000000000023, '0.00##', '0.00'],
+                [-0.0000000000023, '0', '0'],
+                [-0.0000000000023, '0.0', '0.0'],
+                [-0.0000000000023, '0.00000', '0.00000'],
+                [-0.0000000000023, '0,0.00000', '0.00000'],
+                [-0.0000000000023, '0,0.00000+', '0.00000+'],
+                [-0.0000000000023, '+0,0.00000', '+0.00000'],
+                [-0.0000000000023, '(0,0.00000)', '0.00000'],
+                [-100000, '0 am', '0 M'],
+                [-10000, '0.0 am', '0.0 M'],
+                [-100, '0 ak', '0 K'],
+                [-10, '0.0 ak', '0.0 K'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern, { negativeZero: false });
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
+            });
+        });
+    });
+
     describe('format::trim-option', () => {
         it('should apply trim on the output string if specified in the options', () => {
             const tests: [number, string, string][] = [
