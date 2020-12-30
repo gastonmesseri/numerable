@@ -22,6 +22,8 @@ const powerOf10LookupObject = (() => {
     return object;
 })();
 
-export default (number: number) => {
+const isPowerOfTen = (number: number) => {
     return !!powerOf10LookupObject[number];
 };
+
+export default isPowerOfTen;
