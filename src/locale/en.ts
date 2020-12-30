@@ -14,15 +14,15 @@ const locale: NumerableLocale = {
         decimal: '.',
     },
     abbreviations: '|||K|||M|||B|||T',
-    ordinal: (number) => {
+    ordinal: number => {
         const b = number % 10;
-        return (~~(number % 100 / 10) === 1)
+        return (Math.floor(number % 100 / 10) === 1)
             ? 'th'
-            : (b === 1)
+            : b === 1
                 ? 'st'
-                : (b === 2)
+                : b === 2
                     ? 'nd'
-                    : (b === 3)
+                    : b === 3
                         ? 'rd'
                         : 'th';
     },
