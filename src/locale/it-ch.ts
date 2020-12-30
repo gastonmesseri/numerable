@@ -1,17 +1,19 @@
 /**
  * numerable.js locale configuration
- * code: en-gb
- * language: English
- * region: United Kingdom
+ * code: it-ch
+ * language: Italian
+ * region: Switzerland
  */
 import { NumerableLocale } from './types/numerable-locale';
 
 const locale: NumerableLocale = {
-    code: 'en-gb',
+    code: 'it-ch',
     delimiters: {
-        thousands: ',',
+        thousands: '’',
         decimal: '.',
     },
+    abbreviations: '||||||Mio|||Mrd|||Bln',
+    ordinal: _ => 'º',
 };
 
 export default locale;

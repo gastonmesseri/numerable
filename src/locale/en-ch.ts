@@ -1,15 +1,15 @@
 /**
  * numerable.js locale configuration
- * code: en-gb
+ * code: en-ch
  * language: English
- * region: United Kingdom
+ * region: Switzerland
  */
 import { NumerableLocale } from './types/numerable-locale';
 
 const locale: NumerableLocale = {
-    code: 'en-gb',
+    code: 'en-ch',
     delimiters: {
-        thousands: ',',
+        thousands: '’',
         decimal: '.',
     },
 };
