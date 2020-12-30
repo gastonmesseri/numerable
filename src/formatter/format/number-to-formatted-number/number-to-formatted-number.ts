@@ -57,7 +57,8 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     const patternMaskWithAbbreviation = applyAbbreviationLocalizedUnitToPatternMask(patternRules.patternMask, localizedAbbreviationUnit, patternRules.compact);
     const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'#n'`, _ => `'${fullNumberWithNumeralSystem.replace(/'/g, "\\'")}'`);
     const patternMaskWithSignInfo = addSignInfoToFullFormattedNumber(patternMaskWithNumber, isValueNegative, patternRules);
-    const fullFormattedValueWithNormalizedText = patternStripAndNormalizeEscapedText(patternMaskWithSignInfo);
+    const cleanPatternMask = patternMaskWithSignInfo.replace(/'#(nps|npe|s|a|n)'/g, '');
+    const fullFormattedValueWithNormalizedText = patternStripAndNormalizeEscapedText(cleanPatternMask);
 
     return fullFormattedValueWithNormalizedText;
 };

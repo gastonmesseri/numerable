@@ -17,9 +17,7 @@ const addSignInfoToFullFormattedNumber = (
         output = output.replace(`'#s'`, '-');
     }
 
-    const cleanOutput = output.replace(/'#(nps|npe|s)'/g, '');
-
-    return cleanOutput;
+    return output;
 };
 
 export default addSignInfoToFullFormattedNumber;
