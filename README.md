@@ -289,10 +289,15 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
             - default: ***true***
             - If **true** (default), it will trim the output formatted string. If **false**, the surrounding spaces will be preserved.  
 
-        - **negativeZero**: 
+        - **signedZero**: 
             - type: ***boolean***
             - default: ***false***
-            - If **true**, it will display a negative sign for numbers that before the rounding where negative, but after rounding became zero. If **false** (default), it will never append the minus sign (-) to zero.
+            - If **true**, it will display a negative sign for numbers that before the rounding where negative, but after rounding became zero. If **false** (default), it will never append the minus sign (-) to zero.  
+            -  This option also applies to the positive zeros if the *force sign* option is defined on the pattern (+ sign in the pattern).  
+            - Example:
+                - `format(-0.008, '0.0', { signedZero: true }) //=> '-0.0'`
+                - `format(0.008, '+0.0', { signedZero: true }) //=> '+0.0'`
+
 
 ---
 

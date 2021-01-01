@@ -40,7 +40,8 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     // Prevents potentially wrong formatting coming from this function
     if (valueAsString === 'NaN') return '';
 
-    const isValueNegative = options.negativeZero ? number < 0 : +valueAsString < 0;
+    const isValueNegative = options.signedZero ? number < 0 : +valueAsString < 0;
+    const isValueZero = options.signedZero ? number === 0 : +valueAsString === 0;
     const valueAsStringWithoutSign = removeSignIfExists(valueAsString);
     const [integerPart, decimalPart] = splitNumberIntegerAndDecimalParts(valueAsStringWithoutSign, patternRules);
     const valueIntegerPartWithLeadingZeros = addOrRemoveLeadingZerosToValue(integerPart, patternRules);
@@ -56,7 +57,7 @@ const numberToFormattedNumber = (number: number, pattern: string, options: Resol
     // Assembling
     const patternMaskWithAbbreviation = applyAbbreviationLocalizedUnitToPatternMask(patternRules.patternMask, localizedAbbreviationUnit, patternRules.compact);
     const patternMaskWithNumber = patternMaskWithAbbreviation.replace(`'ɵn'`, _ => `'${fullNumberWithNumeralSystem.replace(/'/g, "\\'")}'`);
-    const patternMaskWithSignInfo = addSignInfoToFullFormattedNumber(patternMaskWithNumber, isValueNegative, patternRules);
+    const patternMaskWithSignInfo = addSignInfoToFullFormattedNumber(patternMaskWithNumber, isValueNegative, isValueZero, patternRules);
     const cleanPatternMask = patternMaskWithSignInfo.replace(/'ɵ(nps|npe|s|a|n)'/g, '');
     const fullFormattedValueWithNormalizedText = patternStripAndNormalizeEscapedText(cleanPatternMask);
 

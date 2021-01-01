@@ -11,6 +11,7 @@ describe('numerable', () => {
     const getOptionsWithDelimiters = (thousands: string, decimal: string) => {
         return { locale: { ...en, delimiters: { thousands: thousands, decimal: decimal } } };
     };
+
     describe('formatNumber', () => {
         it('should format to a number', () => {
             const tests = [
@@ -317,7 +318,7 @@ describe('numerable', () => {
         });
     });
 
-    describe('format::negativeZero-option', () => {
+    describe('format::signedZero-option', () => {
         it('should append sign to 0 output if not specified in the options', () => {
             const tests: [number, string, string][] = [
                 [0.0023, '0.00', '0.00'],
@@ -339,7 +340,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = format(value, pattern, { negativeZero: true });
+                const result = format(value, pattern, { signedZero: true });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
@@ -355,8 +356,8 @@ describe('numerable', () => {
                 [-0.0000000000023, '0.0', '0.0'],
                 [-0.0000000000023, '0.00000', '0.00000'],
                 [-0.0000000000023, '0,0.00000', '0.00000'],
-                [-0.0000000000023, '0,0.00000+', '0.00000+'],
-                [-0.0000000000023, '+0,0.00000', '+0.00000'],
+                [-0.0000000000023, '0,0.00000+', '0.00000'],
+                [-0.0000000000023, '+0,0.00000', '0.00000'],
                 [-0.0000000000023, '(0,0.00000)', '0.00000'],
                 [-100000, '0 am', '0 M'],
                 [-10000, '0.0 am', '0.0 M'],
@@ -365,7 +366,7 @@ describe('numerable', () => {
             ];
 
             tests.forEach(([value, pattern, expectedResult]) => {
-                const result = format(value, pattern, { negativeZero: false });
+                const result = format(value, pattern, { signedZero: false });
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
@@ -536,6 +537,38 @@ describe('numerable', () => {
                 const result = format(value, pattern);
                 expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
                 expect(typeof result).toBe('string');
+            });
+        });
+
+        it('should handle the force sign option in pattern (+)', () => {
+            const tests: any[] = [
+                [1, '+0,0.00', '+1.00'],
+                [1000, '+0,0.00', '+1,000.00'],
+                [0.1, '+0,0.00', '+0.10'],
+                [100, '+0,0.00', '+100.00'],
+                [100, '+ 0,0.00', '+ 100.00'],
+                [100, '+    0,0.00', '+    100.00'],
+                [100, '0,0.00+', '100.00+'],
+                [100, '0,0.00 +', '100.00 +'],
+                [100, '0,0.00    +', '100.00    +'],
+                // Negative numbers
+                [-1, '+0,0.00', '-1.00'],
+                [-1000, '+0,0.00', '-1,000.00'],
+                [-0.1, '+0,0.00', '-0.10'],
+                [-100, '+0,0.00', '-100.00'],
+                [-100, '+ 0,0.00', '- 100.00'],
+                [-100, '+    0,0.00', '-    100.00'],
+                [-100, '0,0.00+', '100.00-'],
+                [-100, '0,0.00 +', '100.00 -'],
+                [-100, '0,0.00    +', '100.00    -'],
+                // Zero handling (no sign)
+                [0, '+0,0.00', '0.00'],
+                [-0, '+0,0.00', '0.00'],
+            ];
+
+            tests.forEach(([value, pattern, expectedResult]) => {
+                const result = format(value, pattern);
+                expect([value, pattern, result]).toEqual([value, pattern, expectedResult]);
             });
         });
     });
