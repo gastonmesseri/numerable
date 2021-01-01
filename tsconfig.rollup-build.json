@@ -2,13 +2,12 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "rootDir": "src/",
-        "declarationDir": "./dist/",
-        "outDir": "./dist/",
     },
     "include": [
-        "src/**/*.ts",
+        "src/**/*",
     ],
     "exclude": [
-        "src/locale/*.ts",
-    ]
+        "node_modules",
+        "**/*.spec.ts"
+    ],
 }

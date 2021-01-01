@@ -17,8 +17,8 @@
         "formatting",
         "functional"
     ],
-    "main": "dist/index.js",
-    "module": "dist/esm/index.js",
+    "main": "index.js",
+    "module": "index.mjs",
     "sideEffects": false,
     "scripts": {
         "clean": "rimraf dist locale",
@@ -26,10 +26,7 @@
         "test:watch": "jest --watchAll",
         "test:coverage": "jest --coverage",
         "lint": "eslint . --ext .ts",
-        "build": "npm run clean && npm run build:lib && npm run build:esmlib && npm run build:locale",
-        "build:lib": "tsc --project tsconfig.build-lib.json",
-        "build:esmlib": "tsc --project tsconfig.build-esmlib.json",
-        "build:locale": "tsc --project tsconfig.build-locale.json",
+        "build": "npm run clean && npx rollup -c && node ./scripts/copy-distribution-files.js",
         "prepare": "npm run build",
         "prepublishOnly": "npm test && npm run lint",
         "coveralls": "jest --coverage && coveralls < coverage/lcov.info"
@@ -44,14 +41,12 @@
         "coveralls": "^3.1.0",
         "eslint": "^7.14.0",
         "jest": "^26.5.2",
+        "rollup": "^2.35.1",
+        "rollup-plugin-typescript2": "^0.29.0",
         "ts-jest": "^26.4.1",
         "typescript": "^4.1.2"
     },
     "npmName": "numerable",
-    "files": [
-        "dist/**/*",
-        "locale/**/*"
-    ],
     "jest": {
         "transform": {
             ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"

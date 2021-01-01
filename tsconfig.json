@@ -1,15 +1,23 @@
 {
     "compilerOptions": {
+        "preserveWatchOutput": true,
         "target": "es6",
-        "module": "commonjs",
+        "module": "es2015",
+        "outDir": "./dist",
         "strict": true,
+        // "moduleResolution": "Node",
         "esModuleInterop": true,
-        "skipLibCheck": true,
+        // "allowSyntheticDefaultImports": true,
         "forceConsistentCasingInFileNames": true,
-        "lib": ["dom", "es7"],
-
         "declaration": true,
-        "sourceMap": true,
-        "allowSyntheticDefaultImports": true,
+        "declarationDir": "./dist",
+        "lib": [
+            "dom",
+            "es7"
+        ],
+        "types": [
+            "node",
+            "jest"
+        ]
     },
 }
