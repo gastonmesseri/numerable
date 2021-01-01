@@ -298,6 +298,11 @@ format(number, [pattern="0,0.##########"], [options=DEFAULT_OPTIONS])
                 - `format(-0.008, '0.0', { signedZero: true }) //=> '-0.0'`
                 - `format(0.008, '+0.0', { signedZero: true }) //=> '+0.0'`
 
+        - **nonBreakingSpace**:
+            - type: ***boolean***
+            - default: ***false***
+            - If **true**, the spaces in the resulting string will be replaced with ***non-breaking-spaces***. This will help preventing a line break when a normal space is found (although in the end, this will depend on the display engine).  
+
 
 ---
 

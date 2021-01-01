@@ -31,9 +31,12 @@ const parse = (input: string | number, options?: NumerableFormatNumberOptions): 
         } else if (resolvedOptions.nullFormat && input === resolvedOptions.nullFormat) {
             value = null;
         } else {
-            const unformatFunctionFromFormatters = getUnformatFunctionIfMatch(input, resolvedOptions);
+            // Removes non-breaking spaces if they exists
+            const inputStringWithNormalSpaces = input.replace(/\u00A0/, ' ');
+
+            const unformatFunctionFromFormatters = getUnformatFunctionIfMatch(inputStringWithNormalSpaces, resolvedOptions);
             const unformatFunction = unformatFunctionFromFormatters || formattedStringToNumber;
-            value = unformatFunction(input, resolvedOptions);
+            value = unformatFunction(inputStringWithNormalSpaces, resolvedOptions);
         }
     } else {
         const result = +input;

@@ -20,4 +20,5 @@ export interface NumerableFormatNumberOptions {
     currency?: string;
     trim?: boolean;
     signedZero?: boolean;
+    nonBreakingSpace?: boolean;
 }

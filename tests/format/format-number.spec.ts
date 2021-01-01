@@ -630,6 +630,43 @@ describe('numerable', () => {
         });
     });
 
+    describe('formatNumber::nonBreakingSpace-option', () => {
+        it('should replace spaces with non-breaking spaces if specified in the options', () => {
+            const tests: [number, string, string][] = [
+                [1000, '0.00 a', '1.00\u00A0K'],
+                [1000000, '0.00 a', '1.00\u00A0M'],
+                [1000000, '0.00    a', '1.00\u00A0\u00A0\u00A0\u00A0M'],
+                [1000000, 'a 0.00', 'M\u00A01.00'],
+                [1000000, 'a    0.00', 'M\u00A0\u00A0\u00A0\u00A01.00'],
+                [-1000, '0.00 a', '-1.00\u00A0K'],
+                [-1000000, '0.00 a', '-1.00\u00A0M'],
+                [-1000000, '0.00    a', '-1.00\u00A0\u00A0\u00A0\u00A0M'],
+            ];
+
+            tests.forEach(([number, pattern, expectedResult]) => {
+                const result = format(number, pattern, { nonBreakingSpace: true });
+                expect([number, pattern, result]).toEqual([number, pattern, expectedResult]);
+            });
+        });
+
+        it('should NOT replace spaces with non-breaking spaces if specified in the options', () => {
+            const tests: [number, string, string][] = [
+                [1000, '0.00 a', '1.00 K'],
+                [1000000, '0.00 a', '1.00 M'],
+                [1000000, '0.00    a', '1.00    M'],
+                [1000000, 'a 0.00', 'M 1.00'],
+                [1000000, 'a    0.00', 'M    1.00'],
+                [-1000000, 'a 0.00', 'M -1.00'],
+                [-1000000, 'a    0.00', 'M    -1.00'],
+            ];
+
+            tests.forEach(([number, pattern, expectedResult]) => {
+                const result = format(number, pattern, { nonBreakingSpace: false });
+                expect([number, pattern, result]).toEqual([number, pattern, expectedResult]);
+            });
+        });
+    });
+
     describe('formatNumber::zeroFormat-option', () => {
         it('should return the specified zeroFormat if value is 0', () => {
             const tests: any[] = [

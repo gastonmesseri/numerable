@@ -266,4 +266,24 @@ describe('parse', () => {
             expect(parse('100 %', { formatters: [formatter] })).toBe(2000);
         });
     });
+
+    describe('option::nonBreakingSpace', () => {
+        it('should properly parse an input with non-breaking spaces', () => {
+            const tests: [string, number][] = [
+                ['100.00\u00A0%', 1],
+                ['1000.00\u00A0%', 10],
+                ['0.100\u00A0\u00A0\u00A0\u00A0%', 0.001],
+                ['10.5\u00A0%', 0.105],
+                ['%\u00A0\u00A0\u00A0\u00A01.00', 0.01],
+                ['-100.00\u00A0%', -1],
+                ['-1000.00\u00A0%', -10],
+                ['-0.100\u00A0\u00A0\u00A0\u00A0%', -0.001],
+            ];
+
+            tests.forEach(([number, expectedResult]) => {
+                const result = parse(number);
+                expect([number, result]).toEqual([number, expectedResult]);
+            });
+        });
+    });
 });

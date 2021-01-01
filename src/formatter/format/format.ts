@@ -48,7 +48,15 @@ const format = (value: number | string | null | undefined, pattern: string | nul
         // Ensures that it always returns an string
         output = isString(output) ? output : '';
 
-        return resolvedOptions.trim ? output.trim() : output;
+        // Replaces spaces with non-breaking spaces if needed
+        output = resolvedOptions.nonBreakingSpace
+            ? output.replace(/ /g, _ => '\u00A0')
+            : output;
+
+        // Trims the output if needed
+        output = resolvedOptions.trim ? output.trim() : output;
+
+        return output;
     } catch (_error) {
         return (options as any)?._errorFormat || '';
     }

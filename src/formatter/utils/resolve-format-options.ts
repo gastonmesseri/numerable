@@ -66,6 +66,7 @@ const resolveFormatOptions = (formatOptions: NumerableFormatNumberOptions | unde
         formatters: resolvedFormatters,
         currency: options.currency,
         signedZero: !!options.signedZero,
+        nonBreakingSpace: options.nonBreakingSpace ?? false,
     };
 };
 

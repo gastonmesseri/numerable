@@ -14,4 +14,5 @@ export interface ResolvedNumerableFormatNumberOptions {
     currency: string | undefined;
     trim: boolean;
     signedZero: boolean;
+    nonBreakingSpace: boolean;
 }
