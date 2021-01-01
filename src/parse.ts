@@ -1,5 +1,5 @@
-import parseFunctionFromSourceCode from '../formatter/parse/parse';
-import { NumerableFormatNumberOptions } from '../formatter/types/format-number-options';
+import parseFunctionFromSourceCode from './formatter/parse/parse';
+import { NumerableFormatNumberOptions } from './formatter/types/format-number-options';
 
 /**
  * @example

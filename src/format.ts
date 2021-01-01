@@ -1,10 +1,10 @@
-import merge from '../core/utils/merge';
-import isObject from '../core/utils/is-object';
-import isString from '../core/utils/is-string';
-import isFunction from '../core/utils/is-function';
-import { NumerableLocale } from '../locale/types/numerable-locale';
-import formatFunctionFromSourceCode from '../formatter/format/format';
-import { NumerableFormatNumberOptions } from '../formatter/types/format-number-options';
+import merge from './core/utils/merge';
+import isObject from './core/utils/is-object';
+import isString from './core/utils/is-string';
+import isFunction from './core/utils/is-function';
+import { NumerableLocale } from './locale/types/numerable-locale';
+import formatFunctionFromSourceCode from './formatter/format/format';
+import { NumerableFormatNumberOptions } from './formatter/types/format-number-options';
 
 /**
  * @example

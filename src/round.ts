@@ -1,4 +1,4 @@
-import roundNumber from '../core/utils/round-number';
+import roundNumber from './core/utils/round-number';
 
 /**
  * @example

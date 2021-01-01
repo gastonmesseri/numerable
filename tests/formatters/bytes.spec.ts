@@ -1,5 +1,5 @@
-import parse from '../../src/api/parse';
-import format from '../../src/api/format';
+import parse from '../../src/parse';
+import format from '../../src/format';
 
 describe('format: bytes', () => {
     describe('format', () => {

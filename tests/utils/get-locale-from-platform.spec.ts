@@ -1,6 +1,4 @@
-import getLocaleFromPlatform from '../../src/api/get-locale-from-platform';
-import format from '../../src/api/format';
-format(123, '0,0.00', { locale: getLocaleFromPlatform('es') });
+import getLocaleFromPlatform from '../../src/get-locale-from-platform';
 
 describe('getLocaleFromPlatform()', () => {
     const originalToLocaleString = global.Number.prototype.toLocaleString;
