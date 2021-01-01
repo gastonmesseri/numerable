@@ -28,7 +28,7 @@
         "lint": "eslint . --ext .ts",
         "build": "npm run clean && npx rollup -c && node ./scripts/copy-distribution-files.js",
         "coveralls": "jest --coverage && coveralls < coverage/lcov.info",
-        "publish": "npm test && npm run lint && npm run build && npm publish dist"
+        "publish-dist": "npm test && npm run lint && npm run build && npm publish dist"
     },
     "dependencies": {},
     "devDependencies": {
