@@ -1,3 +1,4 @@
+import truncateNumber from '../../core/utils/truncate-number';
 import { NumerableFormatter } from '../../core/types/numerable-formatter';
 
 const timeFormatter: NumerableFormatter = {
@@ -9,9 +10,9 @@ const timeFormatter: NumerableFormatter = {
     format: (number) => {
         const absoluteValue = Math.abs(number);
         const sign = number < 0 ? '-' : '';
-        const hours = Math.floor(absoluteValue / 3600);
-        const minutes = Math.floor((absoluteValue - (hours * 3600)) / 60);
-        const seconds = Math.round(absoluteValue - (hours * 3600) - (minutes * 60));
+        const hours = truncateNumber(absoluteValue / 3600);
+        const minutes = truncateNumber((absoluteValue - (hours * 3600)) / 60);
+        const seconds = truncateNumber(absoluteValue - (hours * 3600) - (minutes * 60));
         return `${sign}${hours}:${(minutes < 10 ? '0' : '') + minutes}:${(seconds < 10 ? '0' : '') + seconds}`;
     },
     unformat: (string: string) => {
