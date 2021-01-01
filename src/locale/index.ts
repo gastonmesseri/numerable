@@ -12,6 +12,7 @@ export { default as frCH } from './fr-ch';
 export { default as hi } from './hi';
 export { default as id } from './id';
 export { default as itCH } from './it-ch';
+export { default as it } from './it';
 export { default as ja } from './ja';
 export { default as pt } from './pt';
 export { default as ru } from './ru';
