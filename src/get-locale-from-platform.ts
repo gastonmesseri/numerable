@@ -1,4 +1,4 @@
-import getLocaleFromPlatformFromSourceCode from '../formatter/utils/get-locale-from-platform';
+import getLocaleFromPlatformFromSourceCode from './formatter/utils/get-locale-from-platform';
 
 /**
  * Given a language tag (e.g. '**zh**' | '**es**' | '**fr**' | '**en-IN**' | '**zh-Hans**'), returns a NumerableLocale

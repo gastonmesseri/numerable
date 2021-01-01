@@ -1,4 +1,4 @@
-export { default as parse } from './api/parse';
-export { default as round } from './api/round';
-export { default as format } from './api/format';
-export { default as getLocaleFromPlatform } from './api/get-locale-from-platform';
+export { default as parse } from './parse';
+export { default as round } from './round';
+export { default as format } from './format';
+export { default as getLocaleFromPlatform } from './get-locale-from-platform';
